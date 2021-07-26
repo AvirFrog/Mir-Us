@@ -1,7 +1,6 @@
 # Mir-Us
-
-Fast, intuitive mirBase library, for solving problems from mirBase.
-
+ Fast, intuitive mirBase library, for solving problems with mirBase
+ 
 ## Authors
 
 - **Dudczak Kacper**
