@@ -1,6 +1,21 @@
+"""
+File with definition of objects used in the package. All of custom objects are defined here:
+- Precursor object
+- MiRNA object
+"""
+
 from collections import defaultdict
 from colorama import init, Fore
 import pprint as pp
+
+__author__ = "Kacper Dudczak, Maciej Michalczyk"
+__copyright__ = "Copyright 2021, mirBase Project"
+__credits__ = ["Kacper Dudczak", "Maciej Michalczyk"]
+__license__ = "MIT"
+__version__ = "0.1"
+__maintainer__ = ["Kacper Dudczak", "Maciej Michalczyk"]
+__email__ = ["mccv99@gmail.com", "kacper.dudczak19@gmail.com"]
+__status__ = "Production"
 
 # colorama setup
 init(autoreset=True)

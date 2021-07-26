@@ -1,6 +1,5 @@
 import miBase
 
-#
 # example usage of Mir-Us
 # test examples of usage below
 # some interesting outputs below test examples

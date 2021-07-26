@@ -1,3 +1,10 @@
+"""
+Main file of the package. All of the actions are handled with this code:
+- parsing mirBase files and compiling them to .mir files
+- reading data from .mir files
+- accessing data from .mir file by package user
+"""
+
 import functools
 import gzip
 import operator
@@ -11,6 +18,15 @@ import dill
 from colorama import init, Fore
 
 import miObject
+
+__author__ = "Kacper Dudczak, Maciej Michalczyk"
+__copyright__ = "Copyright 2021, mirBase Project"
+__credits__ = ["Kacper Dudczak", "Maciej Michalczyk"]
+__license__ = "MIT"
+__version__ = "0.1"
+__maintainer__ = ["Kacper Dudczak", "Maciej Michalczyk"]
+__email__ = ["mccv99@gmail.com", "kacper.dudczak19@gmail.com"]
+__status__ = "Production"
 
 # colorama setup
 init(autoreset=True)
