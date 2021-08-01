@@ -1,0 +1,62 @@
+######################################################
+get_precursor ->
+1. Bez sensu jest jeśli pozwolimy, by użytkownik podał tylko nić bez przynajmniej organizmu, albo tylko start i end, bez przynajmniej organizmu czy chromosomu. Tak myślę. To samo dla get_mirna 
+2. Dodajcie możliwość znalezienia prekursora dla danego miRNA
+3. tu coś jest nie tak. Zakładam, że jeśli nie podaje, na której nici mają znajdować się cząsteczki to powinnam mieć z obu. Tu natomiast bez specyfikacji nici jest o wiele mniej cząsteczek niż ze specyfikacją.
+>>> x = m.get_precursor(start=186, end=11046, organism_name="Homo sapiens", chr = "chrX")
+[Mir-Us]  'get_precursor' found 5149 results in 0.195136 seconds
+>>> x = m.get_precursor(start=186, end=11046, organism_name="Homo sapiens", chr = "chrX", strand = "+")
+[Mir-Us]  'get_precursor' found 21550 results in 3.861036 seconds
+>>> x = m.get_precursor(start=186, end=11046, organism_name="Homo sapiens", chr = "chrX", strand = "-")
+[Mir-Us]  'get_precursor' found 19691 results in 3.680856 seconds
+-->To samo dzieje się w funkcji get_mirna<--
+
+get_mirna ->
+1. W informacjach o konkretnym mirna powinien być organizm
+2. Dodajcie możliwosc wyszukania miRNA po podaniu nazwy/id prekursora. Czyli w wyniku powinny być 1 lub 2 obiekty dla istniejących prekursorów. 
+
+
+W funkcjach get_mirna i get_prekursor chyba nie działają tak jak powinny. 
+Mam wrażenie, że mówiliśmy o tym, że jak podamy organizm i chromosom, to dostaniemy miRNA z tego organizmu z konkretnego chromosomu. A tutaj to chyba działa jakoś rozłącznie? Nie wiem, może się nie zrozumieliśmy, ale w tym momencie to szukanie trochę nie ma sensu, albo po prostu nie działa. Możliwe kombinacje parametrów:
+1. Nazwa organizmu -> wszystkie dla tego organizmu
+2. Grupa tax -> wszystkie w danej grupie
+3. Nazwa cząsteczki
+4. ID cząsteczki
+5. Koordynaty
+	a) organizm + chromosom -> dany organizm z danego chromosomu
+	b) organizm + chromosom + start + end -> dany organizm z danego przedziału na chromosomie
+	c) organizm + chromosom + nić -> dany organizm z danego chromosomu z danej nici
+	d) organizm + chromosom + start + end + nić -> dany organizm z danego przedziału na chromosomie z danej nici
+	ewentualnie: super byłaby opcja organizm + chromosom + start lub organizm + chromosom + start + nić-> dany organizm wszystkie cząsteczki na danym chdomosomie od pozycji start do końca chromosomu
+Jak coś jeszcze Wam przychodzi do głowy to dajcie znać.
+######################################################
+
+get_structure -> dodajcie możliwość szukania struktury po nazwie prekursora [DONE]
+
+Przydałaby się funkcja zwracająca jakie są poziomy taksonomiczne dostępne w bazie z zachowaniem zależności pomiędzy nimi w drzewie filogenetycznym. [o co chodzi xd; edit - ze drzewo całe czy co?]
+
+get_tax_level -> niech ten string poziomów taksonomicznych będzie listą w wyniku. Chyba będzie łatwiej tym dalej manewrować.
+'Metazoa;Bilateria;Deuterostoma;' --> ['Metazoa','Bilateria','Deuterostoma']  [DONE]
+
+get_references -> 
+1. To jest najmniej istotna zmiania, raczej w stylu "dodatku" -> dodajcie parametr funkcji (np link), który domyślnie bedzie = FALSE, ale można go ustawić na TRUE. Kiedy będzie True, to lista z id referencji będzie adresami do konkretnych publikacji. Przykładowy link --> https://pubmed.ncbi.nlm.nih.gov/12747828/ <-- gdzie na koncu jest id referencji.  [DONE]
+2. Spróbowałabym napisać to tak, żeby funkcja radziła sobie zarówno z podaną nazwą jak i ID, bez konieczności wskazywania czy jest to nazwa czy ID. [da się ale będzie obniżenie wydajności bo trzeba unpacking zrobić]
+Zarówno z pojedynczym stringiem jak i listą.
+3. nie działa dla id prekursorów - niech działa. [DONE]
+
+Fajnie byłoby dodać funkcję "find_cluster", która po podaniu nazwy lub id miRNA lub prekursora oraz zasięgu (np 10000) szuka miRNA, które znajdują się w zasięgo 10000 pozycji na genomie od tego miRNA (domyślnie upstream i downstream). Powinna być możliwość zaznaczenia, jeśli chcemy szukać tylko upstream lub downstream.
+[a co jesli jest kilka pozycji?][doable ale bolesne]
+
+Compile_indexes -> bez plików .mir wgl nie można zainicjować obiektu miBase, dobrze by było, żeby to jakoś łapało wyjątek, jeśli takich plików nie ma i sobie je stworzyło.
+
+Czy w tym momencie podawanie wersji podczas inicjalizacji obiektu jest konieczne? 
+
+Możecie sprawdzić, do której wersji bazy ten program jest kompatybilny. Przetestujcie na kilku werjsach jak to wygląda, czy pliki się dobrze tworzą itp.
+
+Jak już gdzieś zaczynacie pisać nazwiska Dudczak -> Michalczyk to już sie tego trzymajcie, także w listowaniu maili.  [DONE]
+Do tego opisu autorów, dorzućcie Marka i mnie jako supervisors czy coś takiego  [DONE]
+ 
+
+
+
+

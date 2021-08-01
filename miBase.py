@@ -13,20 +13,22 @@ from collections import defaultdict as dd
 from collections import namedtuple as nt
 from functools import reduce
 from timeit import default_timer as timer
+import numpy as np
 
 import dill
 from colorama import init, Fore
 
 import miObject
 
-__author__ = "Kacper Dudczak, Maciej Michalczyk"
+__authors__ = ["Kacper Dudczak, Maciej Michalczyk"]
 __copyright__ = "Copyright 2021, mirBase Project"
-__credits__ = ["Kacper Dudczak", "Maciej Michalczyk"]
+__credits__ = ["Marek Żywicki", "Marta Wysocka", "Kacper Dudczak", "Maciej Michalczyk"]
 __license__ = "MIT"
 __version__ = "0.1"
 __maintainer__ = ["Kacper Dudczak", "Maciej Michalczyk"]
-__email__ = ["mccv99@gmail.com", "kacper.dudczak19@gmail.com"]
+__email__ = ["kacper.dudczak19@gmail.com", "mccv99@gmail.com"]
 __status__ = "Production"
+__deprecated__ = False
 
 # colorama setup
 init(autoreset=True)
@@ -248,6 +250,14 @@ class MiRBase:
         except KeyError as e:
             pass
 
+    def _input(self, prompt, type=int):
+        while True:
+            try:
+                return type(input(prompt))
+            except:
+                pass
+        return res
+
     def get_organisms_list(self):
         """
         Returns list of organisms.
@@ -270,6 +280,7 @@ class MiRBase:
         result = {}
         organism_codes = list(map(lambda x: getattr(x, "name"), self.__organisms))  # lista wszystkich kodów organizmow
         tax_codes = list(map(lambda x: getattr(x, "tree"), self.__organisms))
+        tax_codes = [x.rstrip(";").split(";") for x in tax_codes]
         tax_dct = dict(zip(organism_codes, tax_codes))
         try:
             for org in organism:
@@ -297,7 +308,7 @@ class MiRBase:
         tax_codes = list(map(lambda x: getattr(x, "tree"), self.__organisms))
         tax_codes = [x.rstrip(";").split(";") for x in tax_codes]
         tax_dct = dict(zip(organism_codes, tax_codes))
-        # print(tax_dct)
+        #print(tax_dct)
         for key, value in tax_dct.items():
             if tax in value:
                 result.append(key)
@@ -372,6 +383,10 @@ class MiRBase:
         if isinstance(id, str):
             id = [id]
         result = []
+        np_result = np.array([])
+        np_prec = np.asarray(list(self.__precursors_ID.items()))
+        # print(np_prec[0][1].precursor_name if np_prec[0][1].precursor_name == name else None)
+        # print(np_prec)
         if id:
             # result = [self.__precursors_ID[i] for i in id if not self._exists(result, self.__precursors_ID[i])]
             # result = [self.precursor_retriever(i) for i in id if not self._exists(result, self.__precursors_ID[i])]
@@ -382,10 +397,18 @@ class MiRBase:
             # if not self._exists(result, self.__precursors_ID[id]):
             #     result.append(self.__precursors_ID[id])
         if name:
+            # standard
             for prec in self.__precursors_ID:
                 if (self.__precursors_ID[prec].precursor_name == name) and not self._exists(result,
                                                                                             self.__precursors_ID[prec]):
                     result.append(self.__precursors_ID[prec])
+            # numpy'ed
+            # np_prec_len = np_prec.shape[0]
+            # #print(np_prec_len)
+            # for item in name:
+            #     for prec_idx in range(np_prec_len):
+            #         if (np_prec[prec_idx][1].precursor_name == item) and not self._exists(result, np_prec[prec_idx][1]):
+            #             result.append(np_prec[prec_idx][1])
         if organism_name:
             for prec in self.__precursors_ID:
                 if (self.__precursors_ID[prec].organism == organism_name) and not self._exists(result,
@@ -441,9 +464,11 @@ class MiRBase:
         return result, len(result)
 
     @time_this
-    def get_references(self, mirna_id=None, mirna_name=None):
+    def get_references(self, mirna_id=None, mirna_name=None, prec_id=None, link=False):
         """
         Returns list of reference numbers
+        :param prec_id: list of strings representing ids of precursors
+        :param link: bool value which forces function to return PubMed links instead of reference numbers
         :param mirna_id: list of strings representing ids of miRNA
             (default is None)
         :type mirna_id: list
@@ -457,13 +482,17 @@ class MiRBase:
             mirna_id = [mirna_id]
         if isinstance(mirna_name, str):
             mirna_name = [mirna_name]
+        if isinstance(prec_id, str):
+            prec_id = [prec_id]
         result = []
         if mirna_id:
             for m_id in mirna_id:
                 try:
                     for ref in self.__miRNAs_ID[m_id].references:
-                        if ref not in result:
+                        if ref not in result and not link:
                             result.append(ref)
+                        elif link:
+                            result.append(f"https://pubmed.ncbi.nlm.nih.gov/{ref}/")
                 except:
                     continue
         if mirna_name:
@@ -472,8 +501,21 @@ class MiRBase:
                     for mi in self.__miRNAs_ID:
                         if mi_name in self.__miRNAs_ID[mi].mature_name:
                             for ref in self.__miRNAs_ID[mi].references:
-                                if ref not in result:
+                                if ref not in result and not link:
                                     result.append(ref)
+                                elif link:
+                                    result.append(f"https://pubmed.ncbi.nlm.nih.gov/{ref}/")
+
+                except:
+                    continue
+        if prec_id:
+            for p_id in prec_id:
+                try:
+                    for ref in self.__precursors_ID[p_id].references:
+                        if ref not in result and not link:
+                            result.append(ref)
+                        elif link:
+                            result.append(f"https://pubmed.ncbi.nlm.nih.gov/{ref}/")
                 except:
                     continue
         if not result:
@@ -481,26 +523,44 @@ class MiRBase:
         return result, len(result)
 
     @time_this
-    def get_structure(self, id=None):
+    def get_structure(self, id=None, name=None):
         """
         Returns dictionary of precursors ids with assigned structures in dot-bracket format
+        :param name: list of strings representing precursors name
+            (default is None)
         :param id: list of strings representing precursors ids
             (default is None)
         :type id: list
         :return: dictionary of precursors ids with assigned structure (key: precursor id, value: structure)
         :rtype: dict
         """
+        result = {}
         if isinstance(id, str):
             id = [id]
-        result = {}
-        try:
-            for i in id:
-                try:
-                    result[self.__precursors_ID[i].precursor_ID] = self.__precursors_ID[i].structure
-                except:
-                    continue
-        except:
-            pass
+        if isinstance(name, str):
+            name = [name]
+        if id:
+            try:
+                for i in id:
+                    try:
+                        result[self.__precursors_ID[i].precursor_ID] = self.__precursors_ID[i].structure
+                    except:
+                        continue
+            except:
+                pass
+        if name:
+            try:
+                for i in name:
+                    try:
+                        result = {self.__precursors_ID[prec].precursor_name: self.__precursors_ID[prec].structure for
+                                  prec in self.__precursors_ID if self.__precursors_ID[prec].precursor_name == i}
+                        # for prec in self.__precursors_ID:
+                        #     if self.__precursors_ID[prec].precursor_name == i:
+                        #         result[self.__precursors_ID[prec].precursor_name] = self.__precursors_ID[prec].structure
+                    except:
+                        continue
+            except:
+                pass
         if not result:
             return None
         return result, len(result)
@@ -606,6 +666,80 @@ class MiRBase:
         # for elem in result:
         #     print(elem.info())
         return result, len(result)
+
+    @time_this
+    def find_cluster(self, mirna_id=None, prec_id=None, search_type="up-downstream", range=None):
+        """
+        Returns all miRNAs present within given range from given miRNA in organism genome (dependent from given miRNA)
+        :type mirna_id: str
+        :param mirna_id: string representing miRNA's id
+        :type prec_id: str
+        :param prec_id: string representing precursor's id
+        :type search_type: str
+        :param search_type: string or int representing search type. The types are:
+        - "up-downstream" - the search will be conducted below and above given miRNA position within given range
+        ("up-downstream" is default)
+        - "upstream" - the search will be conducted only above given miRNA position within given range
+        - "downstream" - the search will be conducted only below given miRNA position within given range
+        :type range: str
+        :param range: string or int representing length of genome to be searched
+        :return: list of miRNA objects
+        :rtype: list
+        """
+        result = []
+
+        def search_up_down(self, start, org, range):
+            int_start = start - range
+            #print(int_start)
+            int_end = start + range
+            #print(int_end)
+            for prec in self.__precursors_ID:
+                if self.__precursors_ID[prec].organism == org:
+                    mi_id = self.__precursors_ID[prec].miRNAs
+                    for mi in mi_id:
+                        for key in self.__miRNAs_ID[mi].genome_coordinates_mi:
+                            for coord in self.__miRNAs_ID[mi].genome_coordinates_mi[key]:
+                                try:
+                                    f_start = int(coord[0])
+                                    f_stop = int(coord[1])
+                                except:
+                                    continue
+                                if (int_start <= f_start < int_end) and (
+                                        int_start < f_stop <= int_end) and not self._exists(
+                                        result, self.__miRNAs_ID[mi]):
+                                    result.append(self.__miRNAs_ID[mi])
+
+        def search_up(self, start, org, range):
+            pass
+
+        def search_down(self, start_position, org, range):
+            pass
+        # if mirna_id:
+        #     target_dict = self.__miRNAs_ID[mirna_id].genome_coordinates_mi
+        #     if len(target_dict) > 1:
+        #         tmp_dict = {f"{key} ({list(target_dict.keys()).index(key)})": value for key, value in target_dict.items()}
+        #         print(tmp_dict)
+        #         pos = self._input("Genomic positions for this miRNA are ambigous.\n"
+        #                     "Please, specify genomic position by typing chosen number: ", int)
+        if prec_id:
+            org = self.__precursors_ID[prec_id].organism
+            for coord in self.__precursors_ID[prec_id].genome_coordinates:
+                start_position = int(coord[0])
+                types = {"up-downstream": search_up_down(self, start_position, org, int(range)),
+                         "upstream": search_up(self, start_position, org, int(range)),
+                         "downstream": search_down(self, start_position, org, int(range))}
+                types.get(str(search_type))
+                     # "upstream": search_up(start_position, range),
+                     # "downstream": search_down(start_position, range)}
+        if not result:
+            return None
+
+        return result, len(result)
+
+
+
+
+
 
 
 class MiRLoad(MiRBase):
