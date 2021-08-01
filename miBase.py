@@ -709,9 +709,11 @@ class MiRBase:
                                         result, self.__miRNAs_ID[mi]):
                                     result.append(self.__miRNAs_ID[mi])
 
+        # TODO
         def search_up(self, start, org, range):
             pass
 
+        # TODO
         def search_down(self, start_position, org, range):
             pass
         # if mirna_id:
