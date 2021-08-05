@@ -1,7 +1,7 @@
 ######################################################
 get_precursor ->
 1. Bez sensu jest jeśli pozwolimy, by użytkownik podał tylko nić bez przynajmniej organizmu, albo tylko start i end, bez przynajmniej organizmu czy chromosomu. Tak myślę. To samo dla get_mirna 
-2. Dodajcie możliwość znalezienia prekursora dla danego miRNA
+2. Dodajcie możliwość znalezienia prekursora dla danego miRNA [DONE - to już było, ale polepszylem]
 3. tu coś jest nie tak. Zakładam, że jeśli nie podaje, na której nici mają znajdować się cząsteczki to powinnam mieć z obu. Tu natomiast bez specyfikacji nici jest o wiele mniej cząsteczek niż ze specyfikacją.
 >>> x = m.get_precursor(start=186, end=11046, organism_name="Homo sapiens", chr = "chrX")
 [Mir-Us]  'get_precursor' found 5149 results in 0.195136 seconds
@@ -13,7 +13,7 @@ get_precursor ->
 
 get_mirna ->
 1. W informacjach o konkretnym mirna powinien być organizm
-2. Dodajcie możliwosc wyszukania miRNA po podaniu nazwy/id prekursora. Czyli w wyniku powinny być 1 lub 2 obiekty dla istniejących prekursorów. 
+2. Dodajcie możliwosc wyszukania miRNA po podaniu nazwy/id prekursora. Czyli w wyniku powinny być 1 lub 2 obiekty dla istniejących prekursorów. [DONE]
 
 
 W funkcjach get_mirna i get_prekursor chyba nie działają tak jak powinny. 
@@ -45,13 +45,13 @@ Zarówno z pojedynczym stringiem jak i listą.
 3. nie działa dla id prekursorów - niech działa. [DONE]
 
 Fajnie byłoby dodać funkcję "find_cluster", która po podaniu nazwy lub id miRNA lub prekursora oraz zasięgu (np 10000) szuka miRNA, które znajdują się w zasięgo 10000 pozycji na genomie od tego miRNA (domyślnie upstream i downstream). Powinna być możliwość zaznaczenia, jeśli chcemy szukać tylko upstream lub downstream.
-[a co jesli jest kilka pozycji?][doable ale bolesne]
+[a co jesli jest kilka pozycji?][doable ale bolesne][DONE, ale coś nie do końca CZASEM po miRNA id dobrze działa i nie rozumiem dlaczego (upstream + down != up/down) - tak nie powinno być; EDIT to jest możliwe jednak i chyba działa dobrze]
 
-Compile_indexes -> bez plików .mir wgl nie można zainicjować obiektu miBase, dobrze by było, żeby to jakoś łapało wyjątek, jeśli takich plików nie ma i sobie je stworzyło.
+Compile_indexes -> bez plików .mir wgl nie można zainicjować obiektu miBase, dobrze by było, żeby to jakoś łapało wyjątek, jeśli takich plików nie ma i sobie je stworzyło. [compile_indexes nie działa, musze sprawdzic na pc]
 
-Czy w tym momencie podawanie wersji podczas inicjalizacji obiektu jest konieczne? 
+Czy w tym momencie podawanie wersji podczas inicjalizacji obiektu jest konieczne? [DONE - default to "CURRENT"]
 
-Możecie sprawdzić, do której wersji bazy ten program jest kompatybilny. Przetestujcie na kilku werjsach jak to wygląda, czy pliki się dobrze tworzą itp.
+Możecie sprawdzić, do której wersji bazy ten program jest kompatybilny. Przetestujcie na kilku werjsach jak to wygląda, czy pliki się dobrze tworzą itp. [to zajmie czasu]
 
 Jak już gdzieś zaczynacie pisać nazwiska Dudczak -> Michalczyk to już sie tego trzymajcie, także w listowaniu maili.  [DONE]
 Do tego opisu autorów, dorzućcie Marka i mnie jako supervisors czy coś takiego  [DONE]

@@ -1,4 +1,5 @@
 import miBase
+#from miBase import MiRBase._compile_indexes()
 import numpy as np
 from timeit import default_timer as timer
 
@@ -8,8 +9,8 @@ from timeit import default_timer as timer
 # whole output is dumped into 'mirek_out.txt'
 
 # initialising
-m = miBase.MiRBase(version="CURRENT")
-
+m = miBase.MiRBase()
+#m._compile_indexes()
 
 # l = list()
 # l2 = list()
@@ -167,8 +168,38 @@ m = miBase.MiRBase(version="CURRENT")
 
 #print(m.get_precursor("MI0000001"))
 #print(m.get_mirna(organism_name="Caenorhabditis elegans"))
-print(m.find_cluster(prec_id="MI0000001", range="1000000"))
+#print(m.find_cluster(prec_id="MI0000001", range="1000000"))
+#print(m.get_precursor(id=["MI0026845", "MI0026846", "MI0026849"]))
+#print(m.find_cluster(mirna_id="MIMAT0032841", range="1000000"))
 
+# to ten dziwny przypadek
+# m.find_cluster(mirna_id="MIMAT0032841", range="1000000")
+# m.find_cluster(mirna_id="MIMAT0032841", search_type="upstream", range="1000000")
+# m.find_cluster(mirna_id="MIMAT0032841", search_type="downstream", range="1000000")
+#
+# m.find_cluster(mirna_id="MIMAT0032841", range="100000")
+# m.find_cluster(mirna_id="MIMAT0032841", search_type="upstream", range="100000")
+# m.find_cluster(mirna_id="MIMAT0032841", search_type="downstream", range="100000")
+#
+# m.find_cluster(prec_id="MI0000001", range="100000")
+# m.find_cluster(prec_id="MI0000001", search_type="upstream", range="100000")
+# m.find_cluster(prec_id="MI0000001", search_type="downstream", range="100000")
+#
+# m.find_cluster(mirna_id="MIMAT0001641", range="100000")
+# m.find_cluster(mirna_id="MIMAT0001641", search_type="upstream", range="100000")
+# m.find_cluster(mirna_id="MIMAT0001641", search_type="downstream", range="100000")
+
+# m.find_cluster(mirna_id="MIMAT0026631", range="1000")
+# m.find_cluster(mirna_id="MIMAT0026631", search_type="upstream", range="1000")
+# m.find_cluster(mirna_id="MIMAT0026631", search_type="downstream", range="1000")
+
+#print(m.get_mirna(id="MIMAT0032841"))
+#print(m.get_mirna(id="MIMAT0029111"))
+#m.get_mirna(organism_name="Homo sapiens", id="MIMAT0029111")
+m.get_mirna(prec_id=["MI0000223", "MI0000182", "MI0000060", "MI000000"])
+print(m.get_mirna(prec_id=["MI0000223", "MI0000182", "MI0000060", "MI000000"]))
+m.get_precursor(mirna_id=["MIMAT0050213", "MIMAT0050254", "MIMAT0050056", "MIMAT0049408"])
+print(m.get_precursor(mirna_id=["MIMAT0050213", "MIMAT0050254", "MIMAT0050056", "MIMAT0049408"]))
 
 
 # example results:

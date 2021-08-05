@@ -67,7 +67,7 @@ class MiRBase:
     - all functions to compile data into indexed files (.mir files)
     """
 
-    def __init__(self, version):
+    def __init__(self, version="CURRENT"):
         self.__ftp_path = "ftp://mirbase.org/pub/mirbase/"
         self.__miRBase_version = version
         self.__working_directory = "./"
@@ -92,7 +92,18 @@ class MiRBase:
 
         self.__Organism = nt('Organism', 'organism division name tree taxid')
 
-        self._load_all_data()
+        try:
+            self._load_all_data()
+        except:
+            print(f"{Fore.RED}[Mir-Us]   Missing data files (.mir); "
+                  f"{Fore.YELLOW}performing compilation of data files...")
+            # try:
+            self._compile_indexes()
+            print(f"{Fore.YELLOW}[Mir-Us]   Data files compiled successfully!")
+            self._load_all_data()
+            # except:
+            #     print(f"{Fore.RED}[Mir-Us]   Error! Cannot compile data files.")
+            #     return
 
     def _compile_indexes(self):
         """
@@ -421,10 +432,17 @@ class MiRBase:
                                                                                            self.__precursors_ID[prec]):
                     result.append(self.__precursors_ID[prec])
         if mirna_id:
-            for prec in self.__precursors_ID:
-                if (mirna_id in self.__precursors_ID[prec].miRNAs) and not self._exists(result,
-                                                                                        self.__precursors_ID[prec]):
-                    result.append(self.__precursors_ID[prec])
+            # for prec in self.__precursors_ID:
+            #     if (mirna_id in self.__precursors_ID[prec].miRNAs) and not self._exists(result,
+            #                                                                             self.__precursors_ID[prec]):
+            #         result.append(self.__precursors_ID[prec])
+            for elem in mirna_id:
+                try:
+                    for prec in self.__miRNAs_ID[elem].precursor:
+                        if not self._exists(result, prec):
+                            result.append(self.__precursors_ID[prec])
+                except:
+                    continue
         if chr:
             for prec in self.__precursors_ID:
                 if (chr in self.__precursors_ID[prec].chromosome) and not self._exists(result,
@@ -581,13 +599,16 @@ class MiRBase:
                 return True
 
     @time_this
-    def get_mirna(self, id: list = None, name="", organism_name="", tax_level="", chr="", start="",
-                  end="", strand=''):
+    def get_mirna(self, mirna_id: list = None, name="", organism_name="", tax_level="", chr="", start="",
+                  end="", strand='', prec_id: list = None):
         """
         Returns miRNA objects according to given search criteria
-        :param id: list of strings representing ids of miRNAs
+        :param prec_id: list of strings representing ids of precursors
             (default is None)
-        :type id: list
+        :type prec_id: list
+        :param mirna_id: list of strings representing ids of miRNAs
+            (default is None)
+        :type mirna_id: list
         :param name: name of miRNA
         :type name: str
         :param organism_name: organism name in which miRNA is present
@@ -605,11 +626,20 @@ class MiRBase:
         :return: list of miRNA objects
         :rtype: list
         """
-        if isinstance(id, str):
-            id = [id]
+        if isinstance(mirna_id, str):
+            mirna_id = [mirna_id]
         result = []
-        if id:
-            result = [self._mirna_retrieve(i, result) for i in id if self._mirna_retrieve(i, result) is not None]
+        is_first = True
+        if mirna_id:
+            result = [self._mirna_retrieve(i, result) for i in mirna_id if self._mirna_retrieve(i, result) is not None]
+        if prec_id:
+            for elem in prec_id:
+                try:
+                    for mi in self.__precursors_ID[elem].miRNAs:
+                        if not self._exists(result, mi):
+                            result.append(self.__miRNAs_ID[mi])
+                except:
+                    continue
         if name:
             for mi in self.__miRNAs_ID:
                 if (self.__miRNAs_ID[mi].mature_name == name) and not self._exists(result, self.__miRNAs_ID[mi]):
@@ -631,10 +661,6 @@ class MiRBase:
         if chr:
             for mi in self.__miRNAs_ID:
                 if (chr in self.__miRNAs_ID[mi].chromosome_mi) and not self._exists(result, self.__miRNAs_ID[mi]):
-                    result.append(self.__miRNAs_ID[mi])
-        if strand:
-            for mi in self.__miRNAs_ID:
-                if (strand in self.__miRNAs_ID[mi].strand_mi) and not self._exists(result, self.__miRNAs_ID[mi]):
                     result.append(self.__miRNAs_ID[mi])
         if start and end:
             int_start = int(start)
@@ -659,6 +685,10 @@ class MiRBase:
                         if (int_start <= f_start < int_end) and (int_start < f_stop <= int_end) and not self._exists(
                                 result, self.__miRNAs_ID[mi]):
                             result.append(self.__miRNAs_ID[mi])
+        if strand:
+            for mi in self.__miRNAs_ID:
+                if (strand in self.__miRNAs_ID[mi].strand_mi) and not self._exists(result, self.__miRNAs_ID[mi]):
+                    result.append(self.__miRNAs_ID[mi])
         if not result:
             # print("[Function: get_mirna] No records matching given criteria.")
             return None
@@ -688,11 +718,21 @@ class MiRBase:
         """
         result = []
 
-        def search_up_down(self, start, org, range):
-            int_start = start - range
-            #print(int_start)
-            int_end = start + range
-            #print(int_end)
+        def search_prec(self, start, org, range):
+            int_start = 0
+            int_end = 0
+            if search_type == "up-downstream":
+                int_start = start - range
+                #print(int_start)
+                int_end = start + range
+                #print(int_end)
+            if search_type == "upstream":
+                int_start = start
+                int_end = start + range
+            if search_type == "downstream":
+                int_start = start - range
+                # print(int_start)
+                int_end = start
             for prec in self.__precursors_ID:
                 if self.__precursors_ID[prec].organism == org:
                     mi_id = self.__precursors_ID[prec].miRNAs
@@ -709,39 +749,55 @@ class MiRBase:
                                         result, self.__miRNAs_ID[mi]):
                                     result.append(self.__miRNAs_ID[mi])
 
-        # TODO
-        def search_up(self, start, org, range):
-            pass
+        def search_mirna(self, start, org, range):
+            int_start = 0
+            int_end = 0
+            count = 0
+            if search_type == "up-downstream":
+                int_start = start - range
+                print(f"new_start: {int_start}")
+                int_end = start + range
+                print(f"new_end: {int_end}")
+            if search_type == "upstream":
+                int_start = start
+                int_end = start + range
+            if search_type == "downstream":
+                int_start = start - range
+                # print(int_start)
+                int_end = start
+            for mi in self.__miRNAs_ID:
+                if self.__precursors_ID[self.__miRNAs_ID[mi].precursor[0]].organism == org:
+                    for key in self.__miRNAs_ID[mi].genome_coordinates_mi:
+                        for coord in self.__miRNAs_ID[mi].genome_coordinates_mi[key]:
+                            try:
+                                #print(coord)
+                                f_start = int(coord[0])
+                                f_stop = int(coord[1])
+                            except:
+                                continue
+                            if (int_start <= f_start < int_end) and (
+                                    int_start < f_stop <= int_end) and not self._exists(
+                                    result, self.__miRNAs_ID[mi]):
+                                count += 1
+                                print(f"{count}, {self.__miRNAs_ID[mi].mature_ID}: {coord}")
+                                result.append(self.__miRNAs_ID[mi])
 
-        # TODO
-        def search_down(self, start_position, org, range):
-            pass
-        # if mirna_id:
-        #     target_dict = self.__miRNAs_ID[mirna_id].genome_coordinates_mi
-        #     if len(target_dict) > 1:
-        #         tmp_dict = {f"{key} ({list(target_dict.keys()).index(key)})": value for key, value in target_dict.items()}
-        #         print(tmp_dict)
-        #         pos = self._input("Genomic positions for this miRNA are ambigous.\n"
-        #                     "Please, specify genomic position by typing chosen number: ", int)
+        if mirna_id:
+            org = self.__precursors_ID[self.__miRNAs_ID[mirna_id].precursor[0]].organism
+            for key in self.__miRNAs_ID[mirna_id].genome_coordinates_mi:
+                for coord in self.__miRNAs_ID[mirna_id].genome_coordinates_mi[key]:
+                    start_position = int(coord[0])
+                    print(f"org_start: {start_position}")
+                    search_mirna(self, start_position, org, int(range))
         if prec_id:
             org = self.__precursors_ID[prec_id].organism
             for coord in self.__precursors_ID[prec_id].genome_coordinates:
                 start_position = int(coord[0])
-                types = {"up-downstream": search_up_down(self, start_position, org, int(range)),
-                         "upstream": search_up(self, start_position, org, int(range)),
-                         "downstream": search_down(self, start_position, org, int(range))}
-                types.get(str(search_type))
-                     # "upstream": search_up(start_position, range),
-                     # "downstream": search_down(start_position, range)}
+                search_prec(self, start_position, org, int(range))
         if not result:
             return None
 
         return result, len(result)
-
-
-
-
-
 
 
 class MiRLoad(MiRBase):
