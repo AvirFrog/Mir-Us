@@ -721,6 +721,7 @@ class MiRBase:
         def search_prec(self, start, org, range):
             int_start = 0
             int_end = 0
+            count = 0
             if search_type == "up-downstream":
                 int_start = start - range
                 #print(int_start)
@@ -747,7 +748,40 @@ class MiRBase:
                                 if (int_start <= f_start < int_end) and (
                                         int_start < f_stop <= int_end) and not self._exists(
                                         result, self.__miRNAs_ID[mi]):
+                                    count += 1
+                                    print(f"{count}, {self.__miRNAs_ID[mi].mature_ID}: {coord}")
                                     result.append(self.__miRNAs_ID[mi])
+
+        def search_prec2(self, start, org, range):
+            int_start = 0
+            int_end = 0
+            count = 0
+            if search_type == "up-downstream":
+                int_start = start - range
+                #print(int_start)
+                int_end = start + range
+                #print(int_end)
+            if search_type == "upstream":
+                int_start = start
+                int_end = start + range
+            if search_type == "downstream":
+                int_start = start - range
+                # print(int_start)
+                int_end = start
+            for prec in self.__precursors_ID:
+                if self.__precursors_ID[prec].organism == org:
+                    for coord in self.__precursors_ID[prec].genome_coordinates:
+                        try:
+                            f_start = int(coord[0])
+                            f_stop = int(coord[1])
+                        except:
+                            continue
+                        if (int_start <= f_start < int_end) and (
+                                int_start < f_stop <= int_end) and not self._exists(
+                                result, self.__precursors_ID[prec]):
+                            count += 1
+                            print(f"{count}, {self.__precursors_ID[prec].precursor_ID}: {coord}")
+                            result.append(self.__precursors_ID[prec].precursor_ID)
 
         def search_mirna(self, start, org, range):
             int_start = 0
@@ -793,7 +827,8 @@ class MiRBase:
             org = self.__precursors_ID[prec_id].organism
             for coord in self.__precursors_ID[prec_id].genome_coordinates:
                 start_position = int(coord[0])
-                search_prec(self, start_position, org, int(range))
+                #search_prec(self, start_position, org, int(range))
+                search_prec2(self, start_position, org, int(range))
         if not result:
             return None
 
@@ -808,7 +843,8 @@ class MiRLoad(MiRBase):
     """
 
     def __init__(self, version):
-        super().__init__(version)
+        #super().__init__(version)
+        MiRBase.__init__(self, version)
         # self.base = MiRBase()
 
     def load_organisms(self, file_path):
