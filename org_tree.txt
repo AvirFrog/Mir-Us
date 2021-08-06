@@ -1,0 +1,608 @@
+{
+    "Alveolata": {
+        "!organism": [
+            "Symbiodinium microadriaticum"
+        ]
+    },
+    "Chromalveolata": {
+        "Heterokontophyta": {
+            "!organism": [
+                "Ectocarpus siliculosus",
+                "Phaeodactylum tricornutum",
+                "Phytophthora infestans",
+                "Phytophthora ramorum",
+                "Phytophthora sojae"
+            ]
+        }
+    },
+    "Metazoa": {
+        "Bilateria": {
+            "Deuterostoma": {
+                "!organism": [
+                    "Xenoturbella bocki"
+                ],
+                "Chordata": {
+                    "Cephalochordata": {
+                        "!organism": [
+                            "Branchiostoma belcheri",
+                            "Branchiostoma floridae"
+                        ]
+                    },
+                    "Urochordata": {
+                        "!organism": [
+                            "Ciona intestinalis",
+                            "Ciona savignyi",
+                            "Oikopleura dioica"
+                        ]
+                    },
+                    "Vertebrata": {
+                        "Agnathostomata": {
+                            "!organism": [
+                                "Petromyzon marinus"
+                            ]
+                        },
+                        "Amphibia": {
+                            "!organism": [
+                                "Xenopus laevis",
+                                "Xenopus tropicalis"
+                            ]
+                        },
+                        "Aves": {
+                            "!organism": [
+                                "Anas platyrhynchos",
+                                "Columba livia",
+                                "Gallus gallus",
+                                "Taeniopygia guttata"
+                            ]
+                        },
+                        "Gnathostomata": {
+                            "!organism": [
+                                "Callorhinchus milii"
+                            ]
+                        },
+                        "Mammalia": {
+                            "Afrotheria": {
+                                "!organism": [
+                                    "Echinops telfairi"
+                                ]
+                            },
+                            "Carnivora": {
+                                "!organism": [
+                                    "Canis familiaris"
+                                ]
+                            },
+                            "Cingulata": {
+                                "!organism": [
+                                    "Dasypus novemcinctus"
+                                ]
+                            },
+                            "Lagomorpha": {
+                                "!organism": [
+                                    "Oryctolagus cuniculus"
+                                ]
+                            },
+                            "Laurasiatheria": {
+                                "!organism": [
+                                    "Artibeus jamaicensis",
+                                    "Bubalus bubalis",
+                                    "Eptesicus fuscus",
+                                    "Equus caballus",
+                                    "Pteropus alecto"
+                                ]
+                            },
+                            "Metatheria": {
+                                "!organism": [
+                                    "Macropus eugenii",
+                                    "Monodelphis domestica",
+                                    "Sarcophilus harrisii"
+                                ]
+                            },
+                            "Primates": {
+                                "Atelidae": {
+                                    "!organism": [
+                                        "Ateles geoffroyi",
+                                        "Lagothrix lagotricha"
+                                    ]
+                                },
+                                "Cebidae": {
+                                    "!organism": [
+                                        "Callithrix jacchus",
+                                        "Saguinus labiatus",
+                                        "Saimiri boliviensis"
+                                    ]
+                                },
+                                "Cercopithecidae": {
+                                    "!organism": [
+                                        "Macaca mulatta",
+                                        "Macaca nemestrina",
+                                        "Papio hamadryas",
+                                        "Pygathrix bieti"
+                                    ]
+                                },
+                                "Cheirogaleidae": {
+                                    "!organism": [
+                                        "Microcebus murinus"
+                                    ]
+                                },
+                                "Daubentoniidae": {
+                                    "!organism": [
+                                        "Daubentonia madagascariensis"
+                                    ]
+                                },
+                                "Galagidae": {
+                                    "!organism": [
+                                        "Otolemur garnettii"
+                                    ]
+                                },
+                                "Hominidae": {
+                                    "!organism": [
+                                        "Gorilla gorilla",
+                                        "Homo sapiens",
+                                        "Pan paniscus",
+                                        "Pan troglodytes",
+                                        "Pongo pygmaeus",
+                                        "Symphalangus syndactylus"
+                                    ]
+                                },
+                                "Hylobatidae": {
+                                    "!organism": [
+                                        "Nomascus leucogenys"
+                                    ]
+                                },
+                                "Lemuridae": {
+                                    "!organism": [
+                                        "Lemur catta"
+                                    ]
+                                }
+                            },
+                            "Prototheria": {
+                                "!organism": [
+                                    "Ornithorhynchus anatinus"
+                                ]
+                            },
+                            "Rodentia": {
+                                "!organism": [
+                                    "Cavia porcellus",
+                                    "Cricetulus griseus",
+                                    "Mus musculus",
+                                    "Rattus norvegicus"
+                                ]
+                            },
+                            "Ruminantia": {
+                                "!organism": [
+                                    "Bos taurus",
+                                    "Capra hircus",
+                                    "Ovis aries"
+                                ]
+                            },
+                            "Scandentia": {
+                                "!organism": [
+                                    "Tupaia chinensis"
+                                ]
+                            },
+                            "Suina": {
+                                "!organism": [
+                                    "Sus scrofa"
+                                ]
+                            }
+                        },
+                        "Sauria": {
+                            "!organism": [
+                                "Alligator mississippiensis",
+                                "Anolis carolinensis",
+                                "Chrysemys picta",
+                                "Ophiophagus hannah",
+                                "Python bivittatus"
+                            ]
+                        },
+                        "Teleostei": {
+                            "!organism": [
+                                "Astatotilapia burtoni",
+                                "Carassius auratus",
+                                "Cyprinus carpio",
+                                "Danio rerio",
+                                "Electrophorus electricus",
+                                "Fugu rubripes",
+                                "Gadus morhua",
+                                "Hippoglossus hippoglossus",
+                                "Ictalurus punctatus",
+                                "Metriaclima zebra",
+                                "Neolamprologus brichardi",
+                                "Nothobranchius furzeri",
+                                "Oncorhynchus mykiss",
+                                "Oreochromis niloticus",
+                                "Oryzias latipes",
+                                "Paralichthys olivaceus",
+                                "Pundamilia nyererei",
+                                "Salmo salar",
+                                "Tetraodon nigroviridis"
+                            ]
+                        }
+                    }
+                },
+                "Echinodermata": {
+                    "!organism": [
+                        "Lytechinus variegatus",
+                        "Patiria miniata",
+                        "Strongylocentrotus purpuratus"
+                    ]
+                },
+                "Hemichordata": {
+                    "!organism": [
+                        "Saccoglossus kowalevskii"
+                    ]
+                }
+            },
+            "Ecdysozoa": {
+                "Arthropoda": {
+                    "Chelicerata": {
+                        "!organism": [
+                            "Ixodes scapularis",
+                            "Parasteatoda tepidariorum",
+                            "Rhipicephalus microplus",
+                            "Tetranychus urticae"
+                        ]
+                    },
+                    "Crustacea": {
+                        "!organism": [
+                            "Daphnia pulex",
+                            "Marsupenaeus japonicus",
+                            "Triops cancriformis"
+                        ]
+                    },
+                    "Hexapoda": {
+                        "!organism": [
+                            "Acyrthosiphon pisum",
+                            "Aedes aegypti",
+                            "Anopheles gambiae",
+                            "Aphis gossypii",
+                            "Apis mellifera",
+                            "Bactrocera dorsalis",
+                            "Biston betularia",
+                            "Bombyx mori",
+                            "Culex quinquefasciatus",
+                            "Dinoponera quadriceps",
+                            "Drosophila ananassae",
+                            "Drosophila erecta",
+                            "Drosophila grimshawi",
+                            "Drosophila melanogaster",
+                            "Drosophila mojavensis",
+                            "Drosophila persimilis",
+                            "Drosophila pseudoobscura",
+                            "Drosophila sechellia",
+                            "Drosophila simulans",
+                            "Drosophila virilis",
+                            "Drosophila willistoni",
+                            "Drosophila yakuba",
+                            "Heliconius melpomene",
+                            "Locusta migratoria",
+                            "Manduca sexta",
+                            "Mayetiola destructor",
+                            "Nasonia giraulti",
+                            "Nasonia longicornis",
+                            "Nasonia vitripennis",
+                            "Plutella xylostella",
+                            "Polistes canadensis",
+                            "Spodoptera frugiperda",
+                            "Tribolium castaneum"
+                        ]
+                    },
+                    "Mandibulata": {
+                        "!organism": [
+                            "Strigamia maritima"
+                        ]
+                    }
+                },
+                "Nematoda": {
+                    "!organism": [
+                        "Ascaris suum",
+                        "Brugia malayi",
+                        "Brugia pahangi",
+                        "Caenorhabditis brenneri",
+                        "Caenorhabditis briggsae",
+                        "Caenorhabditis elegans",
+                        "Caenorhabditis remanei",
+                        "Haemonchus contortus",
+                        "Heligmosomoides polygyrus",
+                        "Panagrellus redivivus",
+                        "Pristionchus pacificus",
+                        "Strongyloides ratti"
+                    ]
+                }
+            },
+            "Lophotrochozoa": {
+                "Annelida": {
+                    "!organism": [
+                        "Capitella teleta"
+                    ]
+                },
+                "Brachiopoda": {
+                    "!organism": [
+                        "Glottidia pyramidata",
+                        "Terebratulina retusa"
+                    ]
+                },
+                "Mollusca": {
+                    "!organism": [
+                        "Haliotis rufescens",
+                        "Lottia gigantea",
+                        "Melibe leonina"
+                    ]
+                },
+                "Nemertea": {
+                    "!organism": [
+                        "Cerebratulus lacteus"
+                    ]
+                },
+                "Platyhelminthes": {
+                    "!organism": [
+                        "Echinococcus granulosus",
+                        "Echinococcus multilocularis",
+                        "Fasciola hepatica",
+                        "Gyrodactylus salaris",
+                        "Mesocestoides corti",
+                        "Schistosoma japonicum",
+                        "Schistosoma mansoni",
+                        "Schmidtea mediterranea"
+                    ]
+                }
+            }
+        },
+        "Cnidaria": {
+            "!organism": [
+                "Aiptasia pallida",
+                "Hydra magnipapillata",
+                "Nematostella vectensis"
+            ]
+        },
+        "Porifera": {
+            "!organism": [
+                "Amphimedon queenslandica",
+                "Leucosolenia complicata",
+                "Sycon ciliatum"
+            ]
+        }
+    },
+    "Mycetozoa": {
+        "!organism": [
+            "Dictyostelium discoideum"
+        ]
+    },
+    "Viridiplantae": {
+        "Chlorophyta": {
+            "!organism": [
+                "Chlamydomonas reinhardtii"
+            ]
+        },
+        "Coniferophyta": {
+            "!organism": [
+                "Cunninghamia lanceolata",
+                "Picea abies",
+                "Pinus densata",
+                "Pinus taeda"
+            ]
+        },
+        "Embryophyta": {
+            "!organism": [
+                "Marchantia polymorpha",
+                "Physcomitrella patens",
+                "Selaginella moellendorffii"
+            ]
+        },
+        "Magnoliophyta": {
+            "!organism": [
+                "Amborella trichopoda"
+            ],
+            "eudicotyledons": {
+                "Amaranthaceae": {
+                    "!organism": [
+                        "Salicornia europaea"
+                    ]
+                },
+                "Araliaceae": {
+                    "!organism": [
+                        "Panax ginseng"
+                    ]
+                },
+                "Asteraceae": {
+                    "!organism": [
+                        "Cynara cardunculus",
+                        "Helianthus annuus",
+                        "Helianthus argophyllus",
+                        "Helianthus ciliaris",
+                        "Helianthus exilis",
+                        "Helianthus paradoxus",
+                        "Helianthus petiolaris",
+                        "Helianthus tuberosus"
+                    ]
+                },
+                "Brassicaceae": {
+                    "!organism": [
+                        "Arabidopsis lyrata",
+                        "Arabidopsis thaliana",
+                        "Brassica napus",
+                        "Brassica oleracea",
+                        "Brassica rapa",
+                        "Camelina sativa"
+                    ]
+                },
+                "Caricaceae": {
+                    "!organism": [
+                        "Carica papaya"
+                    ]
+                },
+                "Cucurbitaceae": {
+                    "!organism": [
+                        "Cucumis melo",
+                        "Cucumis sativus"
+                    ]
+                },
+                "Euphorbiaceae": {
+                    "!organism": [
+                        "Hevea brasiliensis",
+                        "Manihot esculenta",
+                        "Ricinus communis"
+                    ]
+                },
+                "Fabaceae": {
+                    "!organism": [
+                        "Acacia auriculiformis",
+                        "Acacia mangium",
+                        "Arachis hypogaea",
+                        "Glycine max",
+                        "Glycine soja",
+                        "Lotus japonicus",
+                        "Medicago truncatula",
+                        "Phaseolus vulgaris",
+                        "Vigna unguiculata"
+                    ]
+                },
+                "Lamiales": {
+                    "!organism": [
+                        "Avicennia marina",
+                        "Digitalis purpurea",
+                        "Rehmannia glutinosa",
+                        "Salvia miltiorrhiza",
+                        "Salvia sclarea"
+                    ]
+                },
+                "Linaceae": {
+                    "!organism": [
+                        "Linum usitatissimum"
+                    ]
+                },
+                "Malvaceae": {
+                    "!organism": [
+                        "Gossypium arboreum",
+                        "Gossypium herbaceum",
+                        "Gossypium hirsutum",
+                        "Gossypium raimondii",
+                        "Theobroma cacao"
+                    ]
+                },
+                "Myrtaceae": {
+                    "!organism": [
+                        "Eugenia uniflora"
+                    ]
+                },
+                "Paeoniaceae": {
+                    "!organism": [
+                        "Paeonia lactiflora"
+                    ]
+                },
+                "Papaveraceae": {
+                    "!organism": [
+                        "Papaver somniferum"
+                    ]
+                },
+                "Poaceae": {
+                    "!organism": [
+                        "Setaria italica"
+                    ]
+                },
+                "Ranunculaceae": {
+                    "!organism": [
+                        "Aquilegia caerulea"
+                    ]
+                },
+                "Rhizophoraceae": {
+                    "!organism": [
+                        "Bruguiera cylindrica",
+                        "Bruguiera gymnorhiza"
+                    ]
+                },
+                "Rosaceae": {
+                    "!organism": [
+                        "Fragaria vesca",
+                        "Malus domestica",
+                        "Prunus mume",
+                        "Prunus persica"
+                    ]
+                },
+                "Rutaceae": {
+                    "!organism": [
+                        "Citrus clementina",
+                        "Citrus reticulata",
+                        "Citrus sinensis",
+                        "Citrus trifoliata"
+                    ]
+                },
+                "Salicaceae": {
+                    "!organism": [
+                        "Populus euphratica",
+                        "Populus trichocarpa"
+                    ]
+                },
+                "Solanaceae": {
+                    "!organism": [
+                        "Nicotiana tabacum",
+                        "Solanum lycopersicum",
+                        "Solanum tuberosum"
+                    ]
+                },
+                "Vitaceae": {
+                    "!organism": [
+                        "Vitis vinifera"
+                    ]
+                }
+            },
+            "monocotyledons": {
+                "!organism": [
+                    "Aegilops tauschii",
+                    "Asparagus officinalis",
+                    "Brachypodium distachyon",
+                    "Elaeis guineensis",
+                    "Festuca arundinacea",
+                    "Hordeum vulgare",
+                    "Oryza sativa",
+                    "Saccharum officinarum",
+                    "Saccharum sp.",
+                    "Sorghum bicolor",
+                    "Triticum aestivum",
+                    "Triticum turgidum",
+                    "Vriesea carinata",
+                    "Zea mays"
+                ]
+            }
+        }
+    },
+    "Viruses": {
+        "!organism": [
+            "BK polyomavirus",
+            "Bandicoot papillomatosis carcinomatosis virus type 1",
+            "Bandicoot papillomatosis carcinomatosis virus type 2",
+            "Bovine foamy virus",
+            "Bovine herpesvirus 1",
+            "Bovine herpesvirus 5",
+            "Bovine leukemia virus",
+            "Duck enteritis virus",
+            "Epstein Barr virus",
+            "Gorilla gorilla gorilla polyomavirus 1",
+            "Herpes B virus",
+            "Herpes Simplex Virus 1",
+            "Herpes Simplex Virus 2",
+            "Herpesvirus of turkeys",
+            "Herpesvirus saimiri strain A11",
+            "Human cytomegalovirus",
+            "Human herpesvirus 6B",
+            "Human immunodeficiency virus 1",
+            "Infectious laryngotracheitis virus",
+            "JC polyomavirus",
+            "Kaposi sarcoma-associated herpesvirus",
+            "Mareks disease virus type 1",
+            "Mareks disease virus type 2",
+            "Merkel cell polyomavirus",
+            "Mouse cytomegalovirus",
+            "Mouse gammaherpesvirus 68",
+            "Pan troglodytes verus polyomavirus 2a",
+            "Pseudorabies virus",
+            "Raccoon polyomavirus",
+            "Rhesus lymphocryptovirus",
+            "Rhesus monkey rhadinovirus",
+            "Simian foamy virus",
+            "Simian virus 40",
+            "Torque teno virus"
+        ]
+    }
+}
+[Mir-Us]  'get_tree' found 1 results in 0.003688 seconds

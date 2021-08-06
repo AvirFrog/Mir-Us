@@ -7,6 +7,7 @@ Main file of the package. All of the actions are handled with this code:
 
 import functools
 import gzip
+import json
 import operator
 import urllib.request
 from collections import defaultdict as dd
@@ -319,7 +320,7 @@ class MiRBase:
         tax_codes = list(map(lambda x: getattr(x, "tree"), self.__organisms))
         tax_codes = [x.rstrip(";").split(";") for x in tax_codes]
         tax_dct = dict(zip(organism_codes, tax_codes))
-        #print(tax_dct)
+        # print(tax_dct)
         for key, value in tax_dct.items():
             if tax in value:
                 result.append(key)
@@ -724,9 +725,9 @@ class MiRBase:
             count = 0
             if search_type == "up-downstream":
                 int_start = start - range
-                #print(int_start)
+                # print(int_start)
                 int_end = start + range
-                #print(int_end)
+                # print(int_end)
             if search_type == "upstream":
                 int_start = start
                 int_end = start + range
@@ -747,7 +748,7 @@ class MiRBase:
                                     continue
                                 if (int_start <= f_start < int_end) and (
                                         int_start < f_stop <= int_end) and not self._exists(
-                                        result, self.__miRNAs_ID[mi]):
+                                    result, self.__miRNAs_ID[mi]):
                                     count += 1
                                     print(f"{count}, {self.__miRNAs_ID[mi].mature_ID}: {coord}")
                                     result.append(self.__miRNAs_ID[mi])
@@ -758,9 +759,9 @@ class MiRBase:
             count = 0
             if search_type == "up-downstream":
                 int_start = start - range
-                #print(int_start)
+                # print(int_start)
                 int_end = start + range
-                #print(int_end)
+                # print(int_end)
             if search_type == "upstream":
                 int_start = start
                 int_end = start + range
@@ -778,9 +779,9 @@ class MiRBase:
                             continue
                         if (int_start <= f_start < int_end) and (
                                 int_start < f_stop <= int_end) and not self._exists(
-                                result, self.__precursors_ID[prec]):
+                            result, self.__precursors_ID[prec]):
                             count += 1
-                            print(f"{count}, {self.__precursors_ID[prec].precursor_ID}: {coord}")
+                            print(f"{count}, {self.__precursors_ID[prec].precursor_name}: {coord}")
                             result.append(self.__precursors_ID[prec].precursor_ID)
 
         def search_mirna(self, start, org, range):
@@ -804,14 +805,14 @@ class MiRBase:
                     for key in self.__miRNAs_ID[mi].genome_coordinates_mi:
                         for coord in self.__miRNAs_ID[mi].genome_coordinates_mi[key]:
                             try:
-                                #print(coord)
+                                # print(coord)
                                 f_start = int(coord[0])
                                 f_stop = int(coord[1])
                             except:
                                 continue
                             if (int_start <= f_start < int_end) and (
                                     int_start < f_stop <= int_end) and not self._exists(
-                                    result, self.__miRNAs_ID[mi]):
+                                result, self.__miRNAs_ID[mi]):
                                 count += 1
                                 print(f"{count}, {self.__miRNAs_ID[mi].mature_ID}: {coord}")
                                 result.append(self.__miRNAs_ID[mi])
@@ -827,12 +828,61 @@ class MiRBase:
             org = self.__precursors_ID[prec_id].organism
             for coord in self.__precursors_ID[prec_id].genome_coordinates:
                 start_position = int(coord[0])
-                #search_prec(self, start_position, org, int(range))
+                # search_prec(self, start_position, org, int(range))
                 search_prec2(self, start_position, org, int(range))
         if not result:
             return None
 
         return result, len(result)
+
+    @time_this
+    def get_tree(self):
+        """
+        Returns taxonomy tree, where each taxonomy level is a dictionary (nested dictionaries as access to another
+        taxonomy level and list of organisms at particular taxonomy level if has any)
+        :return: dictionary representing full taxonomy tree of organisms present in the base
+        :rtype: dict
+        """
+        organism_codes = list(map(lambda x: getattr(x, "name"), self.__organisms))  # lista wszystkich kodów organizmow
+        tax_codes = list(map(lambda x: getattr(x, "tree"), self.__organisms))
+        tax_codes = [x.rstrip(";").split(";") for x in tax_codes]
+        tax_dct = dict(zip(organism_codes, tax_codes))
+
+        # structure def
+        def tree(): return dd(tree)
+
+        # function to create tree (nested default dicts)
+        def add_tree(t, keys):
+            for key in keys:
+                t = t[key]
+
+        # function to access keys
+        def get_tree(t, keys):
+            for key in keys:
+                t = t[key]
+            return t
+
+        # create tree with taxonomy
+        org_tree = tree()
+        for key in tax_dct:
+            add_tree(org_tree, tax_dct[key])
+        #org_tree = dd(list)
+        #org_tree.default_factory = list()
+
+        # add organisms
+        for key in tax_dct:
+            get_tree(org_tree, tax_dct[key])["!organism"] = [key]
+        for key in tax_dct:
+            if key not in get_tree(org_tree, tax_dct[key])["!organism"]:
+                get_tree(org_tree, tax_dct[key])["!organism"].append(key)
+
+        # sort in organism lists
+        for key in tax_dct:
+            get_tree(org_tree, tax_dct[key])["!organism"].sort()
+
+        # debug
+        print(json.dumps(org_tree, indent=4, sort_keys=True))
+        return dict(org_tree), 1
 
 
 class MiRLoad(MiRBase):
@@ -843,7 +893,7 @@ class MiRLoad(MiRBase):
     """
 
     def __init__(self, version):
-        #super().__init__(version)
+        # super().__init__(version)
         MiRBase.__init__(self, version)
         # self.base = MiRBase()
 

@@ -193,7 +193,7 @@ m = miBase.MiRBase()
 # m.find_cluster(mirna_id="MIMAT0026631", search_type="upstream", range="1000")
 # m.find_cluster(mirna_id="MIMAT0026631", search_type="downstream", range="1000")
 
-m.find_cluster(prec_id="MI0000072", range="10000")
+#m.find_cluster(prec_id="MI0000072", range="10000")
 
 #print(m.get_mirna(id="MIMAT0032841"))
 #print(m.get_mirna(id="MIMAT0029111"))
@@ -203,8 +203,13 @@ m.find_cluster(prec_id="MI0000072", range="10000")
 # m.get_precursor(mirna_id=["MIMAT0050213", "MIMAT0050254", "MIMAT0050056", "MIMAT0049408"])
 # print(m.get_precursor(mirna_id=["MIMAT0050213", "MIMAT0050254", "MIMAT0050056", "MIMAT0049408"]))
 
-print(m.get_mirna(prec_id=["MI0000071"]))
-print(m.get_precursor(id=["MI0000071"]))
+#print(m.get_mirna(prec_id=["MI0000071"]))
+#print(m.get_precursor(id=["MI0000071"]))
+#print(m.get_organisms_list())
+#print(m.get_tree())
+d = m.get_tree()
+
+
 # example results:
 # instresting one ;)
 #         Mature ID: MIMAT0029111

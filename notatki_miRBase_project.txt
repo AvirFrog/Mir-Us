@@ -33,7 +33,7 @@ Jak coś jeszcze Wam przychodzi do głowy to dajcie znać.
 
 get_structure -> dodajcie możliwość szukania struktury po nazwie prekursora [DONE]
 
-Przydałaby się funkcja zwracająca jakie są poziomy taksonomiczne dostępne w bazie z zachowaniem zależności pomiędzy nimi w drzewie filogenetycznym. [o co chodzi xd; edit - ze drzewo całe czy co?]
+Przydałaby się funkcja zwracająca jakie są poziomy taksonomiczne dostępne w bazie z zachowaniem zależności pomiędzy nimi w drzewie filogenetycznym. [probably DONE]
 
 get_tax_level -> niech ten string poziomów taksonomicznych będzie listą w wyniku. Chyba będzie łatwiej tym dalej manewrować.
 'Metazoa;Bilateria;Deuterostoma;' --> ['Metazoa','Bilateria','Deuterostoma']  [DONE]
