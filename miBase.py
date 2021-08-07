@@ -7,6 +7,7 @@ Main file of the package. All of the actions are handled with this code:
 
 import functools
 import gzip
+import json
 import operator
 import urllib.request
 from collections import defaultdict as dd
@@ -24,7 +25,7 @@ __authors__ = ["Kacper Dudczak, Maciej Michalczyk"]
 __copyright__ = "Copyright 2021, mirBase Project"
 __credits__ = ["Marek Żywicki", "Marta Wysocka", "Kacper Dudczak", "Maciej Michalczyk"]
 __license__ = "MIT"
-__version__ = "0.1"
+__version__ = "0.2"
 __maintainer__ = ["Kacper Dudczak", "Maciej Michalczyk"]
 __email__ = ["kacper.dudczak19@gmail.com", "mccv99@gmail.com"]
 __status__ = "Production"
@@ -394,32 +395,14 @@ class MiRBase:
         if isinstance(id, str):
             id = [id]
         result = []
-        np_result = np.array([])
-        np_prec = np.asarray(list(self.__precursors_ID.items()))
-        # print(np_prec[0][1].precursor_name if np_prec[0][1].precursor_name == name else None)
-        # print(np_prec)
         if id:
-            # result = [self.__precursors_ID[i] for i in id if not self._exists(result, self.__precursors_ID[i])]
-            # result = [self.precursor_retriever(i) for i in id if not self._exists(result, self.__precursors_ID[i])]
             result = [self._precursor_retrieve(i, result) for i in id if
                       self._precursor_retrieve(i, result) is not None]
-            # result = filter(None, result)
-            # string is an input
-            # if not self._exists(result, self.__precursors_ID[id]):
-            #     result.append(self.__precursors_ID[id])
         if name:
-            # standard
             for prec in self.__precursors_ID:
                 if (self.__precursors_ID[prec].precursor_name == name) and not self._exists(result,
                                                                                             self.__precursors_ID[prec]):
                     result.append(self.__precursors_ID[prec])
-            # numpy'ed
-            # np_prec_len = np_prec.shape[0]
-            # #print(np_prec_len)
-            # for item in name:
-            #     for prec_idx in range(np_prec_len):
-            #         if (np_prec[prec_idx][1].precursor_name == item) and not self._exists(result, np_prec[prec_idx][1]):
-            #             result.append(np_prec[prec_idx][1])
         if organism_name:
             for prec in self.__precursors_ID:
                 if (self.__precursors_ID[prec].organism == organism_name) and not self._exists(result,
@@ -432,10 +415,6 @@ class MiRBase:
                                                                                            self.__precursors_ID[prec]):
                     result.append(self.__precursors_ID[prec])
         if mirna_id:
-            # for prec in self.__precursors_ID:
-            #     if (mirna_id in self.__precursors_ID[prec].miRNAs) and not self._exists(result,
-            #                                                                             self.__precursors_ID[prec]):
-            #         result.append(self.__precursors_ID[prec])
             for elem in mirna_id:
                 try:
                     for prec in self.__miRNAs_ID[elem].precursor:
@@ -463,22 +442,13 @@ class MiRBase:
                 try:
                     f_start = int(self.__precursors_ID[prec].genome_coordinates[0][0])
                     f_stop = int(self.__precursors_ID[prec].genome_coordinates[0][1])
-                    # if (int(self.__precursors_ID[prec].genome_coordinates[0][0]) > int(start)) and \
-                    #         (int(self.__precursors_ID[prec].genome_coordinates[0][0]) < int(end)) and \
-                    #         (int(self.__precursors_ID[prec].genome_coordinates[0][1]) < int(end)) and \
-                    #         (int(self.__precursors_ID[prec].genome_coordinates[0][1]) > int(start)) and not \
-                    #         (self._exists(result, self.__precursors_ID[prec])):
-                    #     result.append(self.__precursors_ID[prec])
                 except:
                     continue
                 if (int_start <= f_start < int_end) and (int_start < f_stop <= int_end):
                     result.append(self.__precursors_ID[prec])
         if not result:
-            # print("[Function: get_precursor] No records matching given criteria.")
             return None
-        # print(result)
-        # for elem in result:
-        #     print(elem.info())
+
         return result, len(result)
 
     @time_this
@@ -572,9 +542,6 @@ class MiRBase:
                     try:
                         result = {self.__precursors_ID[prec].precursor_name: self.__precursors_ID[prec].structure for
                                   prec in self.__precursors_ID if self.__precursors_ID[prec].precursor_name == i}
-                        # for prec in self.__precursors_ID:
-                        #     if self.__precursors_ID[prec].precursor_name == i:
-                        #         result[self.__precursors_ID[prec].precursor_name] = self.__precursors_ID[prec].structure
                     except:
                         continue
             except:
@@ -674,12 +641,6 @@ class MiRBase:
                         try:
                             f_start = int(coord[0])
                             f_stop = int(coord[1])
-                            # if (int(self.__precursors_ID[prec].genome_coordinates[0][0]) > int(start)) and \
-                            #         (int(self.__precursors_ID[prec].genome_coordinates[0][0]) < int(end)) and \
-                            #         (int(self.__precursors_ID[prec].genome_coordinates[0][1]) < int(end)) and \
-                            #         (int(self.__precursors_ID[prec].genome_coordinates[0][1]) > int(start)) and not \
-                            #         (self._exists(result, self.__precursors_ID[prec])):
-                            #     result.append(self.__precursors_ID[prec])
                         except:
                             continue
                         if (int_start <= f_start < int_end) and (int_start < f_stop <= int_end) and not self._exists(
@@ -690,11 +651,8 @@ class MiRBase:
                 if (strand in self.__miRNAs_ID[mi].strand_mi) and not self._exists(result, self.__miRNAs_ID[mi]):
                     result.append(self.__miRNAs_ID[mi])
         if not result:
-            # print("[Function: get_mirna] No records matching given criteria.")
             return None
-        # print(result)
-        # for elem in result:
-        #     print(elem.info())
+        
         return result, len(result)
 
     @time_this
@@ -833,6 +791,56 @@ class MiRBase:
             return None
 
         return result, len(result)
+
+    @time_this
+    def get_tree(self):
+        """
+        Returns taxonomy tree, where each taxonomy level is a dictionary (nested dictionaries as access to another
+        taxonomy level and list of organisms at particular taxonomy level if has any)
+        :return: dictionary representing full taxonomy tree of organisms present in the base
+        :rtype: dict
+        """
+        organism_codes = list(map(lambda x: getattr(x, "name"), self.__organisms))  # lista wszystkich kodów organizmow
+        tax_codes = list(map(lambda x: getattr(x, "tree"), self.__organisms))
+        tax_codes = [x.rstrip(";").split(";") for x in tax_codes]
+        tax_dct = dict(zip(organism_codes, tax_codes))
+
+        # structure def
+        def tree():
+            return dd(tree)
+
+        # function to create tree (nested default dicts)
+        def add_tree(t, keys):
+            for key in keys:
+                t = t[key]
+
+        # function to access keys
+        def get_tree(t, keys):
+            for key in keys:
+                t = t[key]
+            return t
+
+        # create tree with taxonomy
+        org_tree = tree()
+        for key in tax_dct:
+            add_tree(org_tree, tax_dct[key])
+        # org_tree = dd(list)
+        # org_tree.default_factory = list()
+
+        # add organisms
+        for key in tax_dct:
+            get_tree(org_tree, tax_dct[key])["!organism"] = [key]
+        for key in tax_dct:
+            if key not in get_tree(org_tree, tax_dct[key])["!organism"]:
+                get_tree(org_tree, tax_dct[key])["!organism"].append(key)
+
+        # sort in organism lists
+        for key in tax_dct:
+            get_tree(org_tree, tax_dct[key])["!organism"].sort()
+
+        # debug
+        print(json.dumps(org_tree, indent=4, sort_keys=True))
+        return dict(org_tree), 1
 
 
 class MiRLoad(MiRBase):
