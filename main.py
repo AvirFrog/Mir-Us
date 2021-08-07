@@ -159,7 +159,7 @@ m = miBase.MiRBase()
 # m.get_mirna(id=["MIMAT0000001"], organism_name="Brassica napus", chr='chr5')  # successful search message with elapsed time
 # #print(m.get_mirna())  # no results message
 # #print(m.get_mirna(id=['MIMAT0000001', 'MIMAT123']))  # successful search message with elapsed time
-# #print(m.get_mirna("MIMAT0000001"))  # successful search message with elapsed time
+#print(m.get_mirna("MIMAT0000001"))  # successful search message with elapsed time
 # #print(m.get_mirna('MIMAT123'))  # no results message
 # #print(m.get_mirna("Hominidae"))  # no results message
 # #print(m.get_mirna(tax_level="Homo sapiens", start=11046, end=186))  # wrong coordinates message and then no results message
@@ -193,18 +193,27 @@ m = miBase.MiRBase()
 # m.find_cluster(mirna_id="MIMAT0026631", search_type="upstream", range="1000")
 # m.find_cluster(mirna_id="MIMAT0026631", search_type="downstream", range="1000")
 
-m.find_cluster(prec_id="MI0000072", range="10000")
+#m.find_cluster(prec_id="MI0000072", range="10000")
 
 #print(m.get_mirna(id="MIMAT0032841"))
 #print(m.get_mirna(id="MIMAT0029111"))
 #m.get_mirna(organism_name="Homo sapiens", id="MIMAT0029111")
 # m.get_mirna(prec_id=["MI0000223", "MI0000182", "MI0000060", "MI000000"])
-# print(m.get_mirna(prec_id=["MI0000223", "MI0000182", "MI0000060", "MI000000"]))
+#print(m.get_mirna(prec_id=["MI0000223", "MI0000182", "MI0000060", "MI000000"]))
 # m.get_precursor(mirna_id=["MIMAT0050213", "MIMAT0050254", "MIMAT0050056", "MIMAT0049408"])
-# print(m.get_precursor(mirna_id=["MIMAT0050213", "MIMAT0050254", "MIMAT0050056", "MIMAT0049408"]))
+#print(m.get_precursor(mirna_id=["MIMAT0050213", "MIMAT0050254", "MIMAT0050056", "MIMAT0049408"]))
 
-print(m.get_mirna(prec_id=["MI0000071"]))
-print(m.get_precursor(id=["MI0000071"]))
+#print(m.get_mirna(prec_id=["MI0000071"]))
+#print(m.get_precursor(id=["MI0000071"]))
+#print(m.get_mirna(chr="LSRX01000794.1", organism_name="Symbiodinium microadriaticum", start="144000"))
+obj = m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000")#, mirna_id="MIMAT0050213", tax_level="Viruses")
+m.get_mirna(organism_name="Homo sapiens", mirna_id="MIMAT0050213")
+#print(type(obj))
+#print(obj)
+#print(m._miRNAs_ID["MIMAT0009754"])
+#print(m._precursors_ID["MI0017682"])
+#m.get_tree()
+
 # example results:
 # instresting one ;)
 #         Mature ID: MIMAT0029111
