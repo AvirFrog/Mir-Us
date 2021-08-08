@@ -605,12 +605,9 @@ class MiRBase:
         if not end and start or start and end or organism_name and chr or organism_name and strand:
             result = []
             if organism_name:
-                for prec in self._precursors_ID:
-                    if self._precursors_ID[prec].organism == organism_name:
-                        mi_id = self._precursors_ID[prec].miRNAs
-                        for elem in mi_id:
-                            if not self._exists(result, self._miRNAs_ID[elem]):
-                                result.append(self._miRNAs_ID[elem])
+                for mi in self._miRNAs_ID:
+                    if (self._miRNAs_ID[mi].organism == organism_name) and not self._exists(result, self._miRNAs_ID[mi]):
+                        result.append(self._miRNAs_ID[mi])
                 first = False
             if chr:
                 temp_result = []
@@ -736,12 +733,9 @@ class MiRBase:
             dict_result["name-search"] = result
         if not start and not end and not chr and not strand and organism_name:
             result = []
-            for prec in self._precursors_ID:
-                if self._precursors_ID[prec].organism == organism_name:
-                    mi_id = self._precursors_ID[prec].miRNAs
-                    for elem in mi_id:
-                        if not self._exists(result, self._miRNAs_ID[elem]):
-                            result.append(self._miRNAs_ID[elem])
+            for mi in self._miRNAs_ID:
+                if (self._miRNAs_ID[mi].organism == organism_name) and not self._exists(result, self._miRNAs_ID[mi]):
+                    result.append(self._miRNAs_ID[mi])
             dict_result["organism-search"] = result
             #print("Just org")
         if tax_level:
@@ -825,11 +819,11 @@ class MiRBase:
         if not len(dict_result) > 1:
             output = list(dict_result.values())[0]
             return output, len(output)
-        print(f"{Fore.YELLOW}[Mir-Us]   Some of given criteria were contradicting for the search system. Because of that,"
-              f" the results are returned in dictionary, where contradicting results are separated into different search types. "
-              f"This search consist of (keys of generated dictionary):")
+        print(f"{Fore.YELLOW}[Mir-Us]   Some of the given criteria were contradicting for the search system. Because of"
+              f" that, the results are returned in a dictionary, where contradicting results are separated into"
+              f" different search types. This search consist of (keys of generated dictionary): ")
         for key in dict_result.keys():
-            print(f"{Fore.BLUE}{key}: {len(dict_result[key])} results", sep="\n")
+            print(f"{Fore.BLUE}'{key}': {len(dict_result[key])} results", sep="\n")
         #print([key for key in dict_result.keys()], sep="\n")
         return dict_result, sum([len(res) for res in list(dict_result.values())])
 
@@ -1139,7 +1133,7 @@ class MiRLoad(MiRBase):
                                 e = "-"
                             if miRNA_vals[2] not in self._miRNAs_ID:
                                 # mature = miRNA_draft.MiRNA([id_p],[miRNA_vals[2]],[miRNA_vals[3]],[miRNA_vals[0],miRNA_vals[1]],[miRNA_vals[4]],[miRNA_vals[5]],[e])
-                                mature = miObject.MiRNA([id_p], [miRNA_vals[2]], [miRNA_vals[3]],
+                                mature = miObject.MiRNA([id_p], [miRNA_vals[2]], [miRNA_vals[3]], full_name,
                                                         (miRNA_vals[0], miRNA_vals[1]), [miRNA_vals[4]],
                                                         [miRNA_vals[5]], [e], ref)
                                 mature.get_mature_seq(seq_full, [miRNA_vals[0], miRNA_vals[1]])

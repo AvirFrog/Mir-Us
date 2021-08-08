@@ -206,13 +206,15 @@ m = miBase.MiRBase()
 #print(m.get_mirna(prec_id=["MI0000071"]))
 #print(m.get_precursor(id=["MI0000071"]))
 #print(m.get_mirna(chr="LSRX01000794.1", organism_name="Symbiodinium microadriaticum", start="144000"))
-obj = m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000")#, mirna_id="MIMAT0050213", tax_level="Viruses")
-m.get_mirna(organism_name="Homo sapiens", mirna_id="MIMAT0050213")
+obj = m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000", mirna_id="MIMAT0050213", tax_level="Viruses")
+#m.get_mirna(organism_name="Homo sapiens", mirna_id="MIMAT0050213")
 #print(type(obj))
 #print(obj)
 #print(m._miRNAs_ID["MIMAT0009754"])
 #print(m._precursors_ID["MI0017682"])
 #m.get_tree()
+#print(m.get_mirna("MIMAT0000002")[0].__dict__)
+
 
 # example results:
 # instresting one ;)

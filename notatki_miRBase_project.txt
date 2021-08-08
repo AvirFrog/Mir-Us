@@ -12,7 +12,7 @@ get_precursor ->
 -->To samo dzieje się w funkcji get_mirna<--
 
 get_mirna ->
-1. W informacjach o konkretnym mirna powinien być organizm
+1. W informacjach o konkretnym mirna powinien być organizm [DONE]
 2. Dodajcie możliwosc wyszukania miRNA po podaniu nazwy/id prekursora. Czyli w wyniku powinny być 1 lub 2 obiekty dla istniejących prekursorów. [DONE]
 
 
@@ -29,11 +29,11 @@ Mam wrażenie, że mówiliśmy o tym, że jak podamy organizm i chromosom, to do
 	d) organizm + chromosom + start + end + nić -> dany organizm z danego przedziału na chromosomie z danej nici
 	ewentualnie: super byłaby opcja organizm + chromosom + start lub organizm + chromosom + start + nić-> dany organizm wszystkie cząsteczki na danym chdomosomie od pozycji start do końca chromosomu
 Jak coś jeszcze Wam przychodzi do głowy to dajcie znać.
-######################################################
+###################################################### [DONE(prawdopodobnie)]
 
 get_structure -> dodajcie możliwość szukania struktury po nazwie prekursora [DONE]
 
-Przydałaby się funkcja zwracająca jakie są poziomy taksonomiczne dostępne w bazie z zachowaniem zależności pomiędzy nimi w drzewie filogenetycznym. [o co chodzi xd; edit - ze drzewo całe czy co?]
+Przydałaby się funkcja zwracająca jakie są poziomy taksonomiczne dostępne w bazie z zachowaniem zależności pomiędzy nimi w drzewie filogenetycznym. [DONE (chyba)]
 
 get_tax_level -> niech ten string poziomów taksonomicznych będzie listą w wyniku. Chyba będzie łatwiej tym dalej manewrować.
 'Metazoa;Bilateria;Deuterostoma;' --> ['Metazoa','Bilateria','Deuterostoma']  [DONE]
@@ -47,11 +47,12 @@ Zarówno z pojedynczym stringiem jak i listą.
 Fajnie byłoby dodać funkcję "find_cluster", która po podaniu nazwy lub id miRNA lub prekursora oraz zasięgu (np 10000) szuka miRNA, które znajdują się w zasięgo 10000 pozycji na genomie od tego miRNA (domyślnie upstream i downstream). Powinna być możliwość zaznaczenia, jeśli chcemy szukać tylko upstream lub downstream.
 [a co jesli jest kilka pozycji?][doable ale bolesne][DONE, ale coś nie do końca CZASEM po miRNA id dobrze działa i nie rozumiem dlaczego (upstream + down != up/down) - tak nie powinno być; EDIT to jest możliwe jednak i chyba działa dobrze]
 
-Compile_indexes -> bez plików .mir wgl nie można zainicjować obiektu miBase, dobrze by było, żeby to jakoś łapało wyjątek, jeśli takich plików nie ma i sobie je stworzyło. [compile_indexes nie działa, musze sprawdzic na pc]
+Compile_indexes -> bez plików .mir wgl nie można zainicjować obiektu miBase, dobrze by było, żeby to jakoś łapało wyjątek, jeśli takich plików nie ma i sobie je stworzyło. [raczej już działa]
 
 Czy w tym momencie podawanie wersji podczas inicjalizacji obiektu jest konieczne? [DONE - default to "CURRENT"]
 
-Możecie sprawdzić, do której wersji bazy ten program jest kompatybilny. Przetestujcie na kilku werjsach jak to wygląda, czy pliki się dobrze tworzą itp. [to zajmie czasu]
+Możecie sprawdzić, do której wersji bazy ten program jest kompatybilny. Przetestujcie na kilku werjsach jak to wygląda, czy pliki się dobrze tworzą itp. [to zajmie czasu; bez testowania, ale out of the box kompatybilne powinny być te: 22.1 (current), 22, 21]
+[kompatybilnosc 20 jest mozliwa byc moze małym nakładem pracy, dalej wygląda to gorzej raczej]
 
 Jak już gdzieś zaczynacie pisać nazwiska Dudczak -> Michalczyk to już sie tego trzymajcie, także w listowaniu maili.  [DONE]
 Do tego opisu autorów, dorzućcie Marka i mnie jako supervisors czy coś takiego  [DONE]

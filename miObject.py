@@ -102,6 +102,7 @@ class Precursor:
 #         return info
 #References: {ref_join + ref_join.join(self.references)}
 
+
 class MiRNA:
     """
     miRNA class, which contains:
@@ -122,10 +123,11 @@ class MiRNA:
         - pretty printing information from record (object)
     """
 
-    def __init__(self, prec, id, name, pos, evi, exp, end, ref):
+    def __init__(self, prec, id, name, org, pos, evi, exp, end, ref):
         self.precursor = prec
         self.mature_name = name
         self.mature_ID = id
+        self.organism = org
         self.pair_ID = None  # ID of the other miRNA in pair
         self.mature_sequence = []
         self.mature_positions = [pos]  # positions of mature miRNA on precursor in tab []
@@ -151,6 +153,7 @@ class MiRNA:
         {Fore.YELLOW}Derivative: {Fore.RESET}{', '.join(self.precursor)}
         {Fore.YELLOW}Mature sequence: {Fore.RESET}{', '.join(self.mature_sequence)}
         {Fore.YELLOW}Mature positions: {Fore.RESET}{', '.join(map(str, self.mature_positions))}
+        {Fore.YELLOW}Organism: {Fore.RESET}{self.organism}
         {Fore.YELLOW}Evidence: {Fore.RESET}{', '.join(self.evidence)}
         {Fore.YELLOW}Experiment: {Fore.RESET}{', '.join(self.experiment)}
         {Fore.YELLOW}End: {Fore.RESET}{', '.join(self.end)}
