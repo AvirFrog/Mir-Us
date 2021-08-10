@@ -9,7 +9,7 @@ from timeit import default_timer as timer
 # whole output is dumped into 'mirek_out.txt'
 
 # initialising
-m = miBase.MiRBase()
+m = miBase.MiRBase(version="22")
 #m._compile_indexes()
 
 # l = list()
@@ -210,10 +210,15 @@ obj = m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000", m
 #m.get_mirna(organism_name="Homo sapiens", mirna_id="MIMAT0050213")
 #print(type(obj))
 #print(obj)
-#print(m._miRNAs_ID["MIMAT0009754"])
+print(m._miRNAs_ID["MIMAT0009754"])
 #print(m._precursors_ID["MI0017682"])
 #m.get_tree()
 #print(m.get_mirna("MIMAT0000002")[0].__dict__)
+print(m.get_mirna("MIMAT0000002"))
+print(m.get_mirna("MIMAT0050213"))
+print(m.get_mirna("MI9999999999999"))
+m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000", mirna_id="MI9999999999999", tax_level="Viruses")
+m.get_mirna(chr="gowno", organism_name="Homo sapiens", start="153300000", mirna_id="MI9999999999999", tax_level="Virusez")
 
 
 # example results:

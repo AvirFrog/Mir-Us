@@ -10,6 +10,7 @@ import gzip
 import json
 import operator
 import urllib.request
+import os
 from collections import defaultdict as dd
 from collections import namedtuple as nt
 from functools import reduce
@@ -91,11 +92,17 @@ class MiRBase:
         self._prec_genome = {}
         self._miRNA_genome = {}
 
+        self._versions = self._cache_versions()
+
         self._loader = MiRLoad  # reference to loader class - very important
 
         self._Organism = nt('Organism', 'organism division name tree taxid')
 
         try:
+            os.makedirs(f"{os.getcwd()}/data", exist_ok=True)
+            for elem in self._versions.keys():
+                path = os.path.join("data", elem)
+                os.makedirs(path, exist_ok=True)
             self._load_all_data()
         except:
             print(f"{Fore.RED}[Mir-Us]   Missing data files (.mir); "
@@ -108,6 +115,15 @@ class MiRBase:
             #     print(f"{Fore.RED}[Mir-Us]   Error! Cannot compile data files.")
             #     return
 
+    def _cache_versions(self):
+        """
+        Caches metadata about mirBase database versions
+        :return: dictionary of mirBase database metadata
+        :rtype: dict
+        """
+        with open("versions.mir", 'rb') as ver:
+            return dill.loads(ver.read())
+
     def _compile_indexes(self):
         """
         Makes .mir files which contain indexed data.
@@ -116,28 +132,28 @@ class MiRBase:
         path = self._ftp_path + self._miRBase_version
 
         # COMPILE ORGANISMS--------------------------------------
-        self._loader.load_organisms(self, file_path=path + "/organisms.txt.gz")
-        with open('organisms.mir', 'wb') as fh_org_dump:
+        self._loader.load_organisms(self, file_path=path + self._versions[self._miRBase_version]["org_file"])
+        with open(f'data/{self._miRBase_version}/organisms.mir', 'wb') as fh_org_dump:
             dill.dump(self._organisms, fh_org_dump)
         fh_org_dump.close()
 
-        with open('org_short.mir', 'wb') as fh_orgsh_dump:
+        with open(f'data/{self._miRBase_version}/org_short.mir', 'wb') as fh_orgsh_dump:
             dill.dump(self._org_sh, fh_orgsh_dump)
         fh_orgsh_dump.close()
         # -------------------------------------------------------
 
         # COMPILE MIRNA------------------------------------------
-        self._loader.load_miRNA(self, file_path=path + "/miRNA.dat.gz")
-        self._loader.load_genome(self, file_path=path + "/genomes/")
-        with open('precursors_ID.mir', 'wb') as fh_precid_dump:
+        self._loader.load_miRNA(self, file_path=path + self._versions[self._miRBase_version]["mirna_dat"])
+        self._loader.load_genome(self, file_path=path + self._versions[self._miRBase_version]["genomes"])
+        with open(f'data/{self._miRBase_version}/precursors_ID.mir', 'wb') as fh_precid_dump:
             dill.dump(self._precursors_ID, fh_precid_dump)
         fh_precid_dump.close()
 
-        with open('precursors_name.mir', 'wb') as fh_precname_dump:
+        with open(f'data/{self._miRBase_version}/precursors_name.mir', 'wb') as fh_precname_dump:
             dill.dump(self._precursors_name, fh_precname_dump)
         fh_precname_dump.close()
 
-        with open('miRNAs_ID.mir', 'wb') as fh_mirnasid_dump:
+        with open(f'data/{self._miRBase_version}/miRNAs_ID.mir', 'wb') as fh_mirnasid_dump:
             dill.dump(self._miRNAs_ID, fh_mirnasid_dump)
         fh_mirnasid_dump.close()
 
@@ -147,26 +163,29 @@ class MiRBase:
         # -------------------------------------------------------
 
         # COMPILE HIGH-CONF--------------------------------------
-        self._loader.load_hc(self, file_path=path + "/hairpin_high_conf.fa.gz")
-        with open('high_conf.mir', 'wb') as fh_high_dump:
-            dill.dump(self._high_conf, fh_high_dump)
-        fh_high_dump.close()
+        try:
+            self._loader.load_hc(self, file_path=path + self._versions[self._miRBase_version]["high_conf"])
+            with open(f'data/{self._miRBase_version}/high_conf.mir', 'wb') as fh_high_dump:
+                dill.dump(self._high_conf, fh_high_dump)
+            fh_high_dump.close()
+        except:
+            pass
         # -------------------------------------------------------
 
         # COMPILE STRUCTURES-------------------------------------
-        self._loader.load_structures(self, file_path=path + "/miRNA.str.gz")
-        with open('structures.mir', 'wb') as fh_mirstruc_dump:
+        self._loader.load_structures(self, file_path=path + self._versions[self._miRBase_version]["mirna_str"])
+        with open(f'data/{self._miRBase_version}/structures.mir', 'wb') as fh_mirstruc_dump:
             dill.dump(self._structures, fh_mirstruc_dump)
         fh_mirstruc_dump.close()
         # -------------------------------------------------------
 
         # COMPILE TAXONOMY---------------------------------------
         self._loader.load_taxonomy(self)
-        with open('taxonomy_prec.mir', 'wb') as fh_taxprec_dump:
+        with open(f'data/{self._miRBase_version}/taxonomy_prec.mir', 'wb') as fh_taxprec_dump:
             dill.dump(self._taxonomy_of_prec, fh_taxprec_dump)
         fh_taxprec_dump.close()
 
-        with open('taxonomy_org.mir', 'wb') as fh_taxorg_dump:
+        with open(f'data/{self._miRBase_version}/taxonomy_org.mir', 'wb') as fh_taxorg_dump:
             dill.dump(self._organisms_of_prec, fh_taxorg_dump)
         fh_taxorg_dump.close()
         # -------------------------------------------------------
@@ -177,46 +196,47 @@ class MiRBase:
         :return: All data structures have their data assigned.
         """
         # LOAD ORGANISMS-----------------------------------------
-        with open('organisms.mir', 'rb') as fh_org_load:
+        with open(f'data/{self._miRBase_version}/organisms.mir', 'rb') as fh_org_load:
             self._organisms = dill.load(fh_org_load)
         fh_org_load.close()
         # -------------------------------------------------------
 
         # LOAD MIRNA---------------------------------------------
-        with open('precursors_ID.mir', 'rb') as fh_precid_load:
+        with open(f'data/{self._miRBase_version}/precursors_ID.mir', 'rb') as fh_precid_load:
             self._precursors_ID = dill.load(fh_precid_load)
         fh_precid_load.close()
 
-        with open('precursors_name.mir', 'rb') as fh_precname_load:
+        with open(f'data/{self._miRBase_version}/precursors_name.mir', 'rb') as fh_precname_load:
             self._precursors_name = dill.load(fh_precname_load)
         fh_precid_load.close()
 
-        with open('miRNAs_ID.mir', 'rb') as fh_mirnasid_load:
+        with open(f'data/{self._miRBase_version}/miRNAs_ID.mir', 'rb') as fh_mirnasid_load:
             self._miRNAs_ID = dill.load(fh_mirnasid_load)
         fh_mirnasid_load.close()
 
-        with open('org_short.mir', 'rb') as fh_orgsh_load:
+        with open(f'data/{self._miRBase_version}/org_short.mir', 'rb') as fh_orgsh_load:
             self._org_sh = dill.load(fh_orgsh_load)
         fh_orgsh_load.close()
         # -------------------------------------------------------
 
         # LOAD HIGH-CONF-----------------------------------------
-        with open('high_conf.mir', 'rb') as fh_high_load:
-            self._high_conf = dill.load(fh_high_load)
-        fh_high_load.close()
+        if self._versions[self._miRBase_version]["high_conf"] is not None:
+            with open(f'data/{self._miRBase_version}/high_conf.mir', 'rb') as fh_high_load:
+                self._high_conf = dill.load(fh_high_load)
+            fh_high_load.close()
         # -------------------------------------------------------
 
         # LOAD STRUCTURES----------------------------------------
-        with open('structures.mir', 'rb') as fh_mirstruc_load:
+        with open(f'data/{self._miRBase_version}/structures.mir', 'rb') as fh_mirstruc_load:
             self._structures = dill.load(fh_mirstruc_load)
         fh_mirstruc_load.close()
         # -------------------------------------------------------
 
         # LOAD TAXONOMY------------------------------------------
-        with open('taxonomy_prec.mir', 'rb') as fh_taxprec_load:
+        with open(f'data/{self._miRBase_version}/taxonomy_prec.mir', 'rb') as fh_taxprec_load:
             self._taxonomy_of_prec = dill.load(fh_taxprec_load)
         fh_taxprec_load.close()
-        with open('taxonomy_org.mir', 'rb') as fh_taxorg_load:
+        with open(f'data/{self._miRBase_version}/taxonomy_org.mir', 'rb') as fh_taxorg_load:
             self._organisms_of_prec = dill.load(fh_taxorg_load)
         fh_taxorg_load.close()
         # -------------------------------------------------------
@@ -814,11 +834,14 @@ class MiRBase:
         #     for mi in self._miRNAs_ID:
         #         if (strand in self._miRNAs_ID[mi].strand_mi) and not self._exists(result, self._miRNAs_ID[mi]):
         #             result.append(self._miRNAs_ID[mi])
-        if not dict_result:
-            return None
         if not len(dict_result) > 1:
-            output = list(dict_result.values())[0]
-            return output, len(output)
+            if list(dict_result.values())[0]:
+                output = list(dict_result.values())[0]
+                return output, len(output)
+            else:
+                return None
+        if len(dict_result) > 1 and not bool([res for res in dict_result.values() if res != []]):
+            return None
         print(f"{Fore.YELLOW}[Mir-Us]   Some of the given criteria were contradicting for the search system. Because of"
               f" that, the results are returned in a dictionary, where contradicting results are separated into"
               f" different search types. This search consist of (keys of generated dictionary): ")
