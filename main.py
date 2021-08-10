@@ -11,7 +11,7 @@ from timeit import default_timer as timer
 # initialising
 m = miBase.MiRBase(version="22")
 #m._compile_indexes()
-
+#
 # l = list()
 # l2 = list()
 # lnp = np.asarray(l2)
