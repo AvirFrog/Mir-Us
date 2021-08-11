@@ -21,6 +21,7 @@ import pprint as pp
 
 import dill
 from colorama import init, Fore
+from Bio import Entrez
 
 import miObject
 
@@ -106,14 +107,15 @@ class MiRBase:
             self._load_all_data()
         except:
             print(f"{Fore.RED}[Mir-Us]   Missing data files (.mir); "
-                  f"{Fore.YELLOW}performing compilation of data files...")
-            # try:
-            self._compile_indexes()
-            print(f"{Fore.YELLOW}[Mir-Us]   Data files compiled successfully!")
-            self._load_all_data()
-            # except:
-            #     print(f"{Fore.RED}[Mir-Us]   Error! Cannot compile data files.")
-            #     return
+                  f"{Fore.YELLOW}performing compilation of data files...\n"
+                  f"{Fore.YELLOW}Please, be patient, compiling might take several minutes.")
+            try:
+                self._compile_indexes()
+                print(f"{Fore.YELLOW}[Mir-Us]   Data files compiled successfully!")
+                self._load_all_data()
+            except:
+                print(f"{Fore.RED}[Mir-Us]   Error! Cannot compile data files.")
+                exit()
 
     def _cache_versions(self):
         """
@@ -1057,14 +1059,34 @@ class MiRLoad(MiRBase):
         :type file_path: str
         :return: Creates namedtuples of organisms
         """
-        with urllib.request.urlopen(file_path) as organisms_file_gz:
-            with gzip.open(organisms_file_gz, mode='rt') as organisms_file:
-                for line in organisms_file:
-                    if not line.startswith("#"):
-                        tmp = line.split('\t')
-                        self._org_sh[tmp[0]] = tmp[2]
+        #temp_list = []
+        def parse_organism_file(organisms_file):
+            Entrez.email = "Your.Name.Here@example.org"
+            for line in organisms_file:
+                line = line.decode('utf-8')
+                if not line.startswith("#"):
+                    tmp = line.split('\t')
+                    self._org_sh[tmp[0]] = tmp[2]
+                    if int(self._miRBase_version) < 20:
+                        ent_handle = Entrez.esearch(db="taxonomy", retmax=10, term=tmp[2])
+                        ent_record = Entrez.read(ent_handle)
+                        try:
+                            org = self._Organism(tmp[0], tmp[1], tmp[2], tmp[3].rstrip(), str(ent_record["IdList"][0]))
+                        except:
+                            org = self._Organism(tmp[0], tmp[1], tmp[2], tmp[3].rstrip(), None)
+                        print(f"{getattr(org, 'name')}: {getattr(org, 'taxid')}")
+                        self._organisms.append(org)
+                        # temp_list.append(tmp[2])
+                    else:
                         org = self._Organism(tmp[0], tmp[1], tmp[2], tmp[3], tmp[4].rstrip())
                         self._organisms.append(org)
+
+        with urllib.request.urlopen(file_path) as organisms_file_url:
+            if int(self._miRBase_version) < 19:
+                parse_organism_file(organisms_file_url)
+            else:
+                with gzip.open(organisms_file_url, mode='rt') as organisms_file:
+                    parse_organism_file(organisms_file)
 
     def load_miRNA(self, file_path):
         """

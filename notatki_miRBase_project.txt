@@ -52,7 +52,7 @@ Compile_indexes -> bez plików .mir wgl nie można zainicjować obiektu miBase, 
 Czy w tym momencie podawanie wersji podczas inicjalizacji obiektu jest konieczne? [DONE - default to "CURRENT"]
 
 Możecie sprawdzić, do której wersji bazy ten program jest kompatybilny. Przetestujcie na kilku werjsach jak to wygląda, czy pliki się dobrze tworzą itp. [to zajmie czasu; bez testowania, ale out of the box kompatybilne powinny być te: 22.1 (current), 22, 21]
-[kompatybilnosc 20 jest mozliwa byc moze małym nakładem pracy, dalej wygląda to gorzej raczej]
+[kompatybilnosc 20 jest mozliwa byc moze małym nakładem pracy, dalej wygląda to gorzej raczej; edit - jest do 18 wersji i to jest max]
 
 Jak już gdzieś zaczynacie pisać nazwiska Dudczak -> Michalczyk to już sie tego trzymajcie, także w listowaniu maili.  [DONE]
 Do tego opisu autorów, dorzućcie Marka i mnie jako supervisors czy coś takiego  [DONE]

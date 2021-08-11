@@ -9,7 +9,7 @@ from timeit import default_timer as timer
 # whole output is dumped into 'mirek_out.txt'
 
 # initialising
-m = miBase.MiRBase(version="22")
+m = miBase.MiRBase(version="17")
 #m._compile_indexes()
 
 # l = list()
@@ -46,7 +46,7 @@ m = miBase.MiRBase(version="22")
 # # actual test examples
 # print("----- get_organisms_list -----")
 # m.get_organisms_list()  # nothing will appear in output - just returning list of all organisms
-# #print(m.get_organisms_list())  # prints list of all organisms
+print(m.get_organisms_list())  # prints list of all organisms
 #
 # print("----- get_organisms_short -----")
 # m.get_organisms_short()  # nothing will appear in output - just returning list of all organism abbreviations
@@ -65,12 +65,12 @@ m = miBase.MiRBase(version="22")
 # m.get_taxid(["Amphimedon queenslandica", "Homo sapiens", "Chrysemys picta"])  # successful search message with elapsed time
 # m.get_taxid(["Homo", "Chrysemys picta"])  # successful search message with elapsed time
 # m.get_taxid(["Sapiens"])  # no results message
-# m.get_taxid("Chrysemys picta")  # successful search message with elapsed time
+#m.get_taxid("Chrysemys picta")  # successful search message with elapsed time
 # #print(m.get_taxid())  # no results message and then printed 'None'
 # #print(m.get_taxid(["Amphimedon queenslandica", "Homo sapiens", "Chrysemys picta"]))  # successful search message with elapsed time and printed dict with results
 # #print(m.get_taxid(["Homo", "Chrysemys picta"]))  # successful search message with elapsed time and printed dict with results
 # #print(m.get_taxid(["Sapiens"]))  # no results message and then printed 'None'
-# #print(m.get_taxid("Chrysemys picta"))  # successful search message with elapsed time and printed dict with results
+#print(m.get_taxid("Chrysemys picta"))  # successful search message with elapsed time and printed dict with results
 #
 # print("----- get_tax_level-----")
 # m.get_tax_level()  # no results message
@@ -219,7 +219,9 @@ print(m.get_mirna("MIMAT0050213"))
 print(m.get_mirna("MI9999999999999"))
 m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000", mirna_id="MI9999999999999", tax_level="Viruses")
 m.get_mirna(chr="gowno", organism_name="Homo sapiens", start="153300000", mirna_id="MI9999999999999", tax_level="Virusez")
-
+#m.get_tree()
+m.get_mirna(chr="II", organism_name="Caenorhabditis elegans")
+m.get_mirna(chr="X", organism_name="Homo sapiens")
 
 # example results:
 # instresting one ;)
