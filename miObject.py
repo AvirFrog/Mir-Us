@@ -12,7 +12,7 @@ __authors__ = ["Kacper Dudczak, Maciej Michalczyk"]
 __copyright__ = "Copyright 2021, mirBase Project"
 __credits__ = ["Marek Żywicki", "Marta Wysocka", "Kacper Dudczak", "Maciej Michalczyk"]
 __license__ = "MIT"
-__version__ = "0.1"
+__version__ = "0.2"
 __maintainer__ = ["Kacper Dudczak", "Maciej Michalczyk"]
 __email__ = ["kacper.dudczak19@gmail.com", "mccv99@gmail.com"]
 __status__ = "Production"
@@ -78,6 +78,7 @@ class Precursor:
 """
         return info
 
+
 #     def info(self):
 #         """
 #         Shows Precursor object attributes in pretty and informative form.
@@ -100,7 +101,7 @@ class Precursor:
 # High confidence: {self.high_confidence}
 # References: {self.references}"""
 #         return info
-#References: {ref_join + ref_join.join(self.references)}
+# References: {ref_join + ref_join.join(self.references)}
 
 
 class MiRNA:
@@ -110,6 +111,7 @@ class MiRNA:
         - id
         - name
         - affiliated precursors
+        - affiliated organism
         - mature sequence
         - genomic information:
             - chromosome
@@ -135,7 +137,7 @@ class MiRNA:
         self.experiment = exp
         self.end = end  # 3p, 5p, nothing
         self.chromosome_mi = []
-        #self.genome_coordinates_mi = []
+        # self.genome_coordinates_mi = []
         self.genome_coordinates_mi = defaultdict(list)
         self.strand_mi = []
         self.references = ref
@@ -174,6 +176,7 @@ class MiRNA:
         :return: Returns full mature sequence of miRNA derived from precursor sequence
         :rtype: str
         """
+        #return prec_seq[int(pos[0]) - 1:int(pos[1])]
         seq = prec_seq[int(pos[0]) - 1:int(pos[1])]
         self.mature_sequence.append(seq)
 

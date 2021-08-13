@@ -46,7 +46,7 @@ m = miBase.MiRBase(version="17")
 # # actual test examples
 # print("----- get_organisms_list -----")
 # m.get_organisms_list()  # nothing will appear in output - just returning list of all organisms
-print(m.get_organisms_list())  # prints list of all organisms
+#print(m.get_organisms_list())  # prints list of all organisms
 #
 # print("----- get_organisms_short -----")
 # m.get_organisms_short()  # nothing will appear in output - just returning list of all organism abbreviations
@@ -220,9 +220,24 @@ print(m.get_mirna("MI9999999999999"))
 m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000", mirna_id="MI9999999999999", tax_level="Viruses")
 m.get_mirna(chr="gowno", organism_name="Homo sapiens", start="153300000", mirna_id="MI9999999999999", tax_level="Virusez")
 #m.get_tree()
-m.get_mirna(chr="II", organism_name="Caenorhabditis elegans")
-m.get_mirna(chr="X", organism_name="Homo sapiens")
+#m.get_mirna(chr="II", organism_name="Caenorhabditis elegans")
+#m.get_mirna(chr="X", organism_name="Homo sapiens")
+print(m.get_mirna(mirna_id="MIMAT0002614"))
+print(m.get_mirna(mirna_id="MIMAT0029118"))
+print(m.get_precursor(id="MI0005013"))
+print(m.get_precursor(id="MI0003024"))
+print(m.get_mirna(mirna_id=["MIMAT0015054", "MIMAT0015056"]))
+print(m.get_mirna(name="hsa-miR-3179"))
+print(m.get_precursor(id="MI0008605"))
+print(m.get_precursor(name="ptr-mir-30c-1"))
+print(len(m._precursors_name))
+print(len(m._matures_name))
+#uguaaacauccuacacucucagc                            agauacuguaaacauccuacacucucagcuguggaaaguaagaaagcugggagaaggcuguuuacucuuucu
+#uguaaacauccuacacucucagc
+#uguaguguguguaaacauccuac
 
+
+#print(m._precursors_name)
 # example results:
 # instresting one ;)
 #         Mature ID: MIMAT0029111

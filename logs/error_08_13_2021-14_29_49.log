@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "C:\Users\mccv9\PycharmProjects\Mir-Us\miBase.py", line 105, in __init__
+    self._load_all_data()
+  File "C:\Users\mccv9\PycharmProjects\Mir-Us\miBase.py", line 211, in _load_all_data
+    with open(f'data/{self._miRBase_version}/organisms.mir', 'rb') as fh_org_load:
+FileNotFoundError: [Errno 2] No such file or directory: 'data/17/organisms.mir'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\mccv9\PycharmProjects\Mir-Us\miBase.py", line 111, in __init__
+    self._compile_indexes()
+  File "C:\Users\mccv9\PycharmProjects\Mir-Us\miBase.py", line 143, in _compile_indexes
+    self._loader.load_organisms(self, file_path=path + self._versions[self._miRBase_version]["org_file"])
+KeyError: '17'

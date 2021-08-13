@@ -11,18 +11,15 @@ import json
 import operator
 import urllib.request
 import os
+import traceback
+import datetime
 from collections import defaultdict as dd
 from collections import namedtuple as nt
 from functools import reduce
 from timeit import default_timer as timer
-from varname import nameof
-import numpy as np
-import pprint as pp
-
 import dill
 from colorama import init, Fore
 from Bio import Entrez
-
 import miObject
 
 __authors__ = ["Kacper Dudczak, Maciej Michalczyk"]
@@ -42,7 +39,7 @@ init(autoreset=True)
 # DECORATORS
 def time_this(func):
     """
-    Decorator which returns information about execution of decorated function
+    Decorator which returns information about execution of decorated function.
     :param func: Any miBase function
     :return: Execution time and values returned by a function
     """
@@ -73,25 +70,26 @@ class MiRBase:
     """
 
     def __init__(self, version="CURRENT"):
-        self._ftp_path = "ftp://mirbase.org/pub/mirbase/"
-        self._miRBase_version = version
-        self._working_directory = "./"
-        self._miRNAs_ID = {}  # dct of miRNA ID = miRNA object
-        self._precursors_ID = {}  # dct of pre-miRNA_ID = Precursor object
-        self._org_sh = {}  # dct of 3-letter code and organism full name
-        self._organisms = []  # list of tuples Organism = nt('Organism', 'organism division name tree taxid') a moze slownik?
-        self._taxonomy_of_prec = dd(list)  # dct of every tax level with list of precursor and/or miRNAs IDs
-        self._organisms_of_prec = dd(list)  # dct of every organism with list of precursors and/or miRNAs IDs
+        self._ftp_path = "ftp://mirbase.org/pub/mirbase/"  # main path to all files in mirbase ftp
+        self._miRBase_version = version  # version on which current instance of tool will be working
+        self._working_directory = "./"  # most likely unused
+        self._miRNAs_ID = {}  # dict of miRNA ID : miRNA object
+        self._precursors_ID = {}  # dict of pre-miRNA_ID : Precursor object
+        self._org_sh = {}  # dict of 3-letter code : organism full name
+        self._organisms = []  # list of namedtuples Organism = nt('Organism', 'organism division name tree taxid')
+        self._taxonomy_of_prec = dd(list)  # dict of every tax level with list of precursor and/or miRNAs IDs
+        self._organisms_of_prec = dd(list)  # dict of every organism with list of precursors and/or miRNAs IDs
         self._high_conf = []  # list of high confidence pre-miRNAs and/or miRNAs (IDs)
-        self._done_coordinates = []  # list of 3-letter organisms codes when function get_coordinates for specific organism was performed
-        self._structures = {}  # dct of pre-miRNA ID and their structures from miRNA.str file
-        self._precursors_name = {}
-        self._matures_name = {}
-        self._system_name = ""
-        self._pre_org = {}  # key = 3 leter id of organism, value = list of prec
-        self._mi_org = {}  # key = 3 leter id of organism, value = list of mi
-        self._prec_genome = {}
-        self._miRNA_genome = {}
+        self._done_coordinates = []  # unused (list of 3-letter organisms codes when function get_coordinates for
+        # specific organism was performed)
+        self._structures = {}  # dict of pre-miRNA ID and their structures from miRNA.str file
+        self._precursors_name = {}  # dict of pre-miRNA name : pre-miRNA ID
+        self._matures_name = {}  # dict of miRNA name : miRNA ID
+        self._system_name = ""  # unused
+        self._pre_org = {}  # most likely unused (key = 3 leter id of organism, value = list of prec)
+        self._mi_org = {}  # most likely unused (key = 3 leter id of organism, value = list of mi)
+        self._prec_genome = {}  # unused
+        self._miRNA_genome = {}  # unused
 
         self._versions = self._cache_versions()
 
@@ -108,13 +106,21 @@ class MiRBase:
         except:
             print(f"{Fore.RED}[Mir-Us]   Missing data files (.mir); "
                   f"{Fore.YELLOW}performing compilation of data files...\n"
-                  f"{Fore.YELLOW}Please, be patient, compiling might take several minutes.")
+                  f"{Fore.YELLOW}Please, be patient, compiling will take several minutes.")
             try:
                 self._compile_indexes()
                 print(f"{Fore.YELLOW}[Mir-Us]   Data files compiled successfully!")
                 self._load_all_data()
-            except:
-                print(f"{Fore.RED}[Mir-Us]   Error! Cannot compile data files.")
+            except Exception as e:
+                msg = f"{Fore.RED}[Mir-Us]   Error! Cannot compile data files:"
+                if isinstance(e, KeyError):
+                    msg = msg + f"{Fore.RED} Given database version is not compatible with the tool or unexpected " \
+                                f"key appeared.\n"
+                os.makedirs(f"{os.getcwd()}/logs", exist_ok=True)
+                time = datetime.datetime.now().strftime("%m_%d_%Y-%H_%M_%S")
+                with open(f"logs/error_{time}.log", "a") as f_log:
+                    f_log.write(traceback.format_exc())
+                print(msg + "Log file with full error description is located in /logs directory.")
                 exit()
 
     def _cache_versions(self):
@@ -158,6 +164,10 @@ class MiRBase:
         with open(f'data/{self._miRBase_version}/miRNAs_ID.mir', 'wb') as fh_mirnasid_dump:
             dill.dump(self._miRNAs_ID, fh_mirnasid_dump)
         fh_mirnasid_dump.close()
+
+        with open(f'data/{self._miRBase_version}/matures_name.mir', 'wb') as fh_maturename_dump:
+            dill.dump(self._matures_name, fh_maturename_dump)
+        fh_maturename_dump.close()
 
         # with open('org_short.mir', 'wb') as fh_orgsh_dump:
         #     dill.dump(self._org_sh, fh_orgsh_dump)
@@ -215,6 +225,10 @@ class MiRBase:
         with open(f'data/{self._miRBase_version}/miRNAs_ID.mir', 'rb') as fh_mirnasid_load:
             self._miRNAs_ID = dill.load(fh_mirnasid_load)
         fh_mirnasid_load.close()
+
+        with open(f'data/{self._miRBase_version}/matures_name.mir', 'rb') as fh_maturename_load:
+            self._matures_name = dill.load(fh_maturename_load)
+        fh_maturename_load.close()
 
         with open(f'data/{self._miRBase_version}/org_short.mir', 'rb') as fh_orgsh_load:
             self._org_sh = dill.load(fh_orgsh_load)
@@ -344,7 +358,7 @@ class MiRBase:
         tax_codes = list(map(lambda x: getattr(x, "tree"), self._organisms))
         tax_codes = [x.rstrip(";").split(";") for x in tax_codes]
         tax_dct = dict(zip(organism_codes, tax_codes))
-        #print(tax_dct)
+        # print(tax_dct)
         for key, value in tax_dct.items():
             if tax in value:
                 result.append(key)
@@ -425,18 +439,18 @@ class MiRBase:
         if name:
             for prec in self._precursors_ID:
                 if (self._precursors_ID[prec].precursor_name == name) and not self._exists(result,
-                                                                                            self._precursors_ID[prec]):
+                                                                                           self._precursors_ID[prec]):
                     result.append(self._precursors_ID[prec])
         if organism_name:
             for prec in self._precursors_ID:
                 if (self._precursors_ID[prec].organism == organism_name) and not self._exists(result,
-                                                                                               self._precursors_ID[
-                                                                                                   prec]):
+                                                                                              self._precursors_ID[
+                                                                                                  prec]):
                     result.append(self._precursors_ID[prec])
         if tax_level:
             for prec in self._precursors_ID:
                 if (tax_level in self._precursors_ID[prec].taxonomy) and not self._exists(result,
-                                                                                           self._precursors_ID[prec]):
+                                                                                          self._precursors_ID[prec]):
                     result.append(self._precursors_ID[prec])
         if mirna_id:
             for elem in mirna_id:
@@ -449,12 +463,12 @@ class MiRBase:
         if chr:
             for prec in self._precursors_ID:
                 if (chr in self._precursors_ID[prec].chromosome) and not self._exists(result,
-                                                                                       self._precursors_ID[prec]):
+                                                                                      self._precursors_ID[prec]):
                     result.append(self._precursors_ID[prec])
         if strand:
             for prec in self._precursors_ID:
                 if (strand in self._precursors_ID[prec].strand) and not self._exists(result,
-                                                                                      self._precursors_ID[prec]):
+                                                                                     self._precursors_ID[prec]):
                     result.append(self._precursors_ID[prec])
         if start and end:
             int_start = int(start)
@@ -619,16 +633,17 @@ class MiRBase:
         """
         if isinstance(mirna_id, str):
             mirna_id = [mirna_id]
-        #print(locals())
+        # print(locals())
         dict_result = {}
-        #result = []
+        # result = []
         first = True
 
         if not end and start or start and end or organism_name and chr or organism_name and strand:
             result = []
             if organism_name:
                 for mi in self._miRNAs_ID:
-                    if (self._miRNAs_ID[mi].organism == organism_name) and not self._exists(result, self._miRNAs_ID[mi]):
+                    if (self._miRNAs_ID[mi].organism == organism_name) and not self._exists(result,
+                                                                                            self._miRNAs_ID[mi]):
                         result.append(self._miRNAs_ID[mi])
                 first = False
             if chr:
@@ -639,16 +654,16 @@ class MiRBase:
                             result.append(self._miRNAs_ID[mi])
                     first = False
                 elif not first:
-                    #count = 0
-                    #print(len(result))
+                    # count = 0
+                    # print(len(result))
                     for res in result:
-                        #count += 1
-                        #print(f"Current {(count)}: {res.chromosome_mi}")
+                        # count += 1
+                        # print(f"Current {(count)}: {res.chromosome_mi}")
                         if chr in res.chromosome_mi and not self._exists(temp_result, res):
-                            #print(f"Kept:{res.chromosome_mi}")
+                            # print(f"Kept:{res.chromosome_mi}")
                             temp_result.append(res)
                 result = temp_result
-                #print("Chr from genomic context")
+                # print("Chr from genomic context")
             if strand:
                 temp_result = []
                 if first:
@@ -661,7 +676,7 @@ class MiRBase:
                         if strand in res.strand_mi and not self._exists(temp_result, res):
                             temp_result.append(res)
                 result = temp_result
-                #print("Strand from genomic context")
+                # print("Strand from genomic context")
             if start and end:
                 temp_result = []
                 if first:
@@ -678,7 +693,7 @@ class MiRBase:
                                     f_stop = int(coord[1])
                                 except:
                                     continue
-                                if (int_start <= f_start < int_end) and (int_start < f_stop <= int_end)\
+                                if (int_start <= f_start < int_end) and (int_start < f_stop <= int_end) \
                                         and not self._exists(result, self._miRNAs_ID[mi]):
                                     result.append(self._miRNAs_ID[mi])
                     first = False
@@ -696,7 +711,7 @@ class MiRBase:
                                     f_stop = int(coord[1])
                                 except:
                                     continue
-                                if (int_start <= f_start < int_end) and (int_start < f_stop <= int_end)\
+                                if (int_start <= f_start < int_end) and (int_start < f_stop <= int_end) \
                                         and not self._exists(temp_result, res):
                                     temp_result.append(res)
                     result = temp_result
@@ -717,21 +732,21 @@ class MiRBase:
                     first = False
                 elif not first:
                     int_start = int(start)
-                    #count = 0
+                    # count = 0
                     for res in result:
-                        #count += 1
+                        # count += 1
                         for key in res.genome_coordinates_mi:
                             for coord in res.genome_coordinates_mi[key]:
                                 try:
                                     f_start = int(coord[0])
-                                    #print(f"Current {(count)}: {f_start}")
+                                    # print(f"Current {(count)}: {f_start}")
                                 except:
                                     continue
                                 if int_start <= f_start and not self._exists(temp_result, res):
                                     temp_result.append(res)
-                                    #print(f"Kept:{f_start}")
+                                    # print(f"Kept:{f_start}")
                     result = temp_result
-                #print("Only start")
+                # print("Only start")
             dict_result["genomic-search"] = result
         if mirna_id:
             result = []
@@ -740,18 +755,23 @@ class MiRBase:
         if prec_id:
             result = []
             for elem in prec_id:
-                    try:
-                        for mi in self._precursors_ID[elem].miRNAs:
-                            if not self._exists(result, mi):
-                                result.append(self._miRNAs_ID[mi])
-                    except:
-                        continue
+                try:
+                    for mi in self._precursors_ID[elem].miRNAs:
+                        if not self._exists(result, mi):
+                            result.append(self._miRNAs_ID[mi])
+                except:
+                    continue
             dict_result["prec_id-search"] = result
         if name:
             result = []
-            for mi in self._miRNAs_ID:
-                if (self._miRNAs_ID[mi].mature_name == name) and not self._exists(result, self._miRNAs_ID[mi]):
-                    result.append(self._miRNAs_ID[mi])
+            try:
+                if not self._exists(result, self._miRNAs_ID[self._matures_name[name]]):
+                    result.append(self._miRNAs_ID[self._matures_name[name]])
+            except:
+                pass
+            # for mi in self._miRNAs_ID:
+            #     if (self._miRNAs_ID[mi].mature_name == name) and not self._exists(result, self._miRNAs_ID[mi]):
+            #         result.append(self._miRNAs_ID[mi])
             dict_result["name-search"] = result
         if not start and not end and not chr and not strand and organism_name:
             result = []
@@ -759,7 +779,7 @@ class MiRBase:
                 if (self._miRNAs_ID[mi].organism == organism_name) and not self._exists(result, self._miRNAs_ID[mi]):
                     result.append(self._miRNAs_ID[mi])
             dict_result["organism-search"] = result
-            #print("Just org")
+            # print("Just org")
         if tax_level:
             result = []
             for prec in self._precursors_ID:
@@ -775,14 +795,14 @@ class MiRBase:
                 if (chr in self._miRNAs_ID[mi].chromosome_mi) and not self._exists(result, self._miRNAs_ID[mi]):
                     result.append(self._miRNAs_ID[mi])
             dict_result["chr-search"] = result
-            #print("Chr by mistake but will do the job either way")
+            # print("Chr by mistake but will do the job either way")
         if not start and not end and not organism_name and not chr and strand:
             result = []
             for mi in self._miRNAs_ID:
                 if (strand in self._miRNAs_ID[mi].strand_mi) and not self._exists(result, self._miRNAs_ID[mi]):
                     result.append(self._miRNAs_ID[mi])
             dict_result["strand-search"] = result
-            #print("Strand by mistake but will do the job either way")
+            # print("Strand by mistake but will do the job either way")
         # if mirna_id:
         #     result = [self._mirna_retrieve(i, result) for i in mirna_id if self._mirna_retrieve(i, result) is not None]
         # if prec_id:
@@ -849,7 +869,7 @@ class MiRBase:
               f" different search types. This search consist of (keys of generated dictionary): ")
         for key in dict_result.keys():
             print(f"{Fore.BLUE}'{key}': {len(dict_result[key])} results", sep="\n")
-        #print([key for key in dict_result.keys()], sep="\n")
+        # print([key for key in dict_result.keys()], sep="\n")
         return dict_result, sum([len(res) for res in list(dict_result.values())])
 
     @time_this
@@ -879,9 +899,9 @@ class MiRBase:
             count = 0
             if search_type == "up-downstream":
                 int_start = start - range
-                #print(int_start)
+                # print(int_start)
                 int_end = start + range
-                #print(int_end)
+                # print(int_end)
             if search_type == "upstream":
                 int_start = start
                 int_end = start + range
@@ -902,7 +922,7 @@ class MiRBase:
                                     continue
                                 if (int_start <= f_start < int_end) and (
                                         int_start < f_stop <= int_end) and not self._exists(
-                                        result, self._miRNAs_ID[mi]):
+                                    result, self._miRNAs_ID[mi]):
                                     count += 1
                                     print(f"{count}, {self._miRNAs_ID[mi].mature_ID}: {coord}")
                                     result.append(self._miRNAs_ID[mi])
@@ -913,9 +933,9 @@ class MiRBase:
             count = 0
             if search_type == "up-downstream":
                 int_start = start - range
-                #print(int_start)
+                # print(int_start)
                 int_end = start + range
-                #print(int_end)
+                # print(int_end)
             if search_type == "upstream":
                 int_start = start
                 int_end = start + range
@@ -933,7 +953,7 @@ class MiRBase:
                             continue
                         if (int_start <= f_start < int_end) and (
                                 int_start < f_stop <= int_end) and not self._exists(
-                                result, self._precursors_ID[prec]):
+                            result, self._precursors_ID[prec]):
                             count += 1
                             print(f"{count}, {self._precursors_ID[prec].precursor_ID}: {coord}")
                             result.append(self._precursors_ID[prec].precursor_ID)
@@ -959,14 +979,14 @@ class MiRBase:
                     for key in self._miRNAs_ID[mi].genome_coordinates_mi:
                         for coord in self._miRNAs_ID[mi].genome_coordinates_mi[key]:
                             try:
-                                #print(coord)
+                                # print(coord)
                                 f_start = int(coord[0])
                                 f_stop = int(coord[1])
                             except:
                                 continue
                             if (int_start <= f_start < int_end) and (
                                     int_start < f_stop <= int_end) and not self._exists(
-                                    result, self._miRNAs_ID[mi]):
+                                result, self._miRNAs_ID[mi]):
                                 count += 1
                                 print(f"{count}, {self._miRNAs_ID[mi].mature_ID}: {coord}")
                                 result.append(self._miRNAs_ID[mi])
@@ -982,7 +1002,7 @@ class MiRBase:
             org = self._precursors_ID[prec_id].organism
             for coord in self._precursors_ID[prec_id].genome_coordinates:
                 start_position = int(coord[0])
-                #search_prec(self, start_position, org, int(range))
+                # search_prec(self, start_position, org, int(range))
                 search_prec2(self, start_position, org, int(range))
         if not result:
             return None
@@ -1049,7 +1069,7 @@ class MiRLoad(MiRBase):
 
     def __init__(self, version):
         super().__init__(version)
-        #MiRBase.__init__(self, version)
+        # MiRBase.__init__(self, version)
         # self.base = MiRBase()
 
     def load_organisms(self, file_path):
@@ -1059,15 +1079,17 @@ class MiRLoad(MiRBase):
         :type file_path: str
         :return: Creates namedtuples of organisms
         """
-        #temp_list = []
+
+        # temp_list = []
         def parse_organism_file(organisms_file):
             Entrez.email = "Your.Name.Here@example.org"
             for line in organisms_file:
-                line = line.decode('utf-8')
+                if self._miRBase_version is not "CURRENT" and int(self._miRBase_version) < 19:
+                    line = line.decode('utf-8')
                 if not line.startswith("#"):
                     tmp = line.split('\t')
                     self._org_sh[tmp[0]] = tmp[2]
-                    if int(self._miRBase_version) < 20:
+                    if self._miRBase_version is not "CURRENT" and int(self._miRBase_version) < 20:
                         ent_handle = Entrez.esearch(db="taxonomy", retmax=10, term=tmp[2])
                         ent_record = Entrez.read(ent_handle)
                         try:
@@ -1082,7 +1104,7 @@ class MiRLoad(MiRBase):
                         self._organisms.append(org)
 
         with urllib.request.urlopen(file_path) as organisms_file_url:
-            if int(self._miRBase_version) < 19:
+            if self._miRBase_version is not "CURRENT" and int(self._miRBase_version) < 19:
                 parse_organism_file(organisms_file_url)
             else:
                 with gzip.open(organisms_file_url, mode='rt') as organisms_file:
@@ -1183,19 +1205,28 @@ class MiRLoad(MiRBase):
                                                         [miRNA_vals[5]], [e], ref)
                                 mature.get_mature_seq(seq_full, [miRNA_vals[0], miRNA_vals[1]])
                                 self._miRNAs_ID[miRNA_vals[2]] = mature
+                                self._matures_name[miRNA_vals[3]] = miRNA_vals[2]
+                                #self._miRNAs_ID[miRNA_vals[2]].mature_sequence.append(self._miRNAs_ID[miRNA_vals[2]].get_mature_seq(seq_full, (miRNA_vals[0], miRNA_vals[1])))
                                 # self._miRNAs_ID[miRNA_vals[2]] = mature.to_json()
                                 # self._miRNAs_ID[miRNA_vals[2]] = mature.dumper()
                             else:
                                 self._miRNAs_ID[miRNA_vals[2]].precursor.append(id_p)
-                                self._miRNAs_ID[miRNA_vals[2]].mature_name.append(miRNA_vals[3])
+                                if miRNA_vals[3] not in self._miRNAs_ID[miRNA_vals[2]].mature_name:
+                                    self._miRNAs_ID[miRNA_vals[2]].mature_name.append(miRNA_vals[3])
                                 self._miRNAs_ID[miRNA_vals[2]].mature_positions.append((miRNA_vals[0], miRNA_vals[1]))
                                 self._miRNAs_ID[miRNA_vals[2]].evidence.append(miRNA_vals[4])
                                 self._miRNAs_ID[miRNA_vals[2]].experiment.append(miRNA_vals[5])
                                 self._miRNAs_ID[miRNA_vals[2]].end.append(e)
+                                # self._miRNAs_ID[miRNA_vals[2]].mature_sequence.append(
+                                #     self._miRNAs_ID[miRNA_vals[2]].get_mature_seq(seq_full,
+                                #                                                   (miRNA_vals[0], miRNA_vals[1])))
                                 if len(ref) > 1:
-                                    self._miRNAs_ID[miRNA_vals[2]].references.append(ref)
+                                    pass
+                                    #self._miRNAs_ID[miRNA_vals[2]].references.append(ref)
+                                    #self._miRNAs_ID[miRNA_vals[2]].references.append(''.join(map(str, ref)))
                                 else:
-                                    self._miRNAs_ID[miRNA_vals[2]].references.append(''.join(map(str, ref)))
+                                    if ''.join(map(str, ref)) not in self._miRNAs_ID[miRNA_vals[2]].references:
+                                        self._miRNAs_ID[miRNA_vals[2]].references.append(''.join(map(str, ref)))
                                 # self._miRNAs_ID[miRNA_vals[2]].references = ref
                                 self._miRNAs_ID[miRNA_vals[2]].get_mature_seq(seq_full, [miRNA_vals[0], miRNA_vals[1]])
 
