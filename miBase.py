@@ -20,13 +20,15 @@ from timeit import default_timer as timer
 import dill
 from colorama import init, Fore
 from Bio import Entrez
+from alive_progress import alive_bar
 import miObject
+
 
 __authors__ = ["Kacper Dudczak, Maciej Michalczyk"]
 __copyright__ = "Copyright 2021, mirBase Project"
 __credits__ = ["Marek Żywicki", "Marta Wysocka", "Kacper Dudczak", "Maciej Michalczyk"]
 __license__ = "MIT"
-__version__ = "0.2"
+__version__ = "0.3"
 __maintainer__ = ["Kacper Dudczak", "Maciej Michalczyk"]
 __email__ = ["kacper.dudczak19@gmail.com", "mccv99@gmail.com"]
 __status__ = "Production"
