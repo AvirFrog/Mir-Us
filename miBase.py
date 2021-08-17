@@ -100,16 +100,16 @@ class MiRBase:
         self._loader = MiRLoad  # reference to loader class - very important
 
         self._Organism = nt('Organism', 'organism division name tree taxid')
-        print(f'''
 
-             {Fore.LIGHTGREEN_EX}ooo        ooooo  o8o                   ooooo     ooo
-             {Fore.GREEN}`88.       .888'  `"'                   `888'     `8'
-             {Fore.YELLOW} 888b     d'888  oooo  oooo d8b          888       8   .oooo.o
-             {Fore.RED} 8 Y88. .P  888  `888  `888""8P          888       8  d88(  "8
-             {Fore.LIGHTRED_EX} 8  `888'   888   888   888     8888888  888       8  `"Y88b.
-             {Fore.MAGENTA} 8    Y     888   888   888              `88.    .8'  o.  )88b
-             {Fore.CYAN}o8o        o888o o888o d888b               `YbodP'    8""888P'
-             ''')
+        print(f'''
+        {Fore.LIGHTGREEN_EX}0           o 0           o 0           o {Fore.LIGHTGREEN_EX}ooo        ooooo  o8o                   ooooo     ooo
+        {Fore.GREEN}| 0       o | | 0       o | | 0       o | {Fore.GREEN}`88.       .888'  `"'                   `888'     `8'
+        {Fore.YELLOW}| | 0   o | | | | 0   o | | | | 0   o | | {Fore.YELLOW} 888b     d'888  oooo  oooo d8b          888       8   .oooo.o
+        {Fore.RED}| | | 0 | | | | | | 0 | | | | | | 0 | | | {Fore.RED} 8 Y88. .P  888  `888  `888""8P          888       8  d88(  "8
+        {Fore.LIGHTRED_EX}| | o   0 | | | | o   0 | | | | o   0 | | {Fore.LIGHTRED_EX} 8  `888'   888   888   888     8888888  888       8  `"Y88b.
+        {Fore.MAGENTA}| o       0 | | o       0 | | o       0 | {Fore.MAGENTA} 8    Y     888   888   888              `88.    .8'  o.  )88b
+        {Fore.CYAN}o           0 o           0 o           0 {Fore.CYAN}o8o        o888o o888o d888b               `YbodP'    8""888P'
+        ''')
 
         try:
             os.makedirs(f"{os.getcwd()}/data", exist_ok=True)
