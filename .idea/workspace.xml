@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="17606669-6a61-48da-a8b0-55d7d535adc6" name="Default Changelist" comment="Big documentation update (not full though)">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+    <list default="true" id="17606669-6a61-48da-a8b0-55d7d535adc6" name="Default Changelist" comment="gitignore update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/high_conf.mir" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/22/high_conf.mir" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/22/miRNAs_ID.mir" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/22/org_short.mir" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/22/organisms.mir" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/22/precursors_ID.mir" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/22/precursors_name.mir" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/22/structures.mir" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/22/taxonomy_org.mir" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/22/taxonomy_prec.mir" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miBase.py" beforeDir="false" afterPath="$PROJECT_DIR$/miBase.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miRNAs_ID.mir" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/org_short.mir" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/organisms.mir" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/precursors_ID.mir" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/precursors_name.mir" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/structures.mir" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/taxonomy_org.mir" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/taxonomy_prec.mir" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,6 +36,7 @@
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
         <option value="hyperscroll &lt;14911686+phenolophthaleinum@users.noreply.github.com&gt;" />
+        <option value="h" />
         <option value="hyperscroll" />
         <option value="phenolophthaleinum" />
         <option value="Maciej" />
@@ -44,7 +44,7 @@
     </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="maciej-work" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -54,7 +54,7 @@
   <component name="PropertiesComponent">
     <property name="DefaultPlantUmlFileTemplate" value="UML Class" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../conda" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RunDashboard">
