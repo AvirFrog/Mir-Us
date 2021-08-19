@@ -17,16 +17,20 @@ from collections import defaultdict as dd
 from collections import namedtuple as nt
 from functools import reduce
 from timeit import default_timer as timer
+
+import colorama
 import dill
-from colorama import init, Fore
+from colorama import init, Fore, Back
 from Bio import Entrez
+from alive_progress import alive_bar
 import miObject
+
 
 __authors__ = ["Kacper Dudczak, Maciej Michalczyk"]
 __copyright__ = "Copyright 2021, mirBase Project"
 __credits__ = ["Marek Żywicki", "Marta Wysocka", "Kacper Dudczak", "Maciej Michalczyk"]
 __license__ = "MIT"
-__version__ = "0.2"
+__version__ = "0.3"
 __maintainer__ = ["Kacper Dudczak", "Maciej Michalczyk"]
 __email__ = ["kacper.dudczak19@gmail.com", "mccv99@gmail.com"]
 __status__ = "Production"
@@ -97,6 +101,16 @@ class MiRBase:
 
         self._Organism = nt('Organism', 'organism division name tree taxid')
 
+        print(f'''
+        {Fore.LIGHTGREEN_EX}0           o 0           o 0           o {Fore.LIGHTGREEN_EX}ooo        ooooo  o8o                   ooooo     ooo
+        {Fore.GREEN}| 0       o | | 0       o | | 0       o | {Fore.GREEN}`88.       .888'  `"'                   `888'     `8'
+        {Fore.YELLOW}| | 0   o | | | | 0   o | | | | 0   o | | {Fore.YELLOW} 888b     d'888  oooo  oooo d8b          888       8   .oooo.o
+        {Fore.RED}| | | 0 | | | | | | 0 | | | | | | 0 | | | {Fore.RED} 8 Y88. .P  888  `888  `888""8P          888       8  d88(  "8
+        {Fore.LIGHTRED_EX}| | o   0 | | | | o   0 | | | | o   0 | | {Fore.LIGHTRED_EX} 8  `888'   888   888   888     8888888  888       8  `"Y88b.
+        {Fore.MAGENTA}| o       0 | | o       0 | | o       0 | {Fore.MAGENTA} 8    Y     888   888   888              `88.    .8'  o.  )88b
+        {Fore.CYAN}o           0 o           0 o           0 {Fore.CYAN}o8o        o888o o888o d888b               `YbodP'    8""888P'
+        ''')
+
         try:
             os.makedirs(f"{os.getcwd()}/data", exist_ok=True)
             for elem in self._versions.keys():
@@ -109,9 +123,11 @@ class MiRBase:
                   f"{Fore.YELLOW}Please, be patient, compiling will take several minutes.")
             try:
                 self._compile_indexes()
+                init()
                 print(f"{Fore.YELLOW}[Mir-Us]   Data files compiled successfully!")
                 self._load_all_data()
             except Exception as e:
+                init()
                 msg = f"{Fore.RED}[Mir-Us]   Error! Cannot compile data files:"
                 if isinstance(e, KeyError):
                     msg = msg + f"{Fore.RED} Given database version is not compatible with the tool or unexpected " \
@@ -122,6 +138,8 @@ class MiRBase:
                     f_log.write(traceback.format_exc())
                 print(msg + "Log file with full error description is located in /logs directory.")
                 exit()
+
+
 
     def _cache_versions(self):
         """
@@ -139,68 +157,74 @@ class MiRBase:
         """
         path = self._ftp_path + self._miRBase_version
 
-        # COMPILE ORGANISMS--------------------------------------
-        self._loader.load_organisms(self, file_path=path + self._versions[self._miRBase_version]["org_file"])
-        with open(f'data/{self._miRBase_version}/organisms.mir', 'wb') as fh_org_dump:
-            dill.dump(self._organisms, fh_org_dump)
-        fh_org_dump.close()
+        with alive_bar(10, bar='blocks') as bar:
 
-        with open(f'data/{self._miRBase_version}/org_short.mir', 'wb') as fh_orgsh_dump:
-            dill.dump(self._org_sh, fh_orgsh_dump)
-        fh_orgsh_dump.close()
-        # -------------------------------------------------------
 
-        # COMPILE MIRNA------------------------------------------
-        self._loader.load_miRNA(self, file_path=path + self._versions[self._miRBase_version]["mirna_dat"])
-        self._loader.load_genome(self, file_path=path + self._versions[self._miRBase_version]["genomes"])
-        with open(f'data/{self._miRBase_version}/precursors_ID.mir', 'wb') as fh_precid_dump:
-            dill.dump(self._precursors_ID, fh_precid_dump)
-        fh_precid_dump.close()
+            # COMPILE ORGANISMS--------------------------------------
+            self._loader.load_organisms(self, file_path=path + self._versions[self._miRBase_version]["org_file"])
+            with open(f'data/{self._miRBase_version}/organisms.mir', 'wb') as fh_org_dump:
+                dill.dump(self._organisms, fh_org_dump)
+            fh_org_dump.close()
+            bar()
+            with open(f'data/{self._miRBase_version}/org_short.mir', 'wb') as fh_orgsh_dump:
+                dill.dump(self._org_sh, fh_orgsh_dump)
+            fh_orgsh_dump.close()
+            bar()
+            # -------------------------------------------------------
+            # COMPILE MIRNA------------------------------------------
+            self._loader.load_miRNA(self, file_path=path + self._versions[self._miRBase_version]["mirna_dat"])
+            self._loader.load_genome(self, file_path=path + self._versions[self._miRBase_version]["genomes"])
+            with open(f'data/{self._miRBase_version}/precursors_ID.mir', 'wb') as fh_precid_dump:
+                dill.dump(self._precursors_ID, fh_precid_dump)
+            fh_precid_dump.close()
+            with open(f'data/{self._miRBase_version}/precursors_name.mir', 'wb') as fh_precname_dump:
+                dill.dump(self._precursors_name, fh_precname_dump)
+            fh_precname_dump.close()
+            bar()
+            with open(f'data/{self._miRBase_version}/miRNAs_ID.mir', 'wb') as fh_mirnasid_dump:
+                dill.dump(self._miRNAs_ID, fh_mirnasid_dump)
+            fh_mirnasid_dump.close()
+            bar()
+            with open(f'data/{self._miRBase_version}/matures_name.mir', 'wb') as fh_maturename_dump:
+                dill.dump(self._matures_name, fh_maturename_dump)
+            fh_maturename_dump.close()
+            bar()
+            # with open('org_short.mir', 'wb') as fh_orgsh_dump:
+            #     dill.dump(self._org_sh, fh_orgsh_dump)
+            # fh_orgsh_dump.close()
+            # -------------------------------------------------------
 
-        with open(f'data/{self._miRBase_version}/precursors_name.mir', 'wb') as fh_precname_dump:
-            dill.dump(self._precursors_name, fh_precname_dump)
-        fh_precname_dump.close()
+            # COMPILE HIGH-CONF--------------------------------------
+            try:
+                self._loader.load_hc(self, file_path=path + self._versions[self._miRBase_version]["high_conf"])
+                with open(f'data/{self._miRBase_version}/high_conf.mir', 'wb') as fh_high_dump:
+                    dill.dump(self._high_conf, fh_high_dump)
+                fh_high_dump.close()
+            except:
+                pass
+            bar()
+            # -------------------------------------------------------
 
-        with open(f'data/{self._miRBase_version}/miRNAs_ID.mir', 'wb') as fh_mirnasid_dump:
-            dill.dump(self._miRNAs_ID, fh_mirnasid_dump)
-        fh_mirnasid_dump.close()
+            # COMPILE STRUCTURES-------------------------------------
+            self._loader.load_structures(self, file_path=path + self._versions[self._miRBase_version]["mirna_str"])
+            with open(f'data/{self._miRBase_version}/structures.mir', 'wb') as fh_mirstruc_dump:
+                dill.dump(self._structures, fh_mirstruc_dump)
+            fh_mirstruc_dump.close()
+            bar()
+            # -------------------------------------------------------
 
-        with open(f'data/{self._miRBase_version}/matures_name.mir', 'wb') as fh_maturename_dump:
-            dill.dump(self._matures_name, fh_maturename_dump)
-        fh_maturename_dump.close()
+            # COMPILE TAXONOMY---------------------------------------
+            self._loader.load_taxonomy(self)
+            with open(f'data/{self._miRBase_version}/taxonomy_prec.mir', 'wb') as fh_taxprec_dump:
+                dill.dump(self._taxonomy_of_prec, fh_taxprec_dump)
+            fh_taxprec_dump.close()
+            bar()
+            with open(f'data/{self._miRBase_version}/taxonomy_org.mir', 'wb') as fh_taxorg_dump:
+                dill.dump(self._organisms_of_prec, fh_taxorg_dump)
+            fh_taxorg_dump.close()
+            bar()
+            # -------------------------------------------------------
 
-        # with open('org_short.mir', 'wb') as fh_orgsh_dump:
-        #     dill.dump(self._org_sh, fh_orgsh_dump)
-        # fh_orgsh_dump.close()
-        # -------------------------------------------------------
-
-        # COMPILE HIGH-CONF--------------------------------------
-        try:
-            self._loader.load_hc(self, file_path=path + self._versions[self._miRBase_version]["high_conf"])
-            with open(f'data/{self._miRBase_version}/high_conf.mir', 'wb') as fh_high_dump:
-                dill.dump(self._high_conf, fh_high_dump)
-            fh_high_dump.close()
-        except:
-            pass
-        # -------------------------------------------------------
-
-        # COMPILE STRUCTURES-------------------------------------
-        self._loader.load_structures(self, file_path=path + self._versions[self._miRBase_version]["mirna_str"])
-        with open(f'data/{self._miRBase_version}/structures.mir', 'wb') as fh_mirstruc_dump:
-            dill.dump(self._structures, fh_mirstruc_dump)
-        fh_mirstruc_dump.close()
-        # -------------------------------------------------------
-
-        # COMPILE TAXONOMY---------------------------------------
-        self._loader.load_taxonomy(self)
-        with open(f'data/{self._miRBase_version}/taxonomy_prec.mir', 'wb') as fh_taxprec_dump:
-            dill.dump(self._taxonomy_of_prec, fh_taxprec_dump)
-        fh_taxprec_dump.close()
-
-        with open(f'data/{self._miRBase_version}/taxonomy_org.mir', 'wb') as fh_taxorg_dump:
-            dill.dump(self._organisms_of_prec, fh_taxorg_dump)
-        fh_taxorg_dump.close()
-        # -------------------------------------------------------
 
     def _load_all_data(self):
         """
