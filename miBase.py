@@ -28,7 +28,7 @@ import miObject
 
 __authors__ = ["Kacper Dudczak, Maciej Michalczyk"]
 __copyright__ = "Copyright 2021, mirBase Project"
-__credits__ = ["Marek Żywicki", "Marta Wysocka", "Kacper Dudczak", "Maciej Michalczyk"]
+__credits__ = ["Kacper Dudczak", "Maciej Michalczyk", "Marta Wysocka", "Marek Żywicki"]
 __license__ = "MIT"
 __version__ = "0.3"
 __maintainer__ = ["Kacper Dudczak", "Maciej Michalczyk"]
@@ -44,6 +44,7 @@ init(autoreset=True)
 def time_this(func):
     """
     Decorator which returns information about execution of decorated function.
+
     :param func: Any miBase function
     :return: Execution time and values returned by a function
     """
@@ -144,6 +145,7 @@ class MiRBase:
     def _cache_versions(self):
         """
         Caches metadata about mirBase database versions
+
         :return: dictionary of mirBase database metadata
         :rtype: dict
         """
@@ -153,6 +155,7 @@ class MiRBase:
     def _compile_indexes(self):
         """
         Makes .mir files which contain indexed data.
+
         :return: .mir files
         """
         path = self._ftp_path + self._miRBase_version
@@ -229,6 +232,7 @@ class MiRBase:
     def _load_all_data(self):
         """
         Loads all data from .mir files
+
         :return: All data structures have their data assigned.
         """
         # LOAD ORGANISMS-----------------------------------------
@@ -288,6 +292,7 @@ class MiRBase:
     def _merge_data(self):
         """
         Merges data - some data structures lacks certain parts and this function completes it.
+
         :return: Data structures completed with information which is connected between them.
         """
         # MERGE HIGH_CONF----------------------------------------
@@ -335,6 +340,7 @@ class MiRBase:
     def get_organisms_list(self):
         """
         Returns list of organisms.
+
         :return: list of organism namedtuples
         :rtype: list
         """
@@ -344,6 +350,7 @@ class MiRBase:
     def get_tax_level(self, organism=None):
         """
         Returns taxonomy level assigned to organism.
+
         :param organism: list of names (strings) of organisms
         :type organism: list
         :return: dictionary of organisms and its assigned taxonomy (key: organism, value: taxonomy)
@@ -372,6 +379,7 @@ class MiRBase:
     def get_organism(self, tax=None):
         """
         Returns organisms which are assigned to a given taxonomy level.
+
         :param tax: string representing taxonomy level
         :type tax: str
         :return: list of strings representing organisms
@@ -395,6 +403,7 @@ class MiRBase:
     def get_organisms_short(self):
         """
         Returns dictionary of all organism name and its abbreviation
+
         :return: dictionary (key: abbreviation, value: full organism name)
         :rtype: dict
         """
@@ -404,6 +413,7 @@ class MiRBase:
     def get_taxid(self, organism=None):
         """
         Returns taxid assigned to organism
+
         :param organism: list of strings representing organisms
         :type organism: list
         :return: dictionary of organisms with assigned taxid (key: full organism name, value: taxid)
@@ -432,8 +442,8 @@ class MiRBase:
                       end="", strand='', mirna_id=""):
         """
         Returns precursor objects according to given search criteria
-        :param id: list of strings representing ids of precursors
-            (default is None)
+
+        :param id: list of strings representing ids of precursors (default is None)
         :type id: list
         :param name: name of precursor
         :type name: str
@@ -517,13 +527,12 @@ class MiRBase:
     def get_references(self, mirna_id=None, mirna_name=None, prec_id=None, link=False):
         """
         Returns list of reference numbers
+
         :param prec_id: list of strings representing ids of precursors
         :param link: bool value which forces function to return PubMed links instead of reference numbers
-        :param mirna_id: list of strings representing ids of miRNA
-            (default is None)
+        :param mirna_id: list of strings representing ids of miRNA (default is None)
         :type mirna_id: list
-        :param mirna_name: list of strings representing names of miRNA
-            (default is None)
+        :param mirna_name: list of strings representing names of miRNA (default is None)
         :type mirna_name: list
         :return: list of strings representing reference numbers
         :rtype: list
@@ -576,10 +585,9 @@ class MiRBase:
     def get_structure(self, id=None, name=None):
         """
         Returns dictionary of precursors ids with assigned structures in dot-bracket format
-        :param name: list of strings representing precursors name
-            (default is None)
-        :param id: list of strings representing precursors ids
-            (default is None)
+
+        :param name: list of strings representing precursors name (default is None)
+        :param id: list of strings representing precursors ids (default is None)
         :type id: list
         :return: dictionary of precursors ids with assigned structure (key: precursor id, value: structure)
         :rtype: dict
@@ -616,6 +624,7 @@ class MiRBase:
         """
         Utility function, which compares list of objects to particular object, to check if compared object is present
         in the list
+
         :param to_compare: list of objects of any type
         :type to_compare: list
         :param obj: object of any type to be compared with list of objects
@@ -632,11 +641,10 @@ class MiRBase:
                   end="", strand='', prec_id: list = None):
         """
         Returns miRNA objects according to given search criteria
-        :param prec_id: list of strings representing ids of precursors
-            (default is None)
+
+        :param prec_id: list of strings representing ids of precursors (default is None)
         :type prec_id: list
-        :param mirna_id: list of strings representing ids of miRNAs
-            (default is None)
+        :param mirna_id: list of strings representing ids of miRNAs (default is None)
         :type mirna_id: list
         :param name: name of miRNA
         :type name: str
@@ -900,6 +908,7 @@ class MiRBase:
     def find_cluster(self, mirna_id=None, prec_id=None, search_type="up-downstream", range=None):
         """
         Returns all miRNAs present within given range from given miRNA in organism genome (dependent from given miRNA)
+
         :type mirna_id: str
         :param mirna_id: string representing miRNA's id
         :type prec_id: str
@@ -1038,6 +1047,7 @@ class MiRBase:
         """
         Returns taxonomy tree, where each taxonomy level is a dictionary (nested dictionaries as access to another
         taxonomy level and list of organisms at particular taxonomy level if has any)
+
         :return: dictionary representing full taxonomy tree of organisms present in the base
         :rtype: dict
         """
@@ -1099,6 +1109,7 @@ class MiRLoad(MiRBase):
     def load_organisms(self, file_path):
         """
         Parses file with organisms (for 'current' database version - organisms.txt.gz)
+
         :param file_path: ftp path to files
         :type file_path: str
         :return: Creates namedtuples of organisms
@@ -1137,6 +1148,7 @@ class MiRLoad(MiRBase):
     def load_miRNA(self, file_path):
         """
         Parses file with miRNA data (for 'current' database version - miRNA.dat.gz)
+
         :param file_path: ftp path to files
         :type file_path: str
         :return: Creates Precursor and miRNA objects
@@ -1257,6 +1269,7 @@ class MiRLoad(MiRBase):
     def load_hc(self, file_path):
         """
         Parses file with high-confidence data (for 'current' database version - hairpin_high_conf.fa.gz)
+
         :param file_path: ftp path to files
         :type file_path: str
         :return: Complements Precursor objects with information about high confidence of hairpin existence
@@ -1272,6 +1285,7 @@ class MiRLoad(MiRBase):
     def load_structures(self, file_path):
         """
         Parses file with structure data (for 'current' database version - miRNA.str.gz)
+
         :param file_path: ftp path to files
         :type file_path: str
         :return: Complements Precursor objects with structures in dot-bracket format
@@ -1348,6 +1362,7 @@ class MiRLoad(MiRBase):
     def load_taxonomy(self):
         """
         Uses existing information to create dictionary of taxonomy
+
         :return: Complements Precursor objects with information about taxonony of organisms
         """
         organism_codes = list(map(lambda x: getattr(x, "name"), self._organisms))  # lista wszystkich kodów organizmow
@@ -1370,6 +1385,7 @@ class MiRLoad(MiRBase):
     def load_genome(self, file_path):
         """
         Parses file with genomic data (for 'current' database version - /genomes/<organism>.gff3)
+
         :param file_path: ftp path to files
         :type file_path: str
         :return: Complements Precursor and miRNA objects with genomic information (chromosome, strand, coordinates)
