@@ -1,7 +1,8 @@
 """
-File with definition of objects used in the package. All of custom objects are defined here:
-- Precursor object
-- MiRNA object
+Provides definition of objects used in the package. All of custom objects are defined here:
+    - Precursor object
+
+    - MiRNA object
 """
 
 from collections import defaultdict
@@ -23,25 +24,46 @@ init(autoreset=True)
 
 
 class Precursor:
+    # """
+    # Precursor class, which contains:
+    #     - all data structures used to store information about precursors
+    #
+    #         - id
+    #         - name
+    #         - affiliated miRNAs
+    #         - sequence
+    #         - affiliated organism
+    #         - full taxonomy of organism
+    #
+    #         - genomic information
+    #
+    #             - chromosome
+    #             - strand
+    #             - coordinates
+    #
+    #         - precursor confidence
+    #         - references
+    #
+    #     - utility functions
+    #
+    #         - pretty printing information from record (object)
+    # """
+    """Precursor class to store information from a single Precursor record
+    Attributes:
+        precursor_ID (str): Precursor ID
+        precursor_name (str): Precursor name
+        miRNAs (list[str]): Affiliated miRNA IDs
+        structure (str): Structure of precursor in dot-bracket format
+        precursor_sequence (str): Nucleotide sequence of precursor
+        organism (str): Name of affiliated organism
+        taxonomy (list[str]): Full taxonomy of affiliated organism
+        chromosome (list[str]): Chromosome names
+        genome_coordinates (list[tuple(str, str)]): Genome coordinates of precursor
+        strand (list[str]): Strand type ('+' or '-')
+        high_confidence (bool): False by default
+        references (list[str]): References from Pubmed (accession numbers)
     """
-    Precursor class, which contains:
 
-    - all data structures used to store information about precursors:
-        - id
-        - name
-        - affiliated miRNAs
-        - sequence
-        - affiliated organism
-        - full taxonomy of organism
-        - genomic information:
-            - chromosome
-            - strand
-            - coordinates
-        - precursor confidence
-        - references
-    - utility functions:
-        - pretty printing information from record (object)
-    """
 
     def __init__(self, id, name, seq, org, ref, mirnas):
         self.precursor_ID = id
@@ -58,10 +80,10 @@ class Precursor:
         self.high_confidence = False  # False by default
 
     def __repr__(self):
-        """
-        Overrides print method to show Precursor object attributes in pretty and informative form.
-        :return:  information about Precursor object attributes
-        :rtype: str
+        """Overridden print method to show Precursor object attributes in pretty and informative form.
+
+        Returns:
+            str: All attributes from an object in 'Attribute: values' form.
         """
         info = f"""
         {Fore.YELLOW}Precursor ID: {Fore.RESET}{self.precursor_ID}
@@ -106,24 +128,40 @@ class Precursor:
 
 
 class MiRNA:
-    """
-    miRNA class, which contains:
-    - all data structures used to store information about miRNA:
-        - id
-        - name
-        - affiliated precursors
-        - affiliated organism
-        - mature sequence
-        - genomic information:
-            - chromosome
-            - strand
-            - coordinates
-        - experiment backing
-        - evidence
-        - references
-    - utility functions:
-        - retrieving mature sequence
-        - pretty printing information from record (object)
+    # """
+    # miRNA class, which contains:
+    # - all data structures used to store information about miRNA:
+    #     - id
+    #     - name
+    #     - affiliated precursors
+    #     - affiliated organism
+    #     - mature sequence
+    #     - genomic information:
+    #         - chromosome
+    #         - strand
+    #         - coordinates
+    #     - experiment backing
+    #     - evidence
+    #     - references
+    # - utility functions:
+    #     - retrieving mature sequence
+    #     - pretty printing information from record (object)
+    # """
+    """miRNA class to store information from a single miRNA record
+    Attributes:
+        mature_name (list[str]): miRNA names
+        mature_ID (list[str]): miRNA IDs
+        precursor (list[str]): IDs of affiliated precursors
+        mature_sequence (list[str]): Mature miRNA sequences
+        mature_positions (list[tuple(str, str)]): Pairs of mature seuqences positions from precursors
+        organism (str): Name of affiliated organism
+        evidence (list[str]): Evidence type
+        experiment (list[str]): Types of conducted experiments to discover this miRNA (with numbers matching the reference index)
+        end (list[str]): Strand end ('3p', '5p' or '-')
+        chromosome_mi (list[str]): Chromosome names
+        gen_coords (defaultdict[list[tuple(str, str)]]): Genome coordinates of miRNA from affiliated precursor
+        strand_mi (list[str]): Strand type ('+' or '-')
+        references (list[str]): References from Pubmed (accession numbers)
     """
 
     def __init__(self, prec, id, name, org, pos, evi, exp, end, ref):
@@ -144,10 +182,10 @@ class MiRNA:
         self.references = ref
 
     def __repr__(self):
-        """
-        Overrides print method to show miRNA object attributes in pretty and informative form.
-        :return:  information about miRNA object attributes
-        :rtype: str
+        """Overridden print method to show miRNA object attributes in pretty and informative form.
+
+        Returns:
+            str: All attributes from an object in 'Attribute: values' form.
         """
         gen_coords = pp.pformat(dict(self.genome_coordinates_mi))
         info = f"""
@@ -168,14 +206,21 @@ class MiRNA:
         return info
 
     def get_mature_seq(self, prec_seq, pos):
-        """
-        Returns miRNA's mature sequence
-        :param prec_seq: precursor sequence
-        :type prec_seq: str
-        :param pos: positions of start and end for mature sequence
-        :type pos: list
-        :return: Returns full mature sequence of miRNA derived from precursor sequence
-        :rtype: str
+        # """Returns miRNA's mature sequence
+        #
+        # :param prec_seq: precursor sequence
+        # :type prec_seq: str
+        # :param pos: positions of start and end for mature sequence
+        # :type pos: list
+        # :return: Returns full mature sequence of miRNA derived from precursor sequence
+        # :rtype: str
+        # """
+        """Sets miRNA's mature sequence
+
+        Args:
+            prec_seq (str): precursor sequence
+            pos (list[str]): positions of start and end for mature sequence
+
         """
         #return prec_seq[int(pos[0]) - 1:int(pos[1])]
         seq = prec_seq[int(pos[0]) - 1:int(pos[1])]

@@ -66,15 +66,20 @@ def time_this(func):
 
 # CLASSES
 class MiRBase:
-    """
-    Main class, which contains:
-    - all data structures used to store information
-    - all functions to retrieve information by user
-    - all functions to load data from indexed files (.mir files)
-    - all functions to compile data into indexed files (.mir files)
+    """Main operational class. This class defines which version of database will be used. Defines all available
+    functions to retrieve data by user.
+
     """
 
     def __init__(self, version="CURRENT"):
+        """Initializes MiRBase object from which data can be accessed using provided functions. Database version might
+        be specified.
+
+        !!! info "There are multiple versions of miRBase database compatible with Mir-Us. [Details :octicons-link-16:](versions.md){ .md-button .md-button--primary }"
+
+        Args:
+            version (str): ID of database version. "CURRENT" is the most recent version (22.1).
+        """
         self._ftp_path = "ftp://mirbase.org/pub/mirbase/"  # main path to all files in mirbase ftp
         self._miRBase_version = version  # version on which current instance of tool will be working
         self._working_directory = "./"  # most likely unused
@@ -143,20 +148,17 @@ class MiRBase:
 
 
     def _cache_versions(self):
-        """
-        Caches metadata about mirBase database versions
+        """Caches metadata about miRBase database versions
 
-        :return: dictionary of mirBase database metadata
-        :rtype: dict
+        Returns:
+            dict: miRBase database metadata
         """
         with open("versions.mir", 'rb') as ver:
             return dill.loads(ver.read())
 
     def _compile_indexes(self):
-        """
-        Makes .mir files which contain indexed data.
+        """Produces .mir files which contain indexed data.
 
-        :return: .mir files
         """
         path = self._ftp_path + self._miRBase_version
 
@@ -230,10 +232,8 @@ class MiRBase:
 
 
     def _load_all_data(self):
-        """
-        Loads all data from .mir files
+        """Loads all data from .mir files and assigns to data structures
 
-        :return: All data structures have their data assigned.
         """
         # LOAD ORGANISMS-----------------------------------------
         with open(f'data/{self._miRBase_version}/organisms.mir', 'rb') as fh_org_load:
@@ -290,10 +290,8 @@ class MiRBase:
         # -------------------------------------------------------
 
     def _merge_data(self):
-        """
-        Merges data - some data structures lacks certain parts and this function completes it.
+        """Merges data - some data structures lacks certain parts and this function completes them.
 
-        :return: Data structures completed with information which is connected between them.
         """
         # MERGE HIGH_CONF----------------------------------------
         for item in self._high_conf:
@@ -338,23 +336,24 @@ class MiRBase:
         return res
 
     def get_organisms_list(self):
-        """
-        Returns list of organisms.
+        """Returns list of all organisms.
 
-        :return: list of organism namedtuples
-        :rtype: list
+        Returns:
+            list[namedtuple]: Organism namedtuple which is organized as follows: (organism="abbreviation", division="abbreviation",
+            name="full latin name", tree="organism tax tree", taxid="organism NCBI taxonomy ID")
         """
         return self._organisms
 
     @time_this
     def get_tax_level(self, organism=None):
-        """
-        Returns taxonomy level assigned to organism.
+        """Returns taxonomy level assigned to organism.
 
-        :param organism: list of names (strings) of organisms
-        :type organism: list
-        :return: dictionary of organisms and its assigned taxonomy (key: organism, value: taxonomy)
-        :rtype: dict
+        Args:
+            organism (list[str]): list of organisms names
+
+        Returns:
+            Optional[dict]: Dictionary of organisms and its assigned taxonomy, which is a list of tax levels
+            (key: organism, value: taxonomy) or `None` if no results are found.
         """
         if isinstance(organism, str):
             organism = [organism]
@@ -377,13 +376,14 @@ class MiRBase:
 
     @time_this
     def get_organism(self, tax=None):
-        """
-        Returns organisms which are assigned to a given taxonomy level.
+        """Returns organisms which are assigned to a given taxonomy level.
 
-        :param tax: string representing taxonomy level
-        :type tax: str
-        :return: list of strings representing organisms
-        :rtype: list
+        Args:
+            tax (str): Full name of taxonomy level
+
+        Returns:
+            Optional[list[str]]: Full names of organisms representing given taxonomy level or `None` if no results are
+            found.
         """
         result = []
         organism_codes = list(map(lambda x: getattr(x, "name"), self._organisms))  # lista wszystkich kodów organizmow
@@ -401,24 +401,39 @@ class MiRBase:
         return result, len(result)
 
     def get_organisms_short(self):
-        """
-        Returns dictionary of all organism name and its abbreviation
+        # """Returns dictionary of all organisms names and their abbreviations
+        #
+        # :return: dictionary (key: abbreviation, value: full organism name)
+        # :rtype: dict
+        # """
+        """Returns dictionary of all organisms names and their abbreviations
 
-        :return: dictionary (key: abbreviation, value: full organism name)
-        :rtype: dict
+        Returns:
+            dict: Following dictionary organisation: (key: abbreviation, value: full organism name)
         """
+
         return self._org_sh
 
     @time_this
     def get_taxid(self, organism=None):
-        """
-        Returns taxid assigned to organism
+        # """
+        # Returns taxid assigned to organism
+        #
+        # :param organism: list of strings representing organisms
+        # :type organism: list
+        # :return: dictionary of organisms with assigned taxid (key: full organism name, value: taxid)
+        # :rtype: dict
+        # """
+        """Returns NCBI taxonomy ID (taxid) assigned to organism
 
-        :param organism: list of strings representing organisms
-        :type organism: list
-        :return: dictionary of organisms with assigned taxid (key: full organism name, value: taxid)
-        :rtype: dict
+        Args:
+            organism (list[str]): Full organism name
+
+        Returns:
+            Optional[dict]: Dictionary of organisms with assigned taxid (key: full organism name, value: taxid) or
+            `None` if no results are found.
         """
+
         if isinstance(organism, str):
             organism = [organism]
         result = {}
@@ -440,30 +455,47 @@ class MiRBase:
     @time_this
     def get_precursor(self, id: list = None, name="", organism_name="", tax_level="", chr="", start="",
                       end="", strand='', mirna_id=""):
-        """
-        Returns precursor objects according to given search criteria
+        # """
+        # Returns precursor objects according to given search criteria
+        #
+        # :param id: list of strings representing ids of precursors (default is None)
+        # :type id: list
+        # :param name: name of precursor
+        # :type name: str
+        # :param organism_name: organism name in which precursor is present
+        # :type organism_name: str
+        # :param tax_level: taxonomy level affiliated with precursor
+        # :type tax_level: str
+        # :param chr: chromosome name in which precursor is present
+        # :type chr: str
+        # :param start: genomic location in which precursor sequence starts
+        # :type start: str
+        # :param end: genomic location in which precursor sequence ends
+        # :type end: str
+        # :param strand: strand name in which precursor is present
+        # :type strand: str
+        # :param mirna_id: string representing id of miRNA affiliated with precursor
+        # :type mirna_id: str
+        # :return: list of Precursor objects
+        # :rtype: list
+        # """
+        """Returns precursor objects according to a given search criteria
 
-        :param id: list of strings representing ids of precursors (default is None)
-        :type id: list
-        :param name: name of precursor
-        :type name: str
-        :param organism_name: organism name in which precursor is present
-        :type organism_name: str
-        :param tax_level: taxonomy level affiliated with precursor
-        :type tax_level: str
-        :param chr: chromosome name in which precursor is present
-        :type chr: str
-        :param start: genomic location in which precursor sequence starts
-        :type start: str
-        :param end: genomic location in which precursor sequence ends
-        :type end: str
-        :param strand: strand name in which precursor is present
-        :type strand: str
-        :param mirna_id: string representing id of miRNA affiliated with precursor
-        :type mirna_id: str
-        :return: list of Precursor objects
-        :rtype: list
+        Args:
+            id (list[str]): Precursor IDs
+            name (str): Precursor name
+            organism_name (str): Full organism name in which precursor is present
+            tax_level (str): Taxonomy level affiliated with precursor
+            chr (str): Chromosome name in which precursor is present
+            start (str): Genomic location in which precursor sequence starts
+            end (str): Genomic location in which precursor sequence ends
+            strand (str): Strand name in which precursor is present
+            mirna_id (str): ID of affiliated miRNA with precursor
+
+        Returns:
+            Optional[list[Precursor]]: Objects matching given criteria or `None` if no results are found.
         """
+
         if isinstance(id, str):
             id = [id]
         result = []
@@ -525,18 +557,31 @@ class MiRBase:
 
     @time_this
     def get_references(self, mirna_id=None, mirna_name=None, prec_id=None, link=False):
-        """
-        Returns list of reference numbers
+        # """
+        # Returns list of reference numbers
+        #
+        # :param prec_id: list of strings representing ids of precursors
+        # :param link: bool value which forces function to return PubMed links instead of reference numbers
+        # :param mirna_id: list of strings representing ids of miRNA (default is None)
+        # :type mirna_id: list
+        # :param mirna_name: list of strings representing names of miRNA (default is None)
+        # :type mirna_name: list
+        # :return: list of strings representing reference numbers
+        # :rtype: list
+        # """
+        """Returns list of references
 
-        :param prec_id: list of strings representing ids of precursors
-        :param link: bool value which forces function to return PubMed links instead of reference numbers
-        :param mirna_id: list of strings representing ids of miRNA (default is None)
-        :type mirna_id: list
-        :param mirna_name: list of strings representing names of miRNA (default is None)
-        :type mirna_name: list
-        :return: list of strings representing reference numbers
-        :rtype: list
+        Args:
+            mirna_id (list[str]): IDs of miRNA
+            mirna_name (list[str]): Full miRNA names
+            prec_id (list[str]): IDs of precursors
+            link (bool): A flag, which forces function to return PubMed links instead of reference numbers
+
+        Returns:
+            Optional[list[str]]: Reference accession numbers or Pubmed links (depending on `link` flag) or `None` if no
+            results are found.
         """
+
         if isinstance(mirna_id, str):
             mirna_id = [mirna_id]
         if isinstance(mirna_name, str):
@@ -583,15 +628,26 @@ class MiRBase:
 
     @time_this
     def get_structure(self, id=None, name=None):
-        """
-        Returns dictionary of precursors ids with assigned structures in dot-bracket format
+        # """
+        # Returns dictionary of precursors ids with assigned structures in dot-bracket format
+        #
+        # :param name: list of strings representing precursors name (default is None)
+        # :param id: list of strings representing precursors ids (default is None)
+        # :type id: list
+        # :return: dictionary of precursors ids with assigned structure (key: precursor id, value: structure)
+        # :rtype: dict
+        # """
+        """Returns dictionary of precursors IDs with assigned structures in dot-bracket format
 
-        :param name: list of strings representing precursors name (default is None)
-        :param id: list of strings representing precursors ids (default is None)
-        :type id: list
-        :return: dictionary of precursors ids with assigned structure (key: precursor id, value: structure)
-        :rtype: dict
+        Args:
+            id (list[str]): Precursor IDs
+            name (list[str]): Full precursor names
+
+        Returns:
+            Optional[dict]: Dictionary of precursors ids with assigned structure (key: precursor id, value: structure)
+            or `None` if no results are found.
         """
+
         result = {}
         if isinstance(id, str):
             id = [id]
@@ -621,16 +677,26 @@ class MiRBase:
         return result, len(result)
 
     def _exists(self, to_compare, obj):
-        """
-        Utility function, which compares list of objects to particular object, to check if compared object is present
-        in the list
+        # """
+        # Utility function, which compares list of objects to particular object, to check if compared object is present
+        # in the list
+        #
+        # :param to_compare: list of objects of any type
+        # :type to_compare: list
+        # :param obj: object of any type to be compared with list of objects
+        # :type obj: object
+        # :return: returns True if compared object is present in the list of objects
+        # :rtype: bool
+        # """
+        """Utility function, which compares list of objects to particular object, to check if compared object is present
+         in the list
 
-        :param to_compare: list of objects of any type
-        :type to_compare: list
-        :param obj: object of any type to be compared with list of objects
-        :type obj: object
-        :return: returns True if compared object is present in the list of objects
-        :rtype: bool
+        Args:
+            to_compare (list[Any]): List of objects to compare
+            obj (Any): Object to be compared with list of objects
+
+        Returns:
+            bool: True if compared object is present in the list of objects
         """
         for elem in to_compare:
             if elem is obj:
@@ -639,30 +705,77 @@ class MiRBase:
     @time_this
     def get_mirna(self, mirna_id: list = None, name="", organism_name="", tax_level="", chr="", start="",
                   end="", strand='', prec_id: list = None):
-        """
-        Returns miRNA objects according to given search criteria
+        # """
+        # Returns miRNA objects according to given search criteria
+        #
+        # :param prec_id: list of strings representing ids of precursors (default is None)
+        # :type prec_id: list
+        # :param mirna_id: list of strings representing ids of miRNAs (default is None)
+        # :type mirna_id: list
+        # :param name: name of miRNA
+        # :type name: str
+        # :param organism_name: organism name in which miRNA is present
+        # :type organism_name: str
+        # :param tax_level: taxonomy level affiliated with miRNA
+        # :type tax_level: str
+        # :param chr: chromosome name in which miRNA is present
+        # :type chr: str
+        # :param start: genomic location in which miRNA sequence starts
+        # :type start: str
+        # :param end: genomic location in which miRNA sequence ends
+        # :type end: str
+        # :param strand: strand name in which miRNA is present
+        # :type strand: str
+        # :return: list of miRNA objects
+        # :rtype: list
+        # """
+        """Returns miRNA objects according to given search criteria.
 
-        :param prec_id: list of strings representing ids of precursors (default is None)
-        :type prec_id: list
-        :param mirna_id: list of strings representing ids of miRNAs (default is None)
-        :type mirna_id: list
-        :param name: name of miRNA
-        :type name: str
-        :param organism_name: organism name in which miRNA is present
-        :type organism_name: str
-        :param tax_level: taxonomy level affiliated with miRNA
-        :type tax_level: str
-        :param chr: chromosome name in which miRNA is present
-        :type chr: str
-        :param start: genomic location in which miRNA sequence starts
-        :type start: str
-        :param end: genomic location in which miRNA sequence ends
-        :type end: str
-        :param strand: strand name in which miRNA is present
-        :type strand: str
-        :return: list of miRNA objects
-        :rtype: list
+        Args:
+            mirna_id (list[str]): miRNA IDs
+            name (str): Full miRNA name
+            organism_name (str): Organism name affiliated with miRNA
+            tax_level (str): Taxonomy level affiliated with miRNA
+            chr (str):  Chromosome name in which miRNA is present
+            start (str): Genomic location in which miRNA sequence starts
+            end (str): Genomic location in which miRNA sequence ends
+            strand (str): Strand name in which miRNA is present
+            prec_id (list[str]): Affiliated precursor IDs
+
+        Returns:
+            Optional[list[MiRNA], dict]: `list` of miRNA objects matching criteria **only if single search is conducted.** `dict` **only if
+            multiple searches are conducted.** For each search type (**look info below**) a `list` of miRNA objects that matches criteria is
+             returned. Eventually, `None` if no results are found.
+
+        ???+ info "miRNA search types"
+            There are a few search 'types', depending on search criteria. That means, if the user choose a set of
+            criteria that will be interpreted as contradicting, a separate search will be conducted for each 'type'.
+            This is important, because multiple searches in single function call will return a dictionary with
+            categorized search results.
+
+            **Search types:**
+
+            | Search type      | Set of criteria                                         |
+            | ---------------- | ------------------------------------------------------- |
+            | `mirna_id-search`| Only `mirna_id`                                         |
+            | `prec_id-search` | Only `prec_id`                                          |
+            | `name-search`    | Only `name`                                             |
+            | `organism-search`| Only `organism_name`                                    |
+            | `tax-search`     | Only `tax_level`                                        |
+            | `chr-search`     | Only `chr`                                              |
+            | `strand-search`  | Only `strand`                                           |
+            | `genomic-search` | Combinations of `organism-name, chr, strand, start, end`|
+
+            !!! warning "Search type is also a key in returned dictionary which allows to access found data."
+
+            **Possible function returns:**
+
+            | Condition                                 | Returned structure                   |
+            | ----------------------------------------- | ------------------------------------ |
+            | Single search (only one type of search)   | `list` of found objects or `None`    |
+            | Multiple searches (contradicting types)   | `dict` of 'type: [found objects]' or `None`. If certain type of search was unsuccessful, its value will be `None` |
         """
+
         if isinstance(mirna_id, str):
             mirna_id = [mirna_id]
         # print(locals())
@@ -906,39 +1019,59 @@ class MiRBase:
 
     @time_this
     def find_cluster(self, mirna_id=None, prec_id=None, search_type="up-downstream", range=None):
-        """
-        Returns all miRNAs present within given range from given miRNA in organism genome (dependent from given miRNA)
+        # """
+        # Returns all miRNAs present within given range from given miRNA in organism genome (dependent from given miRNA)
+        #
+        # :type mirna_id: str
+        # :param mirna_id: string representing miRNA's id
+        # :type prec_id: str
+        # :param prec_id: string representing precursor's id
+        # :type search_type: str
+        # :param search_type: string or int representing search type. The types are:
+        # - "up-downstream" - the search will be conducted below and above given miRNA position within given range
+        # ("up-downstream" is default)
+        # - "upstream" - the search will be conducted only above given miRNA position within given range
+        # - "downstream" - the search will be conducted only below given miRNA position within given range
+        # :type range: str
+        # :param range: string or int representing length of genome to be searched
+        # :return: list of miRNA objects
+        # :rtype: list
+        # """
+        """Returns all miRNAs present within given range from given miRNA in affiliated organism genome.
 
-        :type mirna_id: str
-        :param mirna_id: string representing miRNA's id
-        :type prec_id: str
-        :param prec_id: string representing precursor's id
-        :type search_type: str
-        :param search_type: string or int representing search type. The types are:
-        - "up-downstream" - the search will be conducted below and above given miRNA position within given range
-        ("up-downstream" is default)
-        - "upstream" - the search will be conducted only above given miRNA position within given range
-        - "downstream" - the search will be conducted only below given miRNA position within given range
-        :type range: str
-        :param range: string or int representing length of genome to be searched
-        :return: list of miRNA objects
-        :rtype: list
+        Args:
+            mirna_id (str): miRNA ID
+            prec_id (str): Precursor ID
+            search_type (Union[str, int]): Search type which determines how to search genomic space (**look info below**).
+            range (str): Length of genome to be searched
+
+        Returns:
+            Optional[list[MiRNA]]: miRNA objects matching given criteria or `None` if no results are found
+
+        ???+ info "Cluster search types"
+
+            | Search type            | Explanation                                             |
+            | ---------------------- | ------------------------------------------------------- |
+            | `up-downstream` or `0` | The search is conducted below and above given miRNA position within given range.|
+            | `upstream` or `1`      | The search is conducted only above given miRNA position within given range.|
+            | `downstream` or `2`    | The search is conducted only below given miRNA position within given range.|
         """
+
         result = []
 
         def search_prec(self, start, org, range):
             int_start = 0
             int_end = 0
             count = 0
-            if search_type == "up-downstream":
+            if search_type == "up-downstream" or search_type == 0:
                 int_start = start - range
                 # print(int_start)
                 int_end = start + range
                 # print(int_end)
-            if search_type == "upstream":
+            if search_type == "upstream" or search_type == 1:
                 int_start = start
                 int_end = start + range
-            if search_type == "downstream":
+            if search_type == "downstream" or search_type == 2:
                 int_start = start - range
                 # print(int_start)
                 int_end = start
@@ -964,15 +1097,15 @@ class MiRBase:
             int_start = 0
             int_end = 0
             count = 0
-            if search_type == "up-downstream":
+            if search_type == "up-downstream" or search_type == 0:
                 int_start = start - range
                 # print(int_start)
                 int_end = start + range
                 # print(int_end)
-            if search_type == "upstream":
+            if search_type == "upstream" or search_type == 1:
                 int_start = start
                 int_end = start + range
-            if search_type == "downstream":
+            if search_type == "downstream" or search_type == 2:
                 int_start = start - range
                 # print(int_start)
                 int_end = start
@@ -995,15 +1128,15 @@ class MiRBase:
             int_start = 0
             int_end = 0
             count = 0
-            if search_type == "up-downstream":
+            if search_type == "up-downstream" or search_type == 0:
                 int_start = start - range
                 print(f"new_start: {int_start}")
                 int_end = start + range
                 print(f"new_end: {int_end}")
-            if search_type == "upstream":
+            if search_type == "upstream" or search_type == 1:
                 int_start = start
                 int_end = start + range
-            if search_type == "downstream":
+            if search_type == "downstream" or search_type == 2:
                 int_start = start - range
                 # print(int_start)
                 int_end = start
@@ -1044,13 +1177,20 @@ class MiRBase:
 
     @time_this
     def get_tree(self):
-        """
-        Returns taxonomy tree, where each taxonomy level is a dictionary (nested dictionaries as access to another
+        # """
+        # Returns taxonomy tree, where each taxonomy level is a dictionary (nested dictionaries as access to another
+        # taxonomy level and list of organisms at particular taxonomy level if has any)
+        #
+        # :return: dictionary representing full taxonomy tree of organisms present in the base
+        # :rtype: dict
+        # """
+        """Returns taxonomy tree, where each taxonomy level is a dictionary (nested dictionaries as access to another
         taxonomy level and list of organisms at particular taxonomy level if has any)
 
-        :return: dictionary representing full taxonomy tree of organisms present in the base
-        :rtype: dict
+        Returns:
+            dict: Full taxonomy tree of organisms present in the base (equivalent to [Browse miRBase by species](https://www.mirbase.org/cgi-bin/browse.pl))
         """
+
         organism_codes = list(map(lambda x: getattr(x, "name"), self._organisms))  # lista wszystkich kodów organizmow
         tax_codes = list(map(lambda x: getattr(x, "tree"), self._organisms))
         tax_codes = [x.rstrip(";").split(";") for x in tax_codes]

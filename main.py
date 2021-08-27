@@ -9,7 +9,7 @@ from timeit import default_timer as timer
 # whole output is dumped into 'mirek_out.txt'
 
 # initialising
-m = miBase.MiRBase(version="22")
+m = miBase.MiRBase(version="CURRENT")
 #m._compile_indexes()
 
 # l = list()
@@ -232,6 +232,10 @@ print(m.get_precursor(id="MI0008605"))
 print(m.get_precursor(name="ptr-mir-30c-1"))
 print(len(m._precursors_name))
 print(len(m._matures_name))
+m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000")
+print(type(m._precursors_ID["MI0008605"].genome_coordinates[0]))
+print(m.get_organisms_list())
+print(m.get_tax_level("Homo sapiens"))
 #uguaaacauccuacacucucagc                            agauacuguaaacauccuacacucucagcuguggaaaguaagaaagcugggagaaggcuguuuacucuuucu
 #uguaaacauccuacacucucagc
 #uguaguguguguaaacauccuac
