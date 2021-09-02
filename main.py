@@ -9,7 +9,7 @@ from timeit import default_timer as timer
 # whole output is dumped into 'mirek_out.txt'
 
 # initialising
-m = miBase.MiRBase(version="CURRENT")
+m = miBase.MiRBase(version="21")
 #m._compile_indexes()
 
 # l = list()
@@ -210,32 +210,44 @@ obj = m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000", m
 #m.get_mirna(organism_name="Homo sapiens", mirna_id="MIMAT0050213")
 #print(type(obj))
 #print(obj)
-print(m._miRNAs_ID["MIMAT0009754"])
+# print(m._miRNAs_ID["MIMAT0009754"])
 #print(m._precursors_ID["MI0017682"])
 #m.get_tree()
 #print(m.get_mirna("MIMAT0000002")[0].__dict__)
-print(m.get_mirna("MIMAT0000002"))
-print(m.get_mirna("MIMAT0050213"))
-print(m.get_mirna("MI9999999999999"))
+# print(m.get_mirna("MIMAT0000002"))
+# print(m.get_mirna("MIMAT0050213"))
+# print(m.get_mirna("MI9999999999999"))
 m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000", mirna_id="MI9999999999999", tax_level="Viruses")
-m.get_mirna(chr="gowno", organism_name="Homo sapiens", start="153300000", mirna_id="MI9999999999999", tax_level="Virusez")
+# m.get_mirna(chr="gowno", organism_name="Homo sapiens", start="153300000", mirna_id="MI9999999999999", tax_level="Virusez")
 #m.get_tree()
 #m.get_mirna(chr="II", organism_name="Caenorhabditis elegans")
 #m.get_mirna(chr="X", organism_name="Homo sapiens")
-print(m.get_mirna(mirna_id="MIMAT0002614"))
-print(m.get_mirna(mirna_id="MIMAT0029118"))
-print(m.get_precursor(id="MI0005013"))
-print(m.get_precursor(id="MI0003024"))
-print(m.get_mirna(mirna_id=["MIMAT0015054", "MIMAT0015056"]))
-print(m.get_mirna(name="hsa-miR-3179"))
-print(m.get_precursor(id="MI0008605"))
-print(m.get_precursor(name="ptr-mir-30c-1"))
-print(len(m._precursors_name))
-print(len(m._matures_name))
-m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000")
-print(type(m._precursors_ID["MI0008605"].genome_coordinates[0]))
-print(m.get_organisms_list())
-print(m.get_tax_level("Homo sapiens"))
+# print(m.get_mirna(mirna_id="MIMAT0002614"))
+# print(m.get_mirna(mirna_id="MIMAT0029118"))
+# print(m.get_precursor(id="MI0005013"))
+# print(m.get_precursor(id="MI0003024"))
+# print(m.get_mirna(mirna_id=["MIMAT0015054", "MIMAT0015056"]))
+# print(m.get_mirna(name="hsa-miR-3179"))
+# print(m.get_precursor(id="MI0008605"))
+# print(m.get_precursor(name="ptr-mir-30c-1"))
+# print(len(m._precursors_name))
+# print(len(m._matures_name))
+print(m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000"))
+print(m.get_precursor("MI0015972"))
+print(m.get_mirna("MIMAT0005829"))
+hconfs = 0
+for record in m._precursors_ID:
+    if m._precursors_ID[record].high_confidence is True:
+        hconfs += 1
+print(hconfs)  # 3320 for 22.1
+                # 2162 for 22
+                # 1996 for 21
+                # 0 from 20 and lower
+print(m.get_precursor("MI0001370"))
+# print(type(m._precursors_ID["MI0008605"].genome_coordinates[0]))
+# print(m.get_organisms_list())
+# print(m.get_tax_level("Homo sapiens"))
+#m.get_tree()
 #uguaaacauccuacacucucagc                            agauacuguaaacauccuacacucucagcuguggaaaguaagaaagcugggagaaggcuguuuacucuuucu
 #uguaaacauccuacacucucagc
 #uguaguguguguaaacauccuac

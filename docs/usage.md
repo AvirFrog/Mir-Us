@@ -1,5 +1,5 @@
-# Usage example
-This section shows an example usage of the Mir-Us package. There are a few steps that have to be done to receive data from [miRBase](https://www.mirbase.org/).
+# Getting started
+This section shows an example usage of the Mir-Us package for the absolute beginner. There are a few steps that have to be done to receive data from [miRBase](https://www.mirbase.org/).
 
 ## Import package
 To use the package, it must be first imported:
@@ -41,4 +41,10 @@ This prints search report into your standard output and most importantly, return
 ```
 [Mir-Us]  'get_mirna' found 9 results in 0.091857 seconds
 ```
-More information about all available functions is here.
+
+## Next steps
+With this basic knowledge it is now possible to learn Mir-Us in-depth. If one is looking for specific application of this tool, then it is suggested to read the 'User cookbook'. If one is looking for more specific information about some functionality, then it is advisable to read the 'Reference documentation'.
+
+**It's time to choose!**
+
+[User cookbook :fontawesome-solid-book-medical:](cookbook.md){ .md-button .md-button--primary }   [Reference documentation :octicons-book-16:](miObject.md){ .md-button .md-button--primary }

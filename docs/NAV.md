@@ -1,6 +1,7 @@
 - [Introduction](index.md)
-    - [Usage example](usage.md)
-- [Reference documentation](ref-doc.md)
+    - [Getting started](usage.md)
 - [Compatibility](versions.md)
+- [Reference documentation](ref-doc.md)
 - [Changelog](changelog.md)
 - [License](license.md)
+

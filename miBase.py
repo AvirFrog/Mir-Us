@@ -744,9 +744,10 @@ class MiRBase:
 
         Returns:
             Optional[list[MiRNA], dict]: `list` of miRNA objects matching criteria **only if single search is conducted.** `dict` **only if
-            multiple searches are conducted.** For each search type (**look info below**) a `list` of miRNA objects that matches criteria is
+            multiple searches are conducted.** For each search type ([**additional information**](#additional-information)) a `list` of miRNA objects that matches criteria is
              returned. Eventually, `None` if no results are found.
 
+        ## Additional information:
         ???+ info "miRNA search types"
             There are a few search 'types', depending on search criteria. That means, if the user choose a set of
             criteria that will be interpreted as contradicting, a separate search will be conducted for each 'type'.
@@ -1042,12 +1043,13 @@ class MiRBase:
         Args:
             mirna_id (str): miRNA ID
             prec_id (str): Precursor ID
-            search_type (Union[str, int]): Search type which determines how to search genomic space (**look info below**).
+            search_type (Union[str, int]): Search type which determines how to search genomic space ([**additional information**](#additional-information)).
             range (str): Length of genome to be searched
 
         Returns:
             Optional[list[MiRNA]]: miRNA objects matching given criteria or `None` if no results are found
 
+        ## Additional information:
         ???+ info "Cluster search types"
 
             | Search type            | Explanation                                             |

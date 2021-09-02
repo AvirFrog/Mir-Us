@@ -8,11 +8,15 @@ theme:
   features:
     - navigation.top
   palette:
-    - scheme: mirus
+    - scheme: default
+      primary: cyan
+      accent: cyan
       toggle:
         icon: material/lightbulb-outline
         name: Switch to dark mode
     - scheme: slate
+      primary: teal
+      accent: teal
       toggle:
         icon: material/lightbulb
         name: Switch to light mode
@@ -64,5 +68,22 @@ markdown_extensions:
 plugins:
 - search
 - mkdocstrings
-- literate-nav:
-      nav_file: NAV.md
+
+nav:
+  - Introduction:
+    - Home: index.md
+    - Getting started: usage.md
+  - Compatibility:
+    - Compatibility: versions.md
+    - Detailed change lists:
+        - Version 22: v22-diff.md
+        - Version 21: v21-diff.md
+        - Version 20: v20-diff.md
+        - Version 19: v19-diff.md
+        - Version 18: v18-diff.md
+  - User cookbook: cookbook.md
+  - Reference documentation:
+    - miObject.py: miObject.md
+    - miBase.py: miBase.md
+  - Changelog: changelog.md
+  - License: license.md
