@@ -33,14 +33,16 @@ Receiving data requires the usage of provided functions, each of them is designe
 For example, one might want to obtain information about existing miRNAs on a human's chromosome X upstream from 153300000th nucleotide. For this task, the function `get_mirna` is the most suitable.
 
 !!! example "Example of miRNA search on human's chromosome X from specific genomic location"
-    ```python
-    data = m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000")
-    ```
+    === "Code"
+        ```python
+        data = m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000")
+        ```
+    === "Result"
+        ```
+        [Mir-Us]  'get_mirna' found 9 results in 0.091857 seconds
+        ```
 
-This prints search report into your standard output and most importantly, returns a list of miRNA objects which contain all parsed information:
-```
-[Mir-Us]  'get_mirna' found 9 results in 0.091857 seconds
-```
+In the 'Result' tab a search report was printed to stdout and most importantly, a list of miRNA objects was returned, which contain all the parsed information.
 
 ## Next steps
 With this basic knowledge it is now possible to learn Mir-Us in-depth. If one is looking for specific application of this tool, then it is suggested to read the 'User cookbook'. If one is looking for more specific information about some functionality, then it is advisable to read the 'Reference documentation'.

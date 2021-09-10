@@ -9,7 +9,7 @@ from timeit import default_timer as timer
 # whole output is dumped into 'mirek_out.txt'
 
 # initialising
-m = miBase.MiRBase(version="21")
+m = miBase.MiRBase(version="CURRENT")
 #m._compile_indexes()
 
 # l = list()
@@ -45,8 +45,20 @@ m = miBase.MiRBase(version="21")
 
 # # actual test examples
 # print("----- get_organisms_list -----")
-# m.get_organisms_list()  # nothing will appear in output - just returning list of all organisms
-#print(m.get_organisms_list())  # prints list of all organisms
+# organisms = m.get_organisms_list()  # nothing will appear in output - just returning list of all organisms
+# print(m.get_organisms_list())  # prints list of all organisms
+# gallus = [nt for nt in organisms if getattr(nt, "name") == "Gallus gallus"][0]
+# print(gallus)
+# print(getattr(gallus, "organism"))
+# print(getattr(gallus, "name"))
+# print(getattr(gallus, "tree"))
+# print(getattr(gallus, "taxid"))
+# shorts = m.get_organisms_short()
+# gallus = shorts['gga']
+# print(gallus)
+#
+# short_gal = list(shorts.keys())[list(shorts.values()).index("Gallus gallus")]
+# print(short_gal)
 #
 # print("----- get_organisms_short -----")
 # m.get_organisms_short()  # nothing will appear in output - just returning list of all organism abbreviations
@@ -59,6 +71,7 @@ m = miBase.MiRBase(version="21")
 # print(m.get_organism())  # no results message and then printed 'None'
 # print(m.get_organism("Viruses"))  # successful search message with elapsed time and then printed list with results
 # print(m.get_organism("Dogs"))  # no results message and then printed 'None'
+print(m.get_organism("Aves"))
 
 # print("----- get_taxid-----")
 # m.get_taxid()  # no results message
@@ -67,10 +80,15 @@ m = miBase.MiRBase(version="21")
 # m.get_taxid(["Sapiens"])  # no results message
 #m.get_taxid("Chrysemys picta")  # successful search message with elapsed time
 # #print(m.get_taxid())  # no results message and then printed 'None'
-# #print(m.get_taxid(["Amphimedon queenslandica", "Homo sapiens", "Chrysemys picta"]))  # successful search message with elapsed time and printed dict with results
-# #print(m.get_taxid(["Homo", "Chrysemys picta"]))  # successful search message with elapsed time and printed dict with results
+# print(m.get_taxid(["Amphimedon queenslandica", "Homo sapiens", "Chrysemys picta"]))  # successful search message with elapsed time and printed dict with results
+# print(m.get_taxid(["Homo", "Chrysemys picta"]))  # successful search message with elapsed time and printed dict with results
 # #print(m.get_taxid(["Sapiens"]))  # no results message and then printed 'None'
 #print(m.get_taxid("Chrysemys picta"))  # successful search message with elapsed time and printed dict with results
+print(m.get_taxid(["Homo", "Chrysemys picta", "Amphimedon queenslandica"]))
+single = m.get_taxid("Gallus gallus")
+print(single)
+print(single["Gallus gallus"])
+
 #
 # print("----- get_tax_level-----")
 # m.get_tax_level()  # no results message
@@ -78,9 +96,9 @@ m = miBase.MiRBase(version="21")
 # m.get_tax_level(['Homo'])  # no results message
 # m.get_tax_level("Homo sapiens")  # successful search message with elapsed time
 # print(m.get_tax_level())  # no results message and then printed 'None'
-# print(m.get_tax_level(['Homo', "Amphimedon queenslandica"]))  # successful search message with elapsed time and printed dict with results
+print(m.get_tax_level(['Homo', "Amphimedon queenslandica"]))  # successful search message with elapsed time and printed dict with results
 # print(m.get_tax_level(['Homo']))  # no results message and then printed 'None'
-# print(m.get_tax_level("Homo sapiens"))  # successful search message with elapsed time and printed dict with results
+print(m.get_tax_level("Gallus gallus"))  # successful search message with elapsed time and printed dict with results
 
 # print("----- get_structure-----")
 # m.get_structure()  # no results message
@@ -91,7 +109,7 @@ m = miBase.MiRBase(version="21")
 # print(m.get_structure())  # no results message and then printed 'None'
 # print(m.get_structure(["MI0000001", "MI0016085"]))  # successful search message with elapsed time and printed dict with results
 # print(m.get_structure(["MI123456789"]))  # no results message and then printed 'None'
-# print(m.get_structure("MI0000001"))  # successful search message with elapsed time and printed dict with results
+#print(m.get_structure("MI0000001"))  # successful search message with elapsed time and printed dict with results
 # print(m.get_structure(name=["mmu-mir-21a", "hsa-mir-3612"]))  # successful search message with elapsed time and printed dict with results
 
 # print("----- get_references-----")
@@ -206,7 +224,7 @@ m = miBase.MiRBase(version="21")
 #print(m.get_mirna(prec_id=["MI0000071"]))
 #print(m.get_precursor(id=["MI0000071"]))
 #print(m.get_mirna(chr="LSRX01000794.1", organism_name="Symbiodinium microadriaticum", start="144000"))
-obj = m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000", mirna_id="MIMAT0050213", tax_level="Viruses")
+# obj = m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000", mirna_id="MIMAT0050213", tax_level="Viruses")
 #m.get_mirna(organism_name="Homo sapiens", mirna_id="MIMAT0050213")
 #print(type(obj))
 #print(obj)
@@ -217,9 +235,23 @@ obj = m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000", m
 # print(m.get_mirna("MIMAT0000002"))
 # print(m.get_mirna("MIMAT0050213"))
 # print(m.get_mirna("MI9999999999999"))
-m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000", mirna_id="MI9999999999999", tax_level="Viruses")
+# m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000", mirna_id="MI9999999999999", tax_level="Viruses")
 # m.get_mirna(chr="gowno", organism_name="Homo sapiens", start="153300000", mirna_id="MI9999999999999", tax_level="Virusez")
-#m.get_tree()
+# tree = m.get_tree()
+gallus_mirna = m.get_mirna(organism_name="Gallus gallus", chr="chr8", strand="-", start="6000000")
+print(gallus_mirna)
+sample_gallus = m.get_mirna(mirna_id=["MIMAT0001185", "MIMAT0025825", "MIMAT0007451"])
+print(sample_gallus)
+struct_gallus = m.get_structure(id=[precursor for mi_obj in sample_gallus for precursor in mi_obj.precursor])
+print(struct_gallus)
+ref_gallus = m.get_references(mirna_id=[id for mi_obj in sample_gallus for id in mi_obj.mature_ID], link=True)
+print(ref_gallus)
+print(type(ref_gallus))
+cluster_gallus = m.find_cluster(prec_id="MI0007558", range="10000")
+print(cluster_gallus)
+# print(sample_gallus[0].chromosome_mi)
+# print(dict(sample_gallus[0].genome_coordinates_mi))
+#print(dict(tree["Metazoa"]))
 #m.get_mirna(chr="II", organism_name="Caenorhabditis elegans")
 #m.get_mirna(chr="X", organism_name="Homo sapiens")
 # print(m.get_mirna(mirna_id="MIMAT0002614"))
@@ -232,18 +264,18 @@ m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000", mirna_i
 # print(m.get_precursor(name="ptr-mir-30c-1"))
 # print(len(m._precursors_name))
 # print(len(m._matures_name))
-print(m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000"))
-print(m.get_precursor("MI0015972"))
-print(m.get_mirna("MIMAT0005829"))
-hconfs = 0
-for record in m._precursors_ID:
-    if m._precursors_ID[record].high_confidence is True:
-        hconfs += 1
-print(hconfs)  # 3320 for 22.1
-                # 2162 for 22
-                # 1996 for 21
-                # 0 from 20 and lower
-print(m.get_precursor("MI0001370"))
+# print(m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000"))
+# print(m.get_precursor("MI0015972"))
+# print(m.get_mirna("MIMAT0005829"))
+# hconfs = 0
+# for record in m._precursors_ID:
+#     if m._precursors_ID[record].high_confidence is True:
+#         hconfs += 1
+# print(hconfs)  # 3320 for 22.1
+#                 # 2162 for 22
+#                 # 1996 for 21
+#                 # 0 from 20 and lower
+# print(m.get_precursor("MI0001370"))
 # print(type(m._precursors_ID["MI0008605"].genome_coordinates[0]))
 # print(m.get_organisms_list())
 # print(m.get_tax_level("Homo sapiens"))

@@ -134,18 +134,19 @@ class MiRBase:
                 self._load_all_data()
             except Exception as e:
                 init()
-                msg = f"{Fore.RED}[Mir-Us]   Error! Cannot compile data files:"
-                if isinstance(e, KeyError):
-                    msg = msg + f"{Fore.RED} Given database version is not compatible with the tool or unexpected " \
-                                f"key appeared.\n"
-                os.makedirs(f"{os.getcwd()}/logs", exist_ok=True)
-                time = datetime.datetime.now().strftime("%m_%d_%Y-%H_%M_%S")
-                with open(f"logs/error_{time}.log", "a") as f_log:
-                    f_log.write(traceback.format_exc())
-                print(msg + "Log file with full error description is located in /logs directory.")
+                print(self._fatal_error_handle(e) + "Log file with full error description is located in /logs directory.")
                 exit()
 
-
+    def _fatal_error_handle(self, e):
+        msg = f"{Fore.RED}[Mir-Us]   Error! Cannot compile data files:"
+        if isinstance(e, KeyError):
+            msg = msg + f"{Fore.RED} Given database version is not compatible with the tool or unexpected " \
+                        f"key appeared.\n"
+        os.makedirs(f"{os.getcwd()}/logs", exist_ok=True)
+        time = datetime.datetime.now().strftime("%m_%d_%Y-%H_%M_%S")
+        with open(f"logs/error_{time}.log", "a") as f_log:
+            f_log.write(traceback.format_exc())
+        return msg
 
     def _cache_versions(self):
         """Caches metadata about miRBase database versions
@@ -339,8 +340,17 @@ class MiRBase:
         """Returns list of all organisms.
 
         Returns:
-            list[namedtuple]: Organism namedtuple which is organized as follows: (organism="abbreviation", division="abbreviation",
-            name="full latin name", tree="organism tax tree", taxid="organism NCBI taxonomy ID")
+            list[namedtuple]: Organism namedtuple which is organized as follows: `Organism(organism='', division='', name='', tree='', taxid='')`
+
+        ???+ info "Organism namedtuple structure explanation"
+
+            | Key          | Explanation                 |
+            | ------------ | --------------------------- |
+            | `organism`   | Organism name abbreviation. |
+            | `division`   | Organism name abbreviation. |
+            | `name`       | Full organism name in latin. |
+            | `tree`       | Full taxonomy path of the organism delimited by `;` |
+            | `taxid`      | NCBI taxonomy ID of the organism |
         """
         return self._organisms
 
@@ -390,7 +400,7 @@ class MiRBase:
         tax_codes = list(map(lambda x: getattr(x, "tree"), self._organisms))
         tax_codes = [x.rstrip(";").split(";") for x in tax_codes]
         tax_dct = dict(zip(organism_codes, tax_codes))
-        # print(tax_dct)
+        print(tax_dct)
         for key, value in tax_dct.items():
             if tax in value:
                 result.append(key)
@@ -624,7 +634,7 @@ class MiRBase:
                     continue
         if not result:
             return None
-        return result, len(result)
+        return list(set(result)), len(set(result))
 
     @time_this
     def get_structure(self, id=None, name=None):
@@ -1124,7 +1134,7 @@ class MiRBase:
                             result, self._precursors_ID[prec]):
                             count += 1
                             print(f"{count}, {self._precursors_ID[prec].precursor_ID}: {coord}")
-                            result.append(self._precursors_ID[prec].precursor_ID)
+                            result.append(self._precursors_ID[prec])
 
         def search_mirna(self, start, org, range):
             int_start = 0

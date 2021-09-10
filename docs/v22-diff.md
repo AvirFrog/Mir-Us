@@ -1,5 +1,5 @@
 # Version 22 change list
-This is a change list which is generated from `miRNA.diff` file from version 22 main directory.
+This is a change list which is generated from `miRNA.diff.gz` file from version 22 main directory.
 ## Tags explanations
 `NEW`
 :   new to the database
