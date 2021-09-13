@@ -206,7 +206,229 @@ And this is how the taxonomy tree structure from Mir-Us looks like:
         ...
         ```
 ### Accessing the tree
-> tutaj trzeba ogarnąc te funkcję w kodzie jeszcze
+Using positional argument `tax_path` of the `get_tree()` function enables to slice the tree structure and retrieve only specified fragment of the tree structure.
+
+Gallus gallus belongs to the Vertebrata subphylum but we would like to know what other organisms of this subphylum are present in the database. Slicing tree by the Vertebrata subphylum looks as following:
+!!! example "Slicing taxonomy tree using get_tree() function with the usage of tax_path parameter"
+    === "Code"
+        ```python
+        tree = m.get_tree(["Metazoa", "Bilateria", "Deuterostoma", "Chordata", "Vertebrata"])
+        ```
+    === "Result"
+        ```
+        {
+            "Agnathostomata": {
+                "!organism": [
+                    "Petromyzon marinus"
+                ]
+            },
+            "Amphibia": {
+                "!organism": [
+                    "Xenopus laevis",
+                    "Xenopus tropicalis"
+                ]
+            },
+            "Aves": {
+                "!organism": [
+                    "Anas platyrhynchos",
+                    "Columba livia",
+                    "Gallus gallus",
+                    "Taeniopygia guttata"
+                ]
+            },
+            "Gnathostomata": {
+                "!organism": [
+                    "Callorhinchus milii"
+                ]
+            },
+            "Mammalia": {
+                "Afrotheria": {
+                    "!organism": [
+                        "Echinops telfairi"
+                    ]
+                },
+                "Carnivora": {
+                    "!organism": [
+                        "Canis familiaris"
+                    ]
+                },
+                "Cingulata": {
+                    "!organism": [
+                        "Dasypus novemcinctus"
+                    ]
+                },
+                "Lagomorpha": {
+                    "!organism": [
+                        "Oryctolagus cuniculus"
+                    ]
+                },
+                "Laurasiatheria": {
+                    "!organism": [
+                        "Artibeus jamaicensis",
+                        "Bubalus bubalis",
+                        "Eptesicus fuscus",
+                        "Equus caballus",
+                        "Pteropus alecto"
+                    ]
+                },
+                "Metatheria": {
+                    "!organism": [
+                        "Macropus eugenii",
+                        "Monodelphis domestica",
+                        "Sarcophilus harrisii"
+                    ]
+                },
+                "Primates": {
+                    "Atelidae": {
+                        "!organism": [
+                            "Ateles geoffroyi",
+                            "Lagothrix lagotricha"
+                        ]
+                    },
+                    "Cebidae": {
+                        "!organism": [
+                            "Callithrix jacchus",
+                            "Saguinus labiatus",
+                            "Saimiri boliviensis"
+                        ]
+                    },
+                    "Cercopithecidae": {
+                        "!organism": [
+                            "Macaca mulatta",
+                            "Macaca nemestrina",
+                            "Papio hamadryas",
+                            "Pygathrix bieti"
+                        ]
+                    },
+                    "Cheirogaleidae": {
+                        "!organism": [
+                            "Microcebus murinus"
+                        ]
+                    },
+                    "Daubentoniidae": {
+                        "!organism": [
+                            "Daubentonia madagascariensis"
+                        ]
+                    },
+                    "Galagidae": {
+                        "!organism": [
+                            "Otolemur garnettii"
+                        ]
+                    },
+                    "Hominidae": {
+                        "!organism": [
+                            "Gorilla gorilla",
+                            "Homo sapiens",
+                            "Pan paniscus",
+                            "Pan troglodytes",
+                            "Pongo pygmaeus",
+                            "Symphalangus syndactylus"
+                        ]
+                    },
+                    "Hylobatidae": {
+                        "!organism": [
+                            "Nomascus leucogenys"
+                        ]
+                    },
+                    "Lemuridae": {
+                        "!organism": [
+                            "Lemur catta"
+                        ]
+                    }
+                },
+                "Prototheria": {
+                    "!organism": [
+                        "Ornithorhynchus anatinus"
+                    ]
+                },
+                "Rodentia": {
+                    "!organism": [
+                        "Cavia porcellus",
+                        "Cricetulus griseus",
+                        "Mus musculus",
+                        "Rattus norvegicus"
+                    ]
+                },
+                "Ruminantia": {
+                    "!organism": [
+                        "Bos taurus",
+                        "Capra hircus",
+                        "Ovis aries"
+                    ]
+                },
+                "Scandentia": {
+                    "!organism": [
+                        "Tupaia chinensis"
+                    ]
+                },
+                "Suina": {
+                    "!organism": [
+                        "Sus scrofa"
+                    ]
+                }
+            },
+            "Sauria": {
+                "!organism": [
+                    "Alligator mississippiensis",
+                    "Anolis carolinensis",
+                    "Chrysemys picta",
+                    "Ophiophagus hannah",
+                    "Python bivittatus"
+                ]
+            },
+            "Teleostei": {
+                "!organism": [
+                    "Astatotilapia burtoni",
+                    "Carassius auratus",
+                    "Cyprinus carpio",
+                    "Danio rerio",
+                    "Electrophorus electricus",
+                    "Fugu rubripes",
+                    "Gadus morhua",
+                    "Hippoglossus hippoglossus",
+                    "Ictalurus punctatus",
+                    "Metriaclima zebra",
+                    "Neolamprologus brichardi",
+                    "Nothobranchius furzeri",
+                    "Oncorhynchus mykiss",
+                    "Oreochromis niloticus",
+                    "Oryzias latipes",
+                    "Paralichthys olivaceus",
+                    "Pundamilia nyererei",
+                    "Salmo salar",
+                    "Tetraodon nigroviridis"
+                ]
+            }
+        }
+        [Mir-Us]  'get_tree' found 1 results in 0.004225 seconds
+        ```
+
+If we are intrested in the Aves class, then it is possible to retrieve all organism names in the list from the tree structure:
+!!! example "Retrieving organism names from a certain part of the taxonomy tree structure (from the Aves class) using get_tree() function and tax_path parameter"
+    === "Code"
+        ```python
+        # using previous tree slice
+        print(tree["Aves"]["!organism"])
+
+        # direct slice to Aves and retrieving organisms
+        aves = m.get_tree(["Metazoa", "Bilateria", "Deuterostoma", "Chordata", "Vertebrata", "Aves"])["!organism"]
+        print(aves)
+        ```
+    === "Result"
+        ```
+        ['Anas platyrhynchos', 'Columba livia', 'Gallus gallus', 'Taeniopygia guttata']
+        {
+            "!organism": [
+                "Anas platyrhynchos",
+                "Columba livia",
+                "Gallus gallus",
+                "Taeniopygia guttata"
+            ]
+        }
+        [Mir-Us]  'get_tree' found 1 results in 0.001367 seconds
+        ['Anas platyrhynchos', 'Columba livia', 'Gallus gallus', 'Taeniopygia guttata']
+        ```
+!!! warning "A tree structure slicing should not be mistaken with accessing data of particular taxonomy level. Through `get_tree()` function it is possible to show the whole tree or its specified part and then return its structure as a dictionary. To retrieve organisms list from a particular taxonomy level of a tree structure, a returned structure must be accessed, so it cannot be done in the function itself (through `tax_path` parameter)."
 ## Fetching mature miRNA
 In the previous paragraphs, Gallus gallus was the main object of the research. It will be no different this time, because we will retrieve all miRNAs from Gallus gallus and we will subsequently narrow the search.
 ### Searching by organism name
@@ -221,7 +443,8 @@ Firstly, we would like to retrieve all miRNAs from Gallus gallus. This can be do
         [Mir-Us]  'get_mirna' found 1235 results in 0.052002 seconds
         ```
 ### Genomic search
-As it turned out, that we have to narrow down the search. Let's say we have been given some instructions that specifies some genomic features:
+As it turned out, we have to narrow down the search. Let's say we have been given some instructions that specifies some genomic features:
+
 - chromosme 8 must be searched
 - results must be from the minus strand
 - search must be conducted from 6000000th nucleotide upstream
@@ -346,7 +569,7 @@ Retrieving a list of specific records is also possible and it's very intuitive (
         ]
         ```
 Then, we can actually access the data from the MiRNA object. Let's say we will extract chromosome name and genome coordinates.
-!!! example "Retrieving a single miRNA using get_mirna() function"
+!!! example "Retrieving data from a single MiRNA object"
     === "Code"
         ```python
         print(sample_gallus[0].chromosome_mi)
@@ -363,7 +586,151 @@ Button below provides more detail about the data that is possible to be accessed
 [MiRNA object details :octicons-link-16:](miObject.md#mirna){ .md-button .md-button--primary }
 
 ## Fetching precursors
-> to bedzie kopia tego co o miRNA
+This paragraph is actually a copy of the previous one, because functions `get_mirna()` and `get_precursor()` are very similar. We will retrieve all precursors from Gallus gallus and we will subsequently narrow the search.
+### Searching by organism name
+Firstly, we would like to retrieve all precursors from Gallus gallus. This can be done using `get_precursor()` function.
+!!! example "Retrieving all precursors from Gallus gallus using get_precursor() function"
+    === "Code"
+        ```python
+        gallus_prec = m.get_precursor(organism_name="Gallus gallus")
+        ```
+    === "Result"
+        ```
+        [Mir-Us]  'get_precursor' found 882 results in 0.022170 seconds
+        ```
+### Genomic search
+As it turned out, we have to narrow down the search. Let's say we have been given some instructions that specifies some genomic features:
+
+- chromosme 8 must be searched
+- results must be from the minus strand
+- search must be conducted from 6000000th nucleotide upstream
+
+!!! example "Retrieving all precursors from Gallus gallus with regard of genomic features (chromosome 8, minus strand, 6000000th nucleotide upstream search)"
+    === "Code"
+        ```python
+        gallus_prec = m.get_precursor(organism_name="Gallus gallus", chr="chr8", strand="-", start="6000000")
+        print(gallus_prec)
+        ```
+    === "Result"
+        ```
+        [Mir-Us]  'get_precursor' found 13 results in 0.022590 seconds
+        [
+                Precursor ID: MI0007316
+                Precursor name: gga-mir-1589
+                MiRNAs: MIMAT0007451
+                Precursor structure: ((((..((..((((((((..((.(.(((((((...(((....))).)))))))).))..))))))))....))..))))
+                Precursor sequence:  gcagugugcagagaggacacucugacagaggcaccgcugcccagcagccucugcugaucgucuuuuccuuccaaucugc
+                Organism: Gallus gallus
+                Taxonomy: Metazoa/Bilateria/Deuterostoma/Chordata/Vertebrata/Aves
+                Chromosome: chr8
+                Genome coordinates (start, end): ('16516612', '16516690')
+                Strand: -
+                High confidence: False
+                References: 18469162
+        ,
+                Precursor ID: MI0007322
+        ...
+        ```
+Results were narrowed down to just 13 records.
+
+There is much more types of features which can be used to search the records. Button below provides more information about this topic.
+
+[get_precursor documentation :octicons-link-16:](miBase.md#miBase.MiRBase.get_precursor){ .md-button .md-button--primary }
+
+### Accessing specific records
+To access a specific record or records, a `get_precursor()` function with `prec_id` flag should be used to retrieve them. Suppose, we would like to access only that sample record from 'Results' tab from previous paragraph.
+!!! example "Retrieving a single precursor using get_precursor() function"
+    === "Code"
+        ```python
+        sample_gallus = m.get_precursor(prec_id="MI0007316")
+        print(sample_gallus)
+        ```
+    === "Result"
+        ```
+        [Mir-Us]  'get_precursor' found 1 results in 0.000012 seconds
+        [
+                Precursor ID: MI0007316
+                Precursor name: gga-mir-1589
+                MiRNAs: MIMAT0007451
+                Precursor structure: ((((..((..((((((((..((.(.(((((((...(((....))).)))))))).))..))))))))....))..))))
+                Precursor sequence:  gcagugugcagagaggacacucugacagaggcaccgcugcccagcagccucugcugaucgucuuuuccuuccaaucugc
+                Organism: Gallus gallus
+                Taxonomy: Metazoa/Bilateria/Deuterostoma/Chordata/Vertebrata/Aves
+                Chromosome: chr8
+                Genome coordinates (start, end): ('16516612', '16516690')
+                Strand: -
+                High confidence: False
+                References: 18469162
+        ]
+        ```
+Retrieving a list of specific records is also possible and it's very intuitive (just pass a list of IDs to a function).
+!!! example "Retrieving a multiple precursors using get_precursor() function"
+    === "Code"
+        ```python
+        sample_gallus = m.get_precursor(prec_id=["MI0007316", "MI0022537", "MI0007409"])
+        print(sample_gallus)
+        ```
+    === "Result"
+        ```
+        [Mir-Us]  'get_precursor' found 3 results in 0.000012 seconds
+        [
+                Precursor ID: MI0007316
+                Precursor name: gga-mir-1589
+                MiRNAs: MIMAT0007451
+                Precursor structure: ((((..((..((((((((..((.(.(((((((...(((....))).)))))))).))..))))))))....))..))))
+                Precursor sequence:  gcagugugcagagaggacacucugacagaggcaccgcugcccagcagccucugcugaucgucuuuuccuuccaaucugc
+                Organism: Gallus gallus
+                Taxonomy: Metazoa/Bilateria/Deuterostoma/Chordata/Vertebrata/Aves
+                Chromosome: chr8
+                Genome coordinates (start, end): ('16516612', '16516690')
+                Strand: -
+                High confidence: False
+                References: 18469162
+        ,
+                Precursor ID: MI0022537
+                Precursor name: gga-mir-6622
+                MiRNAs: MIMAT0025825
+                Precursor structure: ................................(((.(((((.((((((.(((((.(......)))))).))))))...))))).))).......................
+                Precursor sequence:  agggcuggagggagacagcagccaaauuccauccagaggaagucccacugacugagaaaggcccagucuguggggacauuucuguggcauuuugaggguaaaauggcuaa
+                Organism: Gallus gallus
+                Taxonomy: Metazoa/Bilateria/Deuterostoma/Chordata/Vertebrata/Aves
+                Chromosome: chr8
+                Genome coordinates (start, end): ('22245941', '22246050')
+                Strand: -
+                High confidence: False
+                References: 22418847
+        ,
+                Precursor ID: MI0007409
+                Precursor name: gga-mir-1675
+                MiRNAs: MIMAT0007559
+                Precursor structure: (((((.((((((((((..(((((((((((((..((((((.((((....)))).))))))..)))))..))))).)))..)))..)))).)))..))).))
+                Precursor sequence:  gccuucccgcuuggccccgcucccgcucagggcggugucaggcggcgccgccggacgccaucuugacugugggcagcucggcuucaggucggcagagagc
+                Organism: Gallus gallus
+                Taxonomy: Metazoa/Bilateria/Deuterostoma/Chordata/Vertebrata/Aves
+                Chromosome: chr8
+                Genome coordinates (start, end): ('24727666', '24727765')
+                Strand: -
+                High confidence: False
+                References: 18469162
+        ]
+        ```
+Then, we can actually access the data from the Precursor object. Let's say we will extract chromosome name and genome coordinates.
+!!! example "Retrieving data from a single Precursor object"
+    === "Code"
+        ```python
+        print(sample_gallus[0].chromosome)
+        print(sample_gallus[0].genome_coordinates)
+        ```
+    === "Result"
+        ```
+        ['chr8']
+        [('16516612', '16516690')]
+        ```
+
+Button below provides more detail about the data that is possible to be accessed.
+
+[Precursor object details :octicons-link-16:](miObject.md#precursor){ .md-button .md-button--primary }
+
 ## Fetching structures
 One of the most problematic aspect of miRBase is precursor's structure notation. Obviously, it is a very informative notation but at the same time not standarised and very hard to parse for further usage. Mir-Us solves this problem, because every structure here is rewritten in dot-bracket format, which is a well know, standarised notation for RNA structures.
 ### Using get_structure() function

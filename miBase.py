@@ -25,7 +25,6 @@ from Bio import Entrez
 from alive_progress import alive_bar
 import miObject
 
-
 __authors__ = ["Kacper Dudczak, Maciej Michalczyk"]
 __copyright__ = "Copyright 2021, mirBase Project"
 __credits__ = ["Kacper Dudczak", "Maciej Michalczyk", "Marta Wysocka", "Marek Żywicki"]
@@ -134,7 +133,8 @@ class MiRBase:
                 self._load_all_data()
             except Exception as e:
                 init()
-                print(self._fatal_error_handle(e) + "Log file with full error description is located in /logs directory.")
+                print(
+                    self._fatal_error_handle(e) + "Log file with full error description is located in /logs directory.")
                 exit()
 
     def _fatal_error_handle(self, e):
@@ -163,9 +163,8 @@ class MiRBase:
         """
         path = self._ftp_path + self._miRBase_version
 
+        # INITIALIZE PROGRESSBAR-------------------------------------
         with alive_bar(10, bar='blocks') as bar:
-
-
             # COMPILE ORGANISMS--------------------------------------
             self._loader.load_organisms(self, file_path=path + self._versions[self._miRBase_version]["org_file"])
             with open(f'data/{self._miRBase_version}/organisms.mir', 'wb') as fh_org_dump:
@@ -230,7 +229,6 @@ class MiRBase:
             fh_taxorg_dump.close()
             bar()
             # -------------------------------------------------------
-
 
     def _load_all_data(self):
         """Loads all data from .mir files and assigns to data structures
@@ -463,7 +461,7 @@ class MiRBase:
         return result, len(result)
 
     @time_this
-    def get_precursor(self, id: list = None, name="", organism_name="", tax_level="", chr="", start="",
+    def get_precursor(self, prec_id: list = None, name="", organism_name="", tax_level="", chr="", start="",
                       end="", strand='', mirna_id=""):
         # """
         # Returns precursor objects according to given search criteria
@@ -492,7 +490,7 @@ class MiRBase:
         """Returns precursor objects according to a given search criteria
 
         Args:
-            id (list[str]): Precursor IDs
+            prec_id (list[str]): Precursor IDs
             name (str): Precursor name
             organism_name (str): Full organism name in which precursor is present
             tax_level (str): Taxonomy level affiliated with precursor
@@ -503,32 +501,149 @@ class MiRBase:
             mirna_id (str): ID of affiliated miRNA with precursor
 
         Returns:
-            Optional[list[Precursor]]: Objects matching given criteria or `None` if no results are found.
+            Optional[list[Precursor], dict]: `list` of Precursor objects matching given criteria **only if single
+            search is conducted.** `dict` **only if multiple searches are conducted.** For each search type
+            ([**additional information**](#additional-information)) a `list` of Precursor objects that matches criteria
+            is returned. Eventually, `None` if no results are found.
+
+        ## Additional information:
+        ???+ info "Precursor search types"
+            There are a few search 'types', depending on search criteria. That means, if the user choose a set of
+            criteria that will be interpreted as contradicting, a separate search will be conducted for each 'type'.
+            This is important, because multiple searches in single function call will return a dictionary with
+            categorized search results.
+
+            **Search types:**
+
+            | Search type      | Set of criteria                                         |
+            | ---------------- | ------------------------------------------------------- |
+            | `mirna_id-search`| Only `mirna_id`                                         |
+            | `prec_id-search` | Only `prec_id`                                          |
+            | `name-search`    | Only `name`                                             |
+            | `organism-search`| Only `organism_name`                                    |
+            | `tax-search`     | Only `tax_level`                                        |
+            | `chr-search`     | Only `chr`                                              |
+            | `strand-search`  | Only `strand`                                           |
+            | `genomic-search` | Combinations of `organism-name, chr, strand, start, end`|
+
+            !!! warning "Search type is also a key in returned dictionary which allows to access found data."
+
+            **Possible function returns:**
+
+            | Condition                                 | Returned structure                   |
+            | ----------------------------------------- | ------------------------------------ |
+            | Single search (only one type of search)   | `list` of found objects or `None`    |
+            | Multiple searches (contradicting types)   | `dict` of 'type: [found objects]' or `None`. If certain type of search was unsuccessful, its value will be `None` |
         """
 
-        if isinstance(id, str):
-            id = [id]
-        result = []
-        if id:
-            result = [self._precursor_retrieve(i, result) for i in id if
-                      self._precursor_retrieve(i, result) is not None]
-        if name:
-            for prec in self._precursors_ID:
-                if (self._precursors_ID[prec].precursor_name == name) and not self._exists(result,
-                                                                                           self._precursors_ID[prec]):
-                    result.append(self._precursors_ID[prec])
-        if organism_name:
-            for prec in self._precursors_ID:
-                if (self._precursors_ID[prec].organism == organism_name) and not self._exists(result,
-                                                                                              self._precursors_ID[
-                                                                                                  prec]):
-                    result.append(self._precursors_ID[prec])
-        if tax_level:
-            for prec in self._precursors_ID:
-                if (tax_level in self._precursors_ID[prec].taxonomy) and not self._exists(result,
-                                                                                          self._precursors_ID[prec]):
-                    result.append(self._precursors_ID[prec])
+        if isinstance(prec_id, str):
+            prec_id = [prec_id]
+        dict_result = {}
+        first = True
+        # result = []
+
+        if not end and start or start and end or organism_name and chr or organism_name and strand:
+            result = []
+            if organism_name:
+                for prec in self._precursors_ID:
+                    if (self._precursors_ID[prec].organism == organism_name) and not \
+                            self._exists(result, self._precursors_ID[prec]):
+                        result.append(self._precursors_ID[prec])
+                first = False
+            if chr:
+                temp_result = []
+                if first:
+                    for prec in self._precursors_ID:
+                        if (chr in self._precursors_ID[prec].chromosome) and not \
+                                self._exists(result, self._precursors_ID[prec]):
+                            result.append(self._precursors_ID[prec])
+                    first = False
+                elif not first:
+                    for res in result:
+                        if chr in res.chromosome and not self._exists(temp_result, res):
+                            temp_result.append(res)
+                result = temp_result
+            if strand:
+                temp_result = []
+                if first:
+                    for prec in self._precursors_ID:
+                        if (strand in self._precursors_ID[prec].strand) and not self._exists(result,
+                                                                                             self._precursors_ID[prec]):
+                            result.append(self._precursors_ID[prec])
+                    first = False
+                elif not first:
+                    for res in result:
+                        if strand in res.strand and not self._exists(temp_result, res):
+                            temp_result.append(res)
+                result = temp_result
+            if start and end:
+                temp_result = []
+                if first:
+                    int_start = int(start)
+                    int_end = int(end)
+                    if not int_start < int_end:
+                        print(f"{Fore.RED}[Mir-Us]   Wrong coordinates; start cannot be lower than end")
+                        return None
+                    for prec in self._precursors_ID:
+                        for coord in self._precursors_ID[prec].genome_coordinates:
+                            try:
+                                f_start = int(coord[0])
+                                f_stop = int(coord[1])
+                            except:
+                                 continue
+                            if (int_start <= f_start < int_end) and (int_start < f_stop <= int_end) \
+                                    and not self._exists(result, self._precursors_ID[prec]):
+                                result.append(self._precursors_ID[prec])
+                    first = False
+                elif not first:
+                    int_start = int(start)
+                    int_end = int(end)
+                    if not int_start < int_end:
+                        print(f"{Fore.RED}[Mir-Us]   Wrong coordinates; start cannot be lower than end")
+                        return None
+                    for res in result:
+                        for coord in res.genome_coordinates:
+                            try:
+                                f_start = int(coord[0])
+                                f_stop = int(coord[1])
+                            except:
+                                continue
+                            if (int_start <= f_start < int_end) and (int_start < f_stop <= int_end) \
+                                    and not self._exists(temp_result, res):
+                                temp_result.append(res)
+                    result = temp_result
+            if not end and start:
+                temp_result = []
+                if first:
+                    int_start = int(start)
+                    for prec in self._precursors_ID:
+                        for coord in self._precursors_ID[prec].genome_coordinates:
+                            try:
+                                f_start = int(coord[0])
+                            except:
+                                continue
+                            if (int_start <= f_start) and not self._exists(result, self._precursors_ID[prec]):
+                                result.append(self._precursors_ID[prec])
+                    first = False
+                elif not first:
+                    int_start = int(start)
+                    for res in result:
+                        for coord in res.genome_coordinates:
+                            try:
+                                f_start = int(coord[0])
+                            except:
+                                continue
+                            if int_start <= f_start and not self._exists(temp_result, res):
+                                temp_result.append(res)
+                    result = temp_result
+            dict_result["genomic-search"] = result
+        if prec_id:
+            result = []
+            result = [self._precursor_retrieve(i, result) for i in prec_id if
+                        self._precursor_retrieve(i, result) is not None]
+            dict_result["prec_id-serch"] = result
         if mirna_id:
+            result = []
             for elem in mirna_id:
                 try:
                     for prec in self._miRNAs_ID[elem].precursor:
@@ -536,34 +651,114 @@ class MiRBase:
                             result.append(self._precursors_ID[prec])
                 except:
                     continue
-        if chr:
+            dict_result["mirna_id-search"] = result
+        if name:
+            result = []
+            try:
+                if not self._exists(result, self._precursors_ID[self._precursors_name[name]]):
+                    result.append(self._precursors_ID[self._precursors_name[name]])
+            except:
+                pass
+            dict_result["name-search"] = result
+        if not start and not end and not chr and not strand and organism_name:
+            result = []
+            for prec in self._precursors_ID:
+                if (self._precursors_ID[prec].organism == organism_name) and not self._exists(result,
+                                                                                              self._precursors_ID[prec]):
+                    result.append(self._precursors_ID[prec])
+            dict_result["organism-search"] = result
+        if tax_level:
+            result = []
+            for prec in self._precursors_ID:
+                if (tax_level in self._precursors_ID[prec].taxonomy) and not self._exists(result,
+                                                                                        self._precursors_ID[prec]):
+                    result.append(self._precursors_ID[prec])
+            dict_result["tax-search"] = result
+        if not start and not end and not organism_name and not strand and chr:
+            result = []
             for prec in self._precursors_ID:
                 if (chr in self._precursors_ID[prec].chromosome) and not self._exists(result,
                                                                                       self._precursors_ID[prec]):
                     result.append(self._precursors_ID[prec])
-        if strand:
+            dict_result["chr-search"] = result
+        if not start and not end and not organism_name and not chr and strand:
+            result = []
             for prec in self._precursors_ID:
-                if (strand in self._precursors_ID[prec].strand) and not self._exists(result,
-                                                                                     self._precursors_ID[prec]):
+                if (strand in self._precursors_ID[prec].strand) and not self._exists(result, self._precursors_ID[prec]):
                     result.append(self._precursors_ID[prec])
-        if start and end:
-            int_start = int(start)
-            int_end = int(end)
-            if not int_start < int_end:
-                print("{Fore.RED}[Mir-Us]   Wrong coordinates; start cannot be lower than end")
-                return
-            for prec in self._precursors_ID:
-                try:
-                    f_start = int(self._precursors_ID[prec].genome_coordinates[0][0])
-                    f_stop = int(self._precursors_ID[prec].genome_coordinates[0][1])
-                except:
-                    continue
-                if (int_start <= f_start < int_end) and (int_start < f_stop <= int_end):
-                    result.append(self._precursors_ID[prec])
-        if not result:
-            return None
+            dict_result["strand-search"] = result
 
-        return result, len(result)
+        if not len(dict_result) > 1:
+            if list(dict_result.values())[0]:
+                output = list(dict_result.values())[0]
+                return output, len(output)
+            else:
+                return None
+        if len(dict_result) > 1 and not bool([res for res in dict_result.values() if res != []]):
+            return None
+        print(f"{Fore.YELLOW}[Mir-Us]   Some of the given criteria were contradicting for the search system. Because of"
+              f" that, the results are returned in a dictionary, where contradicting results are separated into"
+              f" different search types. This search consist of (keys of generated dictionary): ")
+        for key in dict_result.keys():
+            print(f"{Fore.BLUE}'{key}': {len(dict_result[key])} results", sep="\n")
+        # print([key for key in dict_result.keys()], sep="\n")
+        return dict_result, sum([len(res) for res in list(dict_result.values())])
+
+        # if id:
+        #     result = [self._precursor_retrieve(i, result) for i in id if
+        #               self._precursor_retrieve(i, result) is not None]
+        # if name:
+        #     for prec in self._precursors_ID:
+        #         if (self._precursors_ID[prec].precursor_name == name) and not self._exists(result,
+        #                                                                                    self._precursors_ID[prec]):
+        #             result.append(self._precursors_ID[prec])
+        # if organism_name:
+        #     for prec in self._precursors_ID:
+        #         if (self._precursors_ID[prec].organism == organism_name) and not self._exists(result,
+        #                                                                                       self._precursors_ID[
+        #                                                                                           prec]):
+        #             result.append(self._precursors_ID[prec])
+        # if tax_level:
+        #     for prec in self._precursors_ID:
+        #         if (tax_level in self._precursors_ID[prec].taxonomy) and not self._exists(result,
+        #                                                                                   self._precursors_ID[prec]):
+        #             result.append(self._precursors_ID[prec])
+        # if mirna_id:
+        #     for elem in mirna_id:
+        #         try:
+        #             for prec in self._miRNAs_ID[elem].precursor:
+        #                 if not self._exists(result, prec):
+        #                     result.append(self._precursors_ID[prec])
+        #         except:
+        #             continue
+        # if chr:
+        #     for prec in self._precursors_ID:
+        #         if (chr in self._precursors_ID[prec].chromosome) and not self._exists(result,
+        #                                                                               self._precursors_ID[prec]):
+        #             result.append(self._precursors_ID[prec])
+        # if strand:
+        #     for prec in self._precursors_ID:
+        #         if (strand in self._precursors_ID[prec].strand) and not self._exists(result,
+        #                                                                              self._precursors_ID[prec]):
+        #             result.append(self._precursors_ID[prec])
+        # if start and end:
+        #     int_start = int(start)
+        #     int_end = int(end)
+        #     if not int_start < int_end:
+        #         print("{Fore.RED}[Mir-Us]   Wrong coordinates; start cannot be lower than end")
+        #         return
+        #     for prec in self._precursors_ID:
+        #         try:
+        #             f_start = int(self._precursors_ID[prec].genome_coordinates[0][0])
+        #             f_stop = int(self._precursors_ID[prec].genome_coordinates[0][1])
+        #         except:
+        #             continue
+        #         if (int_start <= f_start < int_end) and (int_start < f_stop <= int_end):
+        #             result.append(self._precursors_ID[prec])
+        # if not result:
+        #     return None
+        #
+        # return result, len(result)
 
     @time_this
     def get_references(self, mirna_id=None, mirna_name=None, prec_id=None, link=False):
@@ -1188,19 +1383,17 @@ class MiRBase:
         return result, len(result)
 
     @time_this
-    def get_tree(self):
-        # """
-        # Returns taxonomy tree, where each taxonomy level is a dictionary (nested dictionaries as access to another
-        # taxonomy level and list of organisms at particular taxonomy level if has any)
-        #
-        # :return: dictionary representing full taxonomy tree of organisms present in the base
-        # :rtype: dict
-        # """
+    def get_tree(self, tax_path=None):
         """Returns taxonomy tree, where each taxonomy level is a dictionary (nested dictionaries as access to another
         taxonomy level and list of organisms at particular taxonomy level if has any)
 
+        Args:
+            tax_path (list[str]): Taxonomy path which indicates tree accession (tree is sliced from positon this path points to)
+
         Returns:
-            dict: Full taxonomy tree of organisms present in the base (equivalent to [Browse miRBase by species](https://www.mirbase.org/cgi-bin/browse.pl))
+            Optional[dict]: Dictionary structured as taxonomy tree of organisms present in the base
+            (equivalent to [Browse miRBase by species](https://www.mirbase.org/cgi-bin/browse.pl)) or its fragment.
+            Returns `None` if wrong taxonomy path is given.
         """
 
         organism_codes = list(map(lambda x: getattr(x, "name"), self._organisms))  # lista wszystkich kodów organizmow
@@ -1218,7 +1411,7 @@ class MiRBase:
                 t = t[key]
 
         # function to access keys
-        def get_tree(t, keys):
+        def access_tree(t, keys):
             for key in keys:
                 t = t[key]
             return t
@@ -1232,18 +1425,28 @@ class MiRBase:
 
         # add organisms
         for key in tax_dct:
-            get_tree(org_tree, tax_dct[key])["!organism"] = [key]
+            access_tree(org_tree, tax_dct[key])["!organism"] = [key]
         for key in tax_dct:
-            if key not in get_tree(org_tree, tax_dct[key])["!organism"]:
-                get_tree(org_tree, tax_dct[key])["!organism"].append(key)
+            if key not in access_tree(org_tree, tax_dct[key])["!organism"]:
+                access_tree(org_tree, tax_dct[key])["!organism"].append(key)
 
         # sort in organism lists
         for key in tax_dct:
-            get_tree(org_tree, tax_dct[key])["!organism"].sort()
+            access_tree(org_tree, tax_dct[key])["!organism"].sort()
 
+        if tax_path is not None:
+            try:
+                tree_slice = dict(access_tree(org_tree, tax_path))
+                print(json.dumps(tree_slice, indent=4, sort_keys=True))
+                return tree_slice, 1
+            except:
+                return None
+        else:
+            print(json.dumps(dict(org_tree), indent=4, sort_keys=True))
+            return dict(org_tree), 1
         # debug
-        print(json.dumps(org_tree, indent=4, sort_keys=True))
-        return dict(org_tree), 1
+        # print(json.dumps(dict(access_tree(org_tree, ["Alveolata"]))["!organism"], indent=4, sort_keys=True))
+        # return dict(org_tree), 1
 
 
 class MiRLoad(MiRBase):
@@ -1394,7 +1597,7 @@ class MiRLoad(MiRBase):
                                 mature.get_mature_seq(seq_full, [miRNA_vals[0], miRNA_vals[1]])
                                 self._miRNAs_ID[miRNA_vals[2]] = mature
                                 self._matures_name[miRNA_vals[3]] = miRNA_vals[2]
-                                #self._miRNAs_ID[miRNA_vals[2]].mature_sequence.append(self._miRNAs_ID[miRNA_vals[2]].get_mature_seq(seq_full, (miRNA_vals[0], miRNA_vals[1])))
+                                # self._miRNAs_ID[miRNA_vals[2]].mature_sequence.append(self._miRNAs_ID[miRNA_vals[2]].get_mature_seq(seq_full, (miRNA_vals[0], miRNA_vals[1])))
                                 # self._miRNAs_ID[miRNA_vals[2]] = mature.to_json()
                                 # self._miRNAs_ID[miRNA_vals[2]] = mature.dumper()
                             else:
@@ -1410,8 +1613,8 @@ class MiRLoad(MiRBase):
                                 #                                                   (miRNA_vals[0], miRNA_vals[1])))
                                 if len(ref) > 1:
                                     pass
-                                    #self._miRNAs_ID[miRNA_vals[2]].references.append(ref)
-                                    #self._miRNAs_ID[miRNA_vals[2]].references.append(''.join(map(str, ref)))
+                                    # self._miRNAs_ID[miRNA_vals[2]].references.append(ref)
+                                    # self._miRNAs_ID[miRNA_vals[2]].references.append(''.join(map(str, ref)))
                                 else:
                                     if ''.join(map(str, ref)) not in self._miRNAs_ID[miRNA_vals[2]].references:
                                         self._miRNAs_ID[miRNA_vals[2]].references.append(''.join(map(str, ref)))
