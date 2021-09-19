@@ -13,7 +13,7 @@ __authors__ = ["Kacper Dudczak, Maciej Michalczyk"]
 __copyright__ = "Copyright 2021, mirBase Project"
 __credits__ = ["Kacper Dudczak", "Maciej Michalczyk", "Marta Wysocka", "Marek Żywicki"]
 __license__ = "MIT"
-__version__ = "0.3"
+__version__ = "0.5"
 __maintainer__ = ["Kacper Dudczak", "Maciej Michalczyk"]
 __email__ = ["kacper.dudczak19@gmail.com", "mccv99@gmail.com"]
 __status__ = "Production"
@@ -24,30 +24,6 @@ init(autoreset=True)
 
 
 class Precursor:
-    # """
-    # Precursor class, which contains:
-    #     - all data structures used to store information about precursors
-    #
-    #         - id
-    #         - name
-    #         - affiliated miRNAs
-    #         - sequence
-    #         - affiliated organism
-    #         - full taxonomy of organism
-    #
-    #         - genomic information
-    #
-    #             - chromosome
-    #             - strand
-    #             - coordinates
-    #
-    #         - precursor confidence
-    #         - references
-    #
-    #     - utility functions
-    #
-    #         - pretty printing information from record (object)
-    # """
     """Precursor class to store information from a single Precursor record
     Attributes:
         precursor_ID (str): Precursor ID
@@ -63,7 +39,6 @@ class Precursor:
         high_confidence (bool): False by default
         references (list[str]): References from Pubmed (accession numbers)
     """
-
 
     def __init__(self, id, name, seq, org, ref, mirnas):
         self.precursor_ID = id
@@ -102,51 +77,7 @@ class Precursor:
         return info
 
 
-#     def info(self):
-#         """
-#         Shows Precursor object attributes in pretty and informative form.
-#         :return:  information about Precursor object attributes
-#         :rtype: str
-#         """
-#
-#         ref_join = '\n\t- '
-#         info = f"""
-# Precursor ID: {self.precursor_ID}
-# Precursor name: {self.precursor_name}
-# MiRNAs: {', '.join(self.miRNAs)}
-# Precursor structure: {self.structure}
-# Precursor sequence: {" " + self.precursor_sequence}
-# Organism: {self.organism}
-# Taxonomy: {'/'.join(self.taxonomy)}
-# Chromosome: {''.join(self.chromosome)}
-# Genome coordinates: {self.genome_coordinates}
-# Strand: {''.join(self.strand)}
-# High confidence: {self.high_confidence}
-# References: {self.references}"""
-#         return info
-# References: {ref_join + ref_join.join(self.references)}
-
-
 class MiRNA:
-    # """
-    # miRNA class, which contains:
-    # - all data structures used to store information about miRNA:
-    #     - id
-    #     - name
-    #     - affiliated precursors
-    #     - affiliated organism
-    #     - mature sequence
-    #     - genomic information:
-    #         - chromosome
-    #         - strand
-    #         - coordinates
-    #     - experiment backing
-    #     - evidence
-    #     - references
-    # - utility functions:
-    #     - retrieving mature sequence
-    #     - pretty printing information from record (object)
-    # """
     """miRNA class to store information from a single miRNA record
     Attributes:
         mature_name (list[str]): miRNA names
@@ -206,15 +137,6 @@ class MiRNA:
         return info
 
     def get_mature_seq(self, prec_seq, pos):
-        # """Returns miRNA's mature sequence
-        #
-        # :param prec_seq: precursor sequence
-        # :type prec_seq: str
-        # :param pos: positions of start and end for mature sequence
-        # :type pos: list
-        # :return: Returns full mature sequence of miRNA derived from precursor sequence
-        # :rtype: str
-        # """
         """Sets miRNA's mature sequence
 
         Args:
@@ -222,29 +144,6 @@ class MiRNA:
             pos (list[str]): positions of start and end for mature sequence
 
         """
-        #return prec_seq[int(pos[0]) - 1:int(pos[1])]
+        # return prec_seq[int(pos[0]) - 1:int(pos[1])]
         seq = prec_seq[int(pos[0]) - 1:int(pos[1])]
         self.mature_sequence.append(seq)
-
-#     def info(self):
-#         """
-#         Shows miRNA object attributes in pretty and informative form.
-#         :return:  information about miRNA object attributes
-#         :rtype: str
-#         """
-#
-#         ref_join = '\n\t- '
-#         info = f"""
-# Mature ID: {', '.join(self.mature_ID)}
-# Mature name: {self.mature_name}
-# Derivative: {self.precursor}
-# Mature sequence: {self.mature_sequence}
-# Mature positions: {self.mature_positions}
-# Evidence: {self.evidence}
-# Experiment: {self.experiment}
-# End: {self.end}
-# Chromosome: {self.chromosome_mi}
-# Genome coordinates: {dict(self.genome_coordinates_mi)}
-# Strand: {self.strand_mi}
-# References: {self.references}"""
-#         return info

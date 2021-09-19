@@ -1,7 +1,7 @@
 import miBase
 #from miBase import MiRBase._compile_indexes()
-import numpy as np
-from timeit import default_timer as timer
+# import numpy as np
+# from timeit import default_timer as timer
 
 # example usage of Mir-Us
 # test examples of usage below
