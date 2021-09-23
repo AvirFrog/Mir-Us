@@ -8,9 +8,11 @@ extra_javascript:
   - javascripts/tables.js
 
 theme:
-  name: "material"
+  name: material
+  custom_dir: 'overrides/'
   features:
     - navigation.top
+    - header.autohide
   palette:
     - scheme: default
       primary: cyan

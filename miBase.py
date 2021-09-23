@@ -978,13 +978,12 @@ class MiRBase:
                         except:
                             continue
                         if (int_start <= f_start < int_end) and (
-                                int_start < f_stop <= int_end) and not utils._exists(
-                            result, self._precursors_ID[prec]):
+                                int_start < f_stop <= int_end) and not utils._exists(result, self._precursors_ID[prec]):
                             count += 1
                             print(f"{count}, {self._precursors_ID[prec].precursor_ID}: {coord}")
                             result.append(self._precursors_ID[prec])
 
-        def search_mirna(self, start, org, range):
+        def search_mirna2(self, start, org, range):
             int_start = 0
             int_end = 0
             count = 0
@@ -1000,30 +999,31 @@ class MiRBase:
                 int_start = start - range
                 # print(int_start)
                 int_end = start
-            for mi in self._miRNAs_ID:
-                if self._precursors_ID[self._miRNAs_ID[mi].precursor[0]].organism == org:
-                    for key in self._miRNAs_ID[mi].genome_coordinates_mi:
-                        for coord in self._miRNAs_ID[mi].genome_coordinates_mi[key]:
-                            try:
-                                # print(coord)
-                                f_start = int(coord[0])
-                                f_stop = int(coord[1])
-                            except:
-                                continue
-                            if (int_start <= f_start < int_end) and (
-                                    int_start < f_stop <= int_end) and not utils._exists(
-                                result, self._miRNAs_ID[mi]):
-                                count += 1
-                                print(f"{count}, {self._miRNAs_ID[mi].mature_ID}: {coord}")
-                                result.append(self._miRNAs_ID[mi])
+            for prec in self._precursors_ID:
+                if self._precursors_ID[prec].organism == org:
+                #if self._miRNAs_ID[mirna_id].organism == org and mirna_id in self._precursors_ID[prec].miRNAs:
+                    for coord in self._precursors_ID[prec].genome_coordinates:
+                        try:
+                            # print(coord)
+                            f_start = int(coord[0])
+                            f_stop = int(coord[1])
+                        except:
+                            continue
+                        if (int_start <= f_start < int_end) and (
+                                int_start < f_stop <= int_end) and not utils._exists(result, self._precursors_ID[prec]):
+                            count += 1
+                            print(f"{count}, {self._precursors_ID[prec].precursor_ID}: {coord}")
+                            result.append(self._precursors_ID[prec])
 
         if mirna_id:
-            org = self._precursors_ID[self._miRNAs_ID[mirna_id].precursor[0]].organism
-            for key in self._miRNAs_ID[mirna_id].genome_coordinates_mi:
-                for coord in self._miRNAs_ID[mirna_id].genome_coordinates_mi[key]:
-                    start_position = int(coord[0])
-                    # print(f"org_start: {start_position}")
-                    search_mirna(self, start_position, org, int(range))
+            org = self._miRNAs_ID[mirna_id].organism
+            print(org)
+            # for key in self._miRNAs_ID[mirna_id].genome_coordinates_mi:
+            #     for coord in self._miRNAs_ID[mirna_id].genome_coordinates_mi[key]:
+            for coord in self._precursors_ID[self._miRNAs_ID[mirna_id].precursor[0]].genome_coordinates:
+                start_position = int(coord[0])
+                # print(f"org_start: {start_position}")
+                search_mirna2(self, start_position, org, int(range))
         if prec_id:
             org = self._precursors_ID[prec_id].organism
             for coord in self._precursors_ID[prec_id].genome_coordinates:
