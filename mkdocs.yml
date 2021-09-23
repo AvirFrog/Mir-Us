@@ -1,0 +1,95 @@
+site_name: Mir-Us
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js
+  - javascripts/tables.js
+
+theme:
+  name: material
+  custom_dir: 'overrides/'
+  features:
+    - navigation.top
+    - header.autohide
+  palette:
+    - scheme: default
+      primary: cyan
+      accent: cyan
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to dark mode
+    - scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/lightbulb
+        name: Switch to light mode
+
+
+copyright: Copyright &copy; 2021 Kacper Dudczak, Maciej Michalczyk, Marta Wysocka, Marek Żywicki
+
+repo_name: AvirFrog/Mir-Us
+repo_url: https://github.com/AvirFrog/Mir-Us
+edit_uri: "blob/master/docs/"
+
+markdown_extensions:
+  - admonition
+  - abbr
+  - attr_list
+  - def_list
+  - footnotes
+  - meta
+  - md_in_html
+  - codehilite
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: squidfunk
+      repo: mkdocs-material
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      use_pygments: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - pymdownx.snippets
+
+plugins:
+- search
+- mkdocstrings
+
+nav:
+  - Introduction:
+    - Home: index.md
+    - Getting started: usage.md
+  - Compatibility:
+    - Compatibility: versions.md
+    - Detailed change lists:
+        - Version 22: v22-diff.md
+        - Version 21: v21-diff.md
+        - Version 20: v20-diff.md
+        - Version 19: v19-diff.md
+        - Version 18: v18-diff.md
+  - User cookbook: cookbook.md
+  - Reference documentation:
+    - miObject.py: miObject.md
+    - miBase.py: miBase.md
+  - Changelog: changelog.md
+  - License: license.md

@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="17606669-6a61-48da-a8b0-55d7d535adc6" name="Default Changelist" comment="">
+    <list default="true" id="17606669-6a61-48da-a8b0-55d7d535adc6" name="Default Changelist" comment="gitignore update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/22/high_conf.mir" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/22/miRNAs_ID.mir" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/22/org_short.mir" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/22/organisms.mir" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/22/precursors_ID.mir" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/22/precursors_name.mir" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/22/structures.mir" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/22/taxonomy_org.mir" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/22/taxonomy_prec.mir" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miBase.py" beforeDir="false" afterPath="$PROJECT_DIR$/miBase.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/miObject.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miRNAs_ID.mir" beforeDir="false" afterPath="$PROJECT_DIR$/miRNAs_ID.mir" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/precursors_ID.mir" beforeDir="false" afterPath="$PROJECT_DIR$/precursors_ID.mir" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,6 +36,7 @@
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
         <option value="hyperscroll &lt;14911686+phenolophthaleinum@users.noreply.github.com&gt;" />
+        <option value="h" />
         <option value="hyperscroll" />
         <option value="phenolophthaleinum" />
         <option value="Maciej" />
@@ -37,7 +44,7 @@
     </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="maciej-shitpost" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -48,7 +55,7 @@
     <property name="DefaultPlantUmlFileTemplate" value="UML Class" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -106,8 +113,8 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.miRBase_win2" />
       <item itemvalue="Python.main" />
+      <item itemvalue="Python.miRBase_win2" />
     </list>
   </component>
   <component name="SvnConfiguration">
@@ -177,7 +184,63 @@
       <option name="project" value="LOCAL" />
       <updated>1627042362503</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Last fix">
+      <created>1627302074488</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1627302074488</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Big documentation update (not full though)">
+      <created>1627806987312</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1627806987312</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Sync">
+      <created>1627807058008</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1627807058008</updated>
+    </task>
+    <task id="LOCAL-00012" summary="find_clusters issues - need to resolve">
+      <created>1628165719616</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1628165719616</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Taxonomy tree added">
+      <created>1628260163667</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1628260163667</updated>
+    </task>
+    <task id="LOCAL-00014" summary="init of new branch">
+      <created>1628323788651</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1628323788651</updated>
+    </task>
+    <task id="LOCAL-00015" summary="first version of new search method">
+      <created>1628354989704</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1628354989704</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Now organisms in miRNAs">
+      <created>1628454998964</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1628454998964</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -204,11 +267,19 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="Updated readme" />
     <MESSAGE value="Newest shite" />
     <MESSAGE value="safety, lots to discuss ffs" />
+    <MESSAGE value="Last fix" />
     <MESSAGE value="Big documentation update (not full though)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Big documentation update (not full though)" />
+    <MESSAGE value="Sync" />
+    <MESSAGE value="find_clusters issues - need to resolve" />
+    <MESSAGE value="Taxonomy tree added" />
+    <MESSAGE value="init of new branch" />
+    <MESSAGE value="first version of new search method" />
+    <MESSAGE value="Now organisms in miRNAs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Now organisms in miRNAs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
