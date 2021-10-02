@@ -757,7 +757,7 @@ We will once again use the retrieved MiRNA objects in order to fetch affiliated 
 !!! example "Retrieving references using get_references() function"
     === "Code"
         ```python
-        sample_gallus = m.get_mirna(mirna_id=["MIMAT0001185", "MIMAT0025825", "MIMAT0007451"], verbose=True)
+        sample_gallus = m.get_mirna(mirna_id=["MIMAT0001185", "MIMAT0025825", "MIMAT0007451"])
         print(sample_gallus)
         ref_gallus = m.get_references(mirna_id=[id for mi_obj in sample_gallus for id in mi_obj.mature_ID], verbose=True)
         print(ref_gallus)

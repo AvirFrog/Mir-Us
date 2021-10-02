@@ -60,6 +60,7 @@ def time_this(func):
                     return values[0]
             else:
                 return values[0]
+        # if not passed, by default verbose is False
         except KeyError:
             return values[0]
 

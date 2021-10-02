@@ -44,6 +44,7 @@ For example, one might want to obtain information about existing miRNAs on a hum
 
 In the 'Result' tab a search report was printed to stdout and most importantly, a list of miRNA objects was returned, which contain all the parsed information.
 
+
 Search details can be ommited, by setting `verbose` flag to `False` or by not including it in the function call.
 
 ## Next steps

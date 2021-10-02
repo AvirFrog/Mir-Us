@@ -752,6 +752,7 @@ class MiRBase:
             | ----------------------------------------- | ------------------------------------ |
             | Single search (only one type of search)   | `list` of found objects or `None`    |
             | Multiple searches (contradicting types)   | `dict` of 'type: [found objects]' or `None`. If certain type of search was unsuccessful, its value will be `None` |
+
         """
 
         if isinstance(mirna_id, str):

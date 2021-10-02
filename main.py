@@ -85,7 +85,7 @@ print(m.get_organism("Aves", verbose=False))
 # #print(m.get_taxid(["Sapiens"]))  # no results message and then printed 'None'
 #print(m.get_taxid("Chrysemys picta"))  # successful search message with elapsed time and printed dict with results
 
-# 2.10.21
+# 2.10.21 #
 print(m.get_taxid(["Homo", "Chrysemys picta", "Amphimedon queenslandica"], verbose=True))
 # single = m.get_taxid("Gallus gallus")
 # print(single)
