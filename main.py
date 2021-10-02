@@ -71,7 +71,7 @@ m = miBase.MiRBase(version="CURRENT")
 # print(m.get_organism())  # no results message and then printed 'None'
 # print(m.get_organism("Viruses"))  # successful search message with elapsed time and then printed list with results
 # print(m.get_organism("Dogs"))  # no results message and then printed 'None'
-print(m.get_organism("Aves"))
+print(m.get_organism("Aves", verbose=False))
 
 # print("----- get_taxid-----")
 # m.get_taxid()  # no results message
@@ -84,10 +84,12 @@ print(m.get_organism("Aves"))
 # print(m.get_taxid(["Homo", "Chrysemys picta"]))  # successful search message with elapsed time and printed dict with results
 # #print(m.get_taxid(["Sapiens"]))  # no results message and then printed 'None'
 #print(m.get_taxid("Chrysemys picta"))  # successful search message with elapsed time and printed dict with results
-print(m.get_taxid(["Homo", "Chrysemys picta", "Amphimedon queenslandica"]))
-single = m.get_taxid("Gallus gallus")
-print(single)
-print(single["Gallus gallus"])
+
+# 2.10.21
+print(m.get_taxid(["Homo", "Chrysemys picta", "Amphimedon queenslandica"], verbose=True))
+# single = m.get_taxid("Gallus gallus")
+# print(single)
+# print(single["Gallus gallus"])
 
 #
 # print("----- get_tax_level-----")
@@ -96,9 +98,14 @@ print(single["Gallus gallus"])
 # m.get_tax_level(['Homo'])  # no results message
 # m.get_tax_level("Homo sapiens")  # successful search message with elapsed time
 # print(m.get_tax_level())  # no results message and then printed 'None'
-print(m.get_tax_level(['Homo', "Amphimedon queenslandica"]))  # successful search message with elapsed time and printed dict with results
+
+#2.10.21
+# print(m.get_tax_level(['Homo', "Amphimedon queenslandica"]))  # successful search message with elapsed time and printed dict with results
+
 # print(m.get_tax_level(['Homo']))  # no results message and then printed 'None'
-print(m.get_tax_level("Gallus gallus"))  # successful search message with elapsed time and printed dict with results
+
+# 2.10.21
+# print(m.get_tax_level("Gallus gallus"))  # successful search message with elapsed time and printed dict with results
 
 # print("----- get_structure-----")
 # m.get_structure()  # no results message
@@ -222,7 +229,10 @@ print(m.get_tax_level("Gallus gallus"))  # successful search message with elapse
 #print(m.get_precursor(mirna_id=["MIMAT0050213", "MIMAT0050254", "MIMAT0050056", "MIMAT0049408"]))
 
 #print(m.get_mirna(prec_id=["MI0000071"]))
-print(m.get_precursor(prec_id=["MI0000071"]))
+
+# 2.10.21
+# print(m.get_precursor(prec_id=["MI0000071"]))
+
 #print(m.get_mirna(chr="LSRX01000794.1", organism_name="Symbiodinium microadriaticum", start="144000"))
 # obj = m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000", mirna_id="MIMAT0050213", tax_level="Viruses")
 #m.get_mirna(organism_name="Homo sapiens", mirna_id="MIMAT0050213")
@@ -249,10 +259,11 @@ print(m.get_precursor(prec_id=["MI0000071"]))
 # print(ref_gallus)
 # print(type(ref_gallus))
 
-cluster_gallus = m.find_cluster(prec_id="MI0007558", range="10000")
-print(cluster_gallus)
-
-print(m.find_cluster(mirna_id="MIMAT0031077", range="10000"))
+# 2.10.21
+# cluster_gallus = m.find_cluster(prec_id="MI0007558", range="10000")
+# print(cluster_gallus)
+#
+# print(m.find_cluster(mirna_id="MIMAT0031077", range="10000"))
 
 # print(m._precursors_ID["MI0005093"].genome_coordinates)
 # print(m.get_precursor(prec_id=["MI0000001", "MI0017717", "MI0000021"]))
@@ -273,7 +284,8 @@ print(m.find_cluster(mirna_id="MIMAT0031077", range="10000"))
 # print(sample_gallus[0].chromosome)
 # print(sample_gallus[0].genome_coordinates)
 
-print(m.get_mirna(mirna_id="MIMAT0031077"))
+# 2.10.21
+#print(m.get_mirna(mirna_id="MIMAT0031077"))
 
 #print(dict(tree["Metazoa"]))
 #m.get_mirna(chr="II", organism_name="Caenorhabditis elegans")

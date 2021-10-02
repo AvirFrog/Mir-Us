@@ -70,7 +70,7 @@ Using this function, only organism names can be retrieved. However, it is a much
 !!! example "Retrieving organisms from a given taxonomy level"
     === "Code"
         ```python
-        print(m.get_organism("Aves"))
+        print(m.get_organism("Aves", verbose=True))
         ```
     === "Result"
         ```
@@ -112,8 +112,8 @@ If organism name is know, the taxonomy ID can be retrieved as follows:
 !!! example "Retrieving taxonomy ID from organism name using get_taxid() function"
     === "Code"
         ```python
-        multiple_org = m.get_taxid(["Homo", "Chrysemys picta", "Amphimedon queenslandica"]))
-        single_org = m.get_taxid("Gallus gallus")
+        multiple_org = m.get_taxid(["Homo", "Chrysemys picta", "Amphimedon queenslandica"], verbose=True))
+        single_org = m.get_taxid("Gallus gallus", verbose=True)
         print(multiple_org)
         print(single_org)
         print(single["Gallus gallus"])
@@ -138,8 +138,8 @@ A possible situation is when one would need to easily get the taxonomic path of 
 !!! example "Retrieving taxonomy path of organism name using get_tax_level() function"
     === "Code"
         ```python
-        print(m.get_tax_level(['Homo', "Amphimedon queenslandica"]))
-        print(m.get_tax_level("Gallus gallus"))
+        print(m.get_tax_level(['Homo', "Amphimedon queenslandica"], verbose=True))
+        print(m.get_tax_level("Gallus gallus", verbose=True))
         ```
     === "Result"
         ```
@@ -212,7 +212,7 @@ Gallus gallus belongs to the Vertebrata subphylum but we would like to know what
 !!! example "Slicing taxonomy tree using get_tree() function with the usage of tax_path parameter"
     === "Code"
         ```python
-        tree = m.get_tree(["Metazoa", "Bilateria", "Deuterostoma", "Chordata", "Vertebrata"])
+        tree = m.get_tree(["Metazoa", "Bilateria", "Deuterostoma", "Chordata", "Vertebrata"], verbose=True)
         ```
     === "Result"
         ```
@@ -411,7 +411,7 @@ If we are intrested in the Aves class, then it is possible to retrieve all organ
         print(tree["Aves"]["!organism"])
 
         # direct slice to Aves and retrieving organisms
-        aves = m.get_tree(["Metazoa", "Bilateria", "Deuterostoma", "Chordata", "Vertebrata", "Aves"])["!organism"]
+        aves = m.get_tree(["Metazoa", "Bilateria", "Deuterostoma", "Chordata", "Vertebrata", "Aves"], verbose=True)["!organism"]
         print(aves)
         ```
     === "Result"
@@ -436,7 +436,7 @@ Firstly, we would like to retrieve all miRNAs from Gallus gallus. This can be do
 !!! example "Retrieving all miRNAs from Gallus gallus using get_mirna() function"
     === "Code"
         ```python
-        gallus_mirna = m.get_mirna(organism_name="Gallus gallus")
+        gallus_mirna = m.get_mirna(organism_name="Gallus gallus", verbose=True)
         ```
     === "Result"
         ```
@@ -452,7 +452,7 @@ As it turned out, we have to narrow down the search. Let's say we have been give
 !!! example "Retrieving all miRNAs from Gallus gallus with regard of genomic features (chromosome 8, minus strand, 6000000th nucleotide upstream search)"
     === "Code"
         ```python
-        gallus_mirna = m.get_mirna(organism_name="Gallus gallus", chr="chr8", strand="-", start="6000000")
+        gallus_mirna = m.get_mirna(organism_name="Gallus gallus", chr="chr8", strand="-", start="6000000", verbose=True)
         print(gallus_mirna)
         ```
     === "Result"
@@ -490,7 +490,7 @@ To access a specific record or records, a `get_mirna()` function with `mirna_id`
 !!! example "Retrieving a single miRNA using get_mirna() function"
     === "Code"
         ```python
-        sample_gallus = m.get_mirna(mirna_id="MIMAT0001185")
+        sample_gallus = m.get_mirna(mirna_id="MIMAT0001185", verbose=True)
         print(sample_gallus)
         ```
     === "Result"
@@ -517,7 +517,7 @@ Retrieving a list of specific records is also possible and it's very intuitive (
 !!! example "Retrieving a multiple miRNA using get_mirna() function"
     === "Code"
         ```python
-        sample_gallus = m.get_mirna(mirna_id=["MIMAT0001185", "MIMAT0025825", "MIMAT0007451"])
+        sample_gallus = m.get_mirna(mirna_id=["MIMAT0001185", "MIMAT0025825", "MIMAT0007451"], verbose=True)
         print(sample_gallus)
         ```
     === "Result"
@@ -592,7 +592,7 @@ Firstly, we would like to retrieve all precursors from Gallus gallus. This can b
 !!! example "Retrieving all precursors from Gallus gallus using get_precursor() function"
     === "Code"
         ```python
-        gallus_prec = m.get_precursor(organism_name="Gallus gallus")
+        gallus_prec = m.get_precursor(organism_name="Gallus gallus", verbose=True)
         ```
     === "Result"
         ```
@@ -608,7 +608,7 @@ As it turned out, we have to narrow down the search. Let's say we have been give
 !!! example "Retrieving all precursors from Gallus gallus with regard of genomic features (chromosome 8, minus strand, 6000000th nucleotide upstream search)"
     === "Code"
         ```python
-        gallus_prec = m.get_precursor(organism_name="Gallus gallus", chr="chr8", strand="-", start="6000000")
+        gallus_prec = m.get_precursor(organism_name="Gallus gallus", chr="chr8", strand="-", start="6000000", verbose=True)
         print(gallus_prec)
         ```
     === "Result"
@@ -642,7 +642,7 @@ To access a specific record or records, a `get_precursor()` function with `prec_
 !!! example "Retrieving a single precursor using get_precursor() function"
     === "Code"
         ```python
-        sample_gallus = m.get_precursor(prec_id="MI0007316")
+        sample_gallus = m.get_precursor(prec_id="MI0007316", verbose=True)
         print(sample_gallus)
         ```
     === "Result"
@@ -667,7 +667,7 @@ Retrieving a list of specific records is also possible and it's very intuitive (
 !!! example "Retrieving a multiple precursors using get_precursor() function"
     === "Code"
         ```python
-        sample_gallus = m.get_precursor(prec_id=["MI0007316", "MI0022537", "MI0007409"])
+        sample_gallus = m.get_precursor(prec_id=["MI0007316", "MI0022537", "MI0007409"], verbose=True)
         print(sample_gallus)
         ```
     === "Result"
@@ -738,8 +738,8 @@ Suppose, we would like to retrieve all the precursor's structures of the affilia
 !!! example "Retrieving structures using get_structure() function"
     === "Code"
         ```python
-        sample_gallus = m.get_mirna(mirna_id=["MIMAT0001185", "MIMAT0025825", "MIMAT0007451"])
-        struct_gallus = m.get_structure(id=[precursor for mi_obj in sample_gallus for precursor in mi_obj.precursor])
+        sample_gallus = m.get_mirna(mirna_id=["MIMAT0001185", "MIMAT0025825", "MIMAT0007451"], verbose=True)
+        struct_gallus = m.get_structure(id=[precursor for mi_obj in sample_gallus for precursor in mi_obj.precursor], verbose=True)
         print(struct_gallus)
         ```
     === "Result"
@@ -757,9 +757,9 @@ We will once again use the retrieved MiRNA objects in order to fetch affiliated 
 !!! example "Retrieving references using get_references() function"
     === "Code"
         ```python
-        sample_gallus = m.get_mirna(mirna_id=["MIMAT0001185", "MIMAT0025825", "MIMAT0007451"])
+        sample_gallus = m.get_mirna(mirna_id=["MIMAT0001185", "MIMAT0025825", "MIMAT0007451"], verbose=True)
         print(sample_gallus)
-        ref_gallus = m.get_references(mirna_id=[id for mi_obj in sample_gallus for id in mi_obj.mature_ID])
+        ref_gallus = m.get_references(mirna_id=[id for mi_obj in sample_gallus for id in mi_obj.mature_ID], verbose=True)
         print(ref_gallus)
         ```
     === "Result"
@@ -771,7 +771,7 @@ References are PubMed accession numbers that have to be put into a website link 
 !!! example "Retrieving links to PubMed using get_references() function"
     === "Code"
         ```python
-        ref_gallus = m.get_references(mirna_id=[id for mi_obj in sample_gallus for id in mi_obj.mature_ID], link=True)
+        ref_gallus = m.get_references(mirna_id=[id for mi_obj in sample_gallus for id in mi_obj.mature_ID], link=True, verbose=True)
         print(ref_gallus)
         ```
     === "Result"
@@ -795,7 +795,7 @@ For reference, in the 'miRBase result' tab there are results from miRBase
 !!! example "Finding cluster using find_cluster() function"
     === "Code"
         ```python
-        cluster_gallus = m.find_cluster(prec_id="MI0007558", range="10000")
+        cluster_gallus = m.find_cluster(prec_id="MI0007558", range="10000", verbose=True)
         print(cluster_gallus)
         ```
     === "Result"

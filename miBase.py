@@ -286,11 +286,12 @@ class MiRBase:
         return self._organisms
 
     @utils.time_this
-    def get_tax_level(self, organism=None):
+    def get_tax_level(self, organism=None, verbose=False):
         """Returns taxonomy level assigned to organism.
 
         Args:
             organism (list[str]): list of organisms names
+            verbose (bool): A flag, which allows or disallows showing search details (number of returned elements, time of execution, errors)
 
         Returns:
             Optional[dict]: Dictionary of organisms and its assigned taxonomy, which is a list of tax levels
@@ -313,11 +314,12 @@ class MiRBase:
         return result, len(result)
 
     @utils.time_this
-    def get_organism(self, tax=None):
+    def get_organism(self, tax=None, verbose=False):
         """Returns organisms which are assigned to a given taxonomy level.
 
         Args:
             tax (str): Full name of taxonomy level
+            verbose (bool): A flag, which allows or disallows showing search details (number of returned elements, time of execution, errors)
 
         Returns:
             Optional[list[str]]: Full names of organisms representing given taxonomy level or `None` if no results are
@@ -345,11 +347,12 @@ class MiRBase:
         return self._org_sh
 
     @utils.time_this
-    def get_taxid(self, organism=None):
+    def get_taxid(self, organism=None, verbose=False):
         """Returns NCBI taxonomy ID (taxid) assigned to organism
 
         Args:
             organism (list[str]): Full organism name
+            verbose (bool): A flag, which allows or disallows showing search details (number of returned elements, time of execution, errors)
 
         Returns:
             Optional[dict]: Dictionary of organisms with assigned taxid (key: full organism name, value: taxid) or
@@ -376,7 +379,7 @@ class MiRBase:
 
     @utils.time_this
     def get_precursor(self, prec_id: list = None, name="", organism_name="", tax_level="", chr="", start="",
-                      end="", strand='', mirna_id=""):
+                      end="", strand='', mirna_id="", verbose=False):
         """Returns precursor objects according to a given search criteria
 
         Args:
@@ -389,6 +392,7 @@ class MiRBase:
             end (str): Genomic location in which precursor sequence ends
             strand (str): Strand name in which precursor is present
             mirna_id (str): ID of affiliated miRNA with precursor
+            verbose (bool): A flag, which allows or disallows showing search details (number of returned elements, time of execution, errors)
 
         Returns:
             Optional[list[Precursor], dict]: `list` of Precursor objects matching given criteria **only if single
@@ -597,7 +601,7 @@ class MiRBase:
         return dict_result, sum([len(res) for res in list(dict_result.values())])
 
     @utils.time_this
-    def get_references(self, mirna_id=None, mirna_name=None, prec_id=None, link=False):
+    def get_references(self, mirna_id=None, mirna_name=None, prec_id=None, link=False, verbose=False):
         """Returns list of references
 
         Args:
@@ -605,6 +609,7 @@ class MiRBase:
             mirna_name (list[str]): Full miRNA names
             prec_id (list[str]): IDs of precursors
             link (bool): A flag, which forces function to return PubMed links instead of reference numbers
+            verbose (bool): A flag, which allows or disallows showing search details (number of returned elements, time of execution, errors)
 
         Returns:
             Optional[list[str]]: Reference accession numbers or Pubmed links (depending on `link` flag) or `None` if no
@@ -656,12 +661,13 @@ class MiRBase:
         return list(set(result)), len(set(result))
 
     @utils.time_this
-    def get_structure(self, id=None, name=None):
+    def get_structure(self, id=None, name=None, verbose=False):
         """Returns dictionary of precursors IDs with assigned structures in dot-bracket format
 
         Args:
             id (list[str]): Precursor IDs
             name (list[str]): Full precursor names
+            verbose (bool): A flag, which allows or disallows showing search details (number of returned elements, time of execution, errors)
 
         Returns:
             Optional[dict]: Dictionary of precursors ids with assigned structure (key: precursor id, value: structure)
@@ -698,7 +704,7 @@ class MiRBase:
 
     @utils.time_this
     def get_mirna(self, mirna_id: list = None, name="", organism_name="", tax_level="", chr="", start="",
-                  end="", strand='', prec_id: list = None):
+                  end="", strand='', prec_id: list = None, verbose=False):
         """Returns miRNA objects according to given search criteria.
 
         Args:
@@ -711,6 +717,7 @@ class MiRBase:
             end (str): Genomic location in which miRNA sequence ends
             strand (str): Strand name in which miRNA is present
             prec_id (list[str]): Affiliated precursor IDs
+            verbose (bool): A flag, which allows or disallows showing search details (number of returned elements, time of execution, errors)
 
         Returns:
             Optional[list[MiRNA], dict]: `list` of miRNA objects matching criteria **only if single search is conducted.** `dict` **only if
@@ -929,7 +936,7 @@ class MiRBase:
         return dict_result, sum([len(res) for res in list(dict_result.values())])
 
     @utils.time_this
-    def find_cluster(self, mirna_id=None, prec_id=None, search_type="up-downstream", range=None):
+    def find_cluster(self, mirna_id=None, prec_id=None, search_type="up-downstream", range=None, verbose=False):
         """Returns all miRNAs present within given range from given miRNA in affiliated organism genome.
 
         Args:
@@ -937,6 +944,7 @@ class MiRBase:
             prec_id (str): Precursor ID
             search_type (Union[str, int]): Search type which determines how to search genomic space ([**additional information**](#additional-information)).
             range (str): Length of genome to be searched
+            verbose (bool): A flag, which allows or disallows showing search details (number of returned elements, time of execution, errors)
 
         Returns:
             Optional[list[MiRNA]]: miRNA objects matching given criteria or `None` if no results are found
@@ -1035,12 +1043,13 @@ class MiRBase:
         return result, len(result)
 
     @utils.time_this
-    def get_tree(self, tax_path=None):
+    def get_tree(self, tax_path=None, verbose=False):
         """Returns taxonomy tree, where each taxonomy level is a dictionary (nested dictionaries as access to another
         taxonomy level and list of organisms at particular taxonomy level if has any)
 
         Args:
             tax_path (list[str]): Taxonomy path which indicates tree accession (tree is sliced from positon this path points to)
+            verbose (bool): A flag, which allows or disallows showing search details (number of returned elements, time of execution, errors)
 
         Returns:
             Optional[dict]: Dictionary structured as taxonomy tree of organisms present in the base
