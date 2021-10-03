@@ -46,14 +46,22 @@ def time_this(func):
 
     @functools.wraps(func)
     def wrapper_timer(*args, **kwargs):
+        passed_args = kwargs
         start = timer()
         values = func(*args, **kwargs)
         end = timer()
         runtime = end - start
-        if values is None:
-            print(f"{Fore.RED}[Mir-Us]  {func.__name__!r} No records matching given criteria.")
-        else:
-            print(f"{Fore.GREEN}[Mir-Us]  {func.__name__!r} found {values[1]} results in {runtime:.6f} seconds")
+        try:
+            if passed_args["verbose"] is True:
+                if values is None:
+                    print(f"{Fore.RED}[Mir-Us]  {func.__name__!r} No records matching given criteria.")
+                else:
+                    print(f"{Fore.GREEN}[Mir-Us]  {func.__name__!r} found {values[1]} results in {runtime:.6f} seconds")
+                    return values[0]
+            else:
+                return values[0]
+        # if not passed, by default verbose is False
+        except KeyError:
             return values[0]
 
     return wrapper_timer
