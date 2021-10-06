@@ -30,20 +30,23 @@ Function `get_organisms_list` returns list of namedtuples which contains all ava
 | Key          | Explanation                 |
 | ------------ | --------------------------- |
 | `organism`   | Organism name abbreviation. |
-| `division`   | Organism name abbreviation. |
+| `division`   | Organism name abbreviation (capital letters). |
 | `name`       | Full organism name in latin. |
 | `tree`       | Full taxonomy path of the organism delimited by `;` |
 | `taxid`      | NCBI taxonomy ID of the organism |
 
-Accessing organism information is described in [Fetching certain organism](#fetching-certain-organisms).
+Accessing organism information is described below.
 
 ### Fetching specific organisms
 Suppose a user is tasked with getting all the information about a hen. To do this, the appropriate namedtuple can be referenced from the list obtained by the `get_organisms_list` function.
 #### Using namedtuples from `get_organism_list()` function
 !!! example "Retrieving a single Organism() namedtuple"
     ```python
-    organisms = m.get_organisms_list()  
+    organisms = m.get_organisms_list()
+    # accessing namedtuple by getattr function
     gallus = [nt for nt in organisms if getattr(nt, "name") == "Gallus gallus"][0]
+    # accessing namedtuple by a '.' operator
+    gallus = [nt for nt in organisms if nt.name in ["Gallus gallus"]][0]
     ```
 If `gallus` object is printed, all the data is shown:
 ```
@@ -54,9 +57,9 @@ As it may have been already noticed, the `getattr()` function allows to get info
     === "Code"
         ```python
         print(getattr(gallus, "organism"))
-        print(getattr(gallus, "name"))
+        print(gallus.name)
         print(getattr(gallus, "tree"))
-        print(getattr(gallus, "taxid"))
+        print(gallus.taxid)
         ```
     === "Result"
         ```
@@ -112,11 +115,11 @@ If organism name is know, the taxonomy ID can be retrieved as follows:
 !!! example "Retrieving taxonomy ID from organism name using get_taxid() function"
     === "Code"
         ```python
-        multiple_org = m.get_taxid(["Homo", "Chrysemys picta", "Amphimedon queenslandica"], verbose=True))
+        multiple_org = m.get_taxid(["Homo", "Chrysemys picta", "Amphimedon queenslandica"], verbose=True)
         single_org = m.get_taxid("Gallus gallus", verbose=True)
         print(multiple_org)
         print(single_org)
-        print(single["Gallus gallus"])
+        print(single_org["Gallus gallus"])
         ```
     === "Result"
         ```
@@ -156,7 +159,7 @@ First usage of the function is, again, worth of mentioning, because:
 #### Taxonomy tree
 Organism names can be also retrieved from the taxonomy tree data structure which Mir-Us provide.
 
-[Taxonomy tree details :octicons-link-16:](#specifics-of-the-taxonomy-tree){ .md-button .md-button--primary }
+[Taxonomy tree details :octicons-link-16:](#specifics-of-the-taxonomy-tree){: target="_blank" .md-button .md-button--primary }
 ## Specifics of the taxonomy tree
 Mir-Us provides a data structure which is a copy of the taxonomy tree available on ['Browse by species'](https://www.mirbase.org/cgi-bin/browse.pl) site from miRBase. Because of its characteristic impementation in Mir-Us, user is allowed to slice a part of tree from a pointed taxonomy level or retrieve only organism names from a certain taxonomy level.
 ### Structure of the tree
@@ -178,7 +181,7 @@ We can graphically demonstrate the structure as mentioned files system:
 │           "Phytophthora sojae"
 ...
 ```
-And this is how the taxonomy tree structure from Mir-Us looks like:
+To obtain a taxonomy tree structure, user should use the function presented below:
 !!! example "Fetching taxonomy tree using get_tree() function"
     === "Code"
         ```python
@@ -437,10 +440,28 @@ Firstly, we would like to retrieve all miRNAs from Gallus gallus. This can be do
     === "Code"
         ```python
         gallus_mirna = m.get_mirna(organism_name="Gallus gallus", verbose=True)
+        print(gallus_mirna)
         ```
     === "Result"
         ```
-        [Mir-Us]  'get_mirna' found 1235 results in 0.052002 seconds
+        [Mir-Us]  'get_mirna' found 1235 results in 0.036319 seconds
+        [
+                Mature ID: MIMAT0026487
+                Mature name: gga-miR-29a-5p
+                Derivative: MI0001166
+                Mature sequence: cugauuucuuuugguguucaga
+                Mature positions: ('18', '39')
+                Organism: Gallus gallus
+                Evidence: experimental
+                Experiment: Illumina [2]
+                End: 5p
+                Chromosome: chr1
+                Genome coordinates: {'MI0001166': [('3434793', '3434814')]}
+                Strand: +
+                References: 15592404, 23034410
+        ,
+                Mature ID: MIMAT0001096
+        ...
         ```
 ### Genomic search
 As it turned out, we have to narrow down the search. Let's say we have been given some instructions that specifies some genomic features:
@@ -593,10 +614,27 @@ Firstly, we would like to retrieve all precursors from Gallus gallus. This can b
     === "Code"
         ```python
         gallus_prec = m.get_precursor(organism_name="Gallus gallus", verbose=True)
+        print(gallus_prec)
         ```
     === "Result"
         ```
-        [Mir-Us]  'get_precursor' found 882 results in 0.022170 seconds
+        [Mir-Us]  'get_precursor' found 882 results in 0.022314 seconds
+        [
+                Precursor ID: MI0001166
+                Precursor name: gga-mir-29a
+                MiRNAs: MIMAT0026487, MIMAT0001096
+                Precursor structure: .((((..(.....((((((((((((...(((((((.((((...........)))))))))))...))))))))))))....)..)))).
+                Precursor sequence:  accccuuuagaggaugacugauuucuuuugguguucagagucaauaauauuuucuagcaccauuugaaaucgguuauagugauugggga
+                Organism: Gallus gallus
+                Taxonomy: Metazoa/Bilateria/Deuterostoma/Chordata/Vertebrata/Aves
+                Chromosome: chr1
+                Genome coordinates (start, end): ('3434776', '3434864')
+                Strand: +
+                High confidence: True
+                References: 15592404, 23034410
+        ,
+                Precursor ID: MI0001167
+        ...
         ```
 ### Genomic search
 As it turned out, we have to narrow down the search. Let's say we have been given some instructions that specifies some genomic features:
@@ -633,7 +671,7 @@ As it turned out, we have to narrow down the search. Let's say we have been give
         ```
 Results were narrowed down to just 13 records.
 
-There is much more types of features which can be used to search the records. Button below provides more information about this topic.
+There are much more types of features which can be used to search the records. Button below provides more information about this topic.
 
 [get_precursor documentation :octicons-link-16:](miBase.md#miBase.MiRBase.get_precursor){ .md-button .md-button--primary }
 
@@ -752,7 +790,7 @@ Naturally, function can also receive single ID string as an argument. Furthermor
 Retrieved structures in dot-bracket format can be directly used to visualise those structures in external tools such as [TBI-forna](http://rna.tbi.univie.ac.at/forna/)
 ## Fetching references
 Fetching references is very straightforward using Mir-Us. With usage of the dedicated function (`get_references()`), one can retrieve all affiliated references with particular MiRNA or Precursor object.
-### Using get_structures() function
+### Using get_references() function
 We will once again use the retrieved MiRNA objects in order to fetch affiliated references. This process will be analogous to which was presented in the previous paragraph (about structures).  
 !!! example "Retrieving references using get_references() function"
     === "Code"
@@ -767,7 +805,7 @@ We will once again use the retrieved MiRNA objects in order to fetch affiliated 
         [Mir-Us]  'get_references' found 4 results in 0.000007 seconds
         ['18256158', '18469162', '23034410', '22418847']
         ```
-References are PubMed accession numbers that have to be put into a website link to be useful. Mir-Us provides here some quality of life improvements - `get_references()` can return links to PubMed instead of plain PubMed accession numbers so this functionality can save up some time in ones' workflow.  
+References are PubMed accession numbers. Mir-Us provides here some quality of life improvements - `get_references()` can return links to PubMed instead of plain PubMed accession numbers so this functionality can save up some time in ones' workflow.
 !!! example "Retrieving links to PubMed using get_references() function"
     === "Code"
         ```python
@@ -779,7 +817,7 @@ References are PubMed accession numbers that have to be put into a website link 
         [Mir-Us]  'get_references' found 4 results in 0.000011 seconds
         ['https://pubmed.ncbi.nlm.nih.gov/22418847/', 'https://pubmed.ncbi.nlm.nih.gov/23034410/', 'https://pubmed.ncbi.nlm.nih.gov/18256158/', 'https://pubmed.ncbi.nlm.nih.gov/18469162/']
         ```
-Naturally, function can also receive single mature miRNA or precursor ID string as an argument. Furthermore, to retrieve the structures one can also use the mature miRNA names.
+Naturally, function can also receive single mature miRNA or precursor ID string as an argument. Furthermore, to retrieve the references one can also use the mature miRNA names.
 
 ## Searching clusters
 Mir-Us also provides cluster searching which is a true copy of a functionality (or rather information) that is present in the precursor records from miRBase. If one would like to know which miRNAs can be clustered, then a function `find_cluster()` should be used.

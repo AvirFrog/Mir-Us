@@ -108,7 +108,7 @@ print(m.get_taxid(["Homo", "Chrysemys picta", "Amphimedon queenslandica"], verbo
 # print(m.get_tax_level("Gallus gallus"))  # successful search message with elapsed time and printed dict with results
 
 # print("----- get_structure-----")
-# m.get_structure()  # no results message
+m.get_structure(verbose=True)  # no results message
 # m.get_structure(["MI0000001", "MI0016085"])  # successful search message with elapsed time
 # m.get_structure(["MI123456789"])  # no results message
 # m.get_structure("MI0000001")  # successful search message with elapsed time
@@ -174,7 +174,8 @@ print(m.get_taxid(["Homo", "Chrysemys picta", "Amphimedon queenslandica"], verbo
 # #print(m.get_precursor(id=["MI9999000"], organism_name="Homo sapiens", chr='chrX'))  # successful search message with elapsed time and then pretty printed records
 #
 # print("----- get_mirna-----")
-# m.get_mirna()  # no results message
+m.get_mirna(verbose=True)  # no results message
+m.get_mirna(mirna_id=[])
 # m.get_mirna(id=['MIMAT0000001', 'MIMAT123'])  # successful search message with elapsed time
 # m.get_mirna("MIMAT0000001")  # successful search message with elapsed time
 # m.get_mirna('MIMAT123')  # no results message
@@ -283,6 +284,20 @@ print(m.get_taxid(["Homo", "Chrysemys picta", "Amphimedon queenslandica"], verbo
 # print(sample_gallus)
 # print(sample_gallus[0].chromosome)
 # print(sample_gallus[0].genome_coordinates)
+
+# organisms = m.get_organisms_list()
+# gallus = [nt for nt in organisms if nt.name in ["Gallus gallus"]][0]
+# print(gallus)
+# print(getattr(gallus, "organism"))
+# print(gallus.name)
+# print(getattr(gallus, "tree"))
+# print(gallus.taxid)
+#
+# gallus_mirna = m.get_mirna(organism_name="Gallus gallus", verbose=True)
+# print(gallus_mirna[0:2])
+#
+# gallus_prec = m.get_precursor(organism_name="Gallus gallus", verbose=True)
+# print(gallus_prec[0:2])
 
 # 2.10.21
 #print(m.get_mirna(mirna_id="MIMAT0031077"))

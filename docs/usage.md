@@ -1,12 +1,14 @@
 # Getting started
-This section shows an example usage of the Mir-Us package for the absolute beginner. There are a few steps that have to be done to receive data from [miRBase](https://www.mirbase.org/).
+This section shows an example usage of the Mir-Us package for the absolute beginner. There are a few steps that have to be done to receive data from [miRBase](https://www.mirbase.org/){:target="_blank"}.
 
 ## Import package
 To use the package, it must be first imported:
+<!---
 > to się może zmienić
-    ```python
-    from mirus import miBase
-    ```
+-->
+```python
+from mirus import miBase
+```
 ## Initialize miBase object
 In order to call functions, a miBase object must be initialized:
 
@@ -25,7 +27,7 @@ This code above will create a miBase object which will provide functions to retr
     m = miBase.MiRBase(version="20")  # for object 'm' the data from version 20 will be used.
     ```
 
-!!! warning "The lower the version number, the older database is and it will provide fewer data. In extreme cases, incomplete data might be returned."
+!!! warning "The older database is, the fewer data is provided. In extreme cases, even the incomplete data might be returned."
 
 ## Receive data
 Receiving data requires the usage of provided functions, each of them is designed for a specific task.
@@ -42,7 +44,7 @@ For example, one might want to obtain information about existing miRNAs on a hum
         [Mir-Us]  'get_mirna' found 9 results in 0.091857 seconds
         ```
 
-In the 'Result' tab a search report was printed to stdout and most importantly, a list of miRNA objects was returned, which contain all the parsed information.
+A list of miRNA objects was returned to the data object, which contain all the parsed information. In the 'Result' tab a search report is printed to the stdout.
 
 
 Search details can be ommited, by setting `verbose` flag to `False` or by not including it in the function call.

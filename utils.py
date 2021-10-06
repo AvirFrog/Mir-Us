@@ -49,6 +49,7 @@ def time_this(func):
         passed_args = kwargs
         start = timer()
         values = func(*args, **kwargs)
+        print(values)
         end = timer()
         runtime = end - start
         try:
@@ -62,7 +63,12 @@ def time_this(func):
                 return values[0]
         # if not passed, by default verbose is False
         except KeyError:
-            return values[0]
+            if values is None:
+                pass
+            else:
+                return values[0]
+        except IndexError:
+            print(f"{Fore.RED}[Mir-Us]  {func.__name__!r} No records matching given criteria.")
 
     return wrapper_timer
 

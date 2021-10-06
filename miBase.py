@@ -121,6 +121,7 @@ class MiRBase:
             with open(f'data/{self._miRBase_version}/precursors_ID.mir', 'wb') as fh_precid_dump:
                 dill.dump(self._precursors_ID, fh_precid_dump)
             fh_precid_dump.close()
+            bar()
             with open(f'data/{self._miRBase_version}/precursors_name.mir', 'wb') as fh_precname_dump:
                 dill.dump(self._precursors_name, fh_precname_dump)
             fh_precname_dump.close()
@@ -757,6 +758,7 @@ class MiRBase:
 
         if isinstance(mirna_id, str):
             mirna_id = [mirna_id]
+        print(mirna_id)
         dict_result = {}
         first = True
 
@@ -921,7 +923,8 @@ class MiRBase:
                     result.append(self._miRNAs_ID[mi])
             dict_result["strand-search"] = result
         if not len(dict_result) > 1:
-            if list(dict_result.values())[0]:
+            # if list(dict_result.values())[0]:
+            if bool(dict_result):
                 output = list(dict_result.values())[0]
                 return output, len(output)
             else:
@@ -1137,7 +1140,7 @@ class MiRLoad(MiRBase):
                             org = self._Organism(tmp[0], tmp[1], tmp[2], tmp[3].rstrip(), str(ent_record["IdList"][0]))
                         except:
                             org = self._Organism(tmp[0], tmp[1], tmp[2], tmp[3].rstrip(), None)
-                        print(f"{getattr(org, 'name')}: {getattr(org, 'taxid')}")
+                        # print(f"{getattr(org, 'name')}: {getattr(org, 'taxid')}")
                         self._organisms.append(org)
                     else:
                         org = self._Organism(tmp[0], tmp[1], tmp[2], tmp[3], tmp[4].rstrip())
@@ -1368,7 +1371,7 @@ class MiRLoad(MiRBase):
         organism_codes = list(map(lambda x: getattr(x, "name"), self._organisms))  # lista wszystkich kodów organizmow
         tax_codes = list(map(lambda x: getattr(x, "tree"), self._organisms))
         tax_dct = dict(zip(organism_codes, tax_codes))
-        print(tax_dct)
+        # print(tax_dct)
 
         for prec in self._precursors_ID:
             p_id = self._precursors_ID[prec].precursor_ID

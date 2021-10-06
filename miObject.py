@@ -90,7 +90,7 @@ class MiRNA:
         experiment (list[str]): Types of conducted experiments to discover this miRNA (with numbers matching the reference index)
         end (list[str]): Strand end ('3p', '5p' or '-')
         chromosome_mi (list[str]): Chromosome names
-        gen_coords (defaultdict[list[tuple(str, str)]]): Genome coordinates of miRNA from affiliated precursor
+        genome_coordinates_mi (defaultdict[list[tuple(str, str)]]): Genome coordinates of miRNA from affiliated precursor
         strand_mi (list[str]): Strand type ('+' or '-')
         references (list[str]): References from Pubmed (accession numbers)
     """
