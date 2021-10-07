@@ -72,6 +72,7 @@ m = miBase.MiRBase(version="CURRENT")
 # print(m.get_organism("Viruses"))  # successful search message with elapsed time and then printed list with results
 # print(m.get_organism("Dogs"))  # no results message and then printed 'None'
 print(m.get_organism("Aves", verbose=False))
+print(m.get_organism(verbose=True))
 
 # print("----- get_taxid-----")
 # m.get_taxid()  # no results message
@@ -109,6 +110,7 @@ print(m.get_taxid(["Homo", "Chrysemys picta", "Amphimedon queenslandica"], verbo
 
 # print("----- get_structure-----")
 m.get_structure(verbose=True)  # no results message
+print(m.get_structure())
 # m.get_structure(["MI0000001", "MI0016085"])  # successful search message with elapsed time
 # m.get_structure(["MI123456789"])  # no results message
 # m.get_structure("MI0000001")  # successful search message with elapsed time
@@ -144,7 +146,7 @@ m.get_structure(verbose=True)  # no results message
 # print(m.get_references(prec_id=["MI0000001", "MI0017717", "MI0000021"]))  # successful search message with elapsed time and printed list with results
 
 # print("----- get_precursor-----")
-# m.get_precursor()  # no results message
+m.get_precursor(verbose=True)  # no results message
 # m.get_precursor("MI0000001")  # successful search message with elapsed time
 # m.get_precursor(name="mmu-mir-21a")  # successful search message with elapsed time
 # m.get_precursor(id=["MI0000001", "MI0017717", "MI0000021"])  # successful search message with elapsed time
@@ -175,7 +177,10 @@ m.get_structure(verbose=True)  # no results message
 #
 # print("----- get_mirna-----")
 m.get_mirna(verbose=True)  # no results message
-m.get_mirna(mirna_id=[])
+print(m.get_mirna(mirna_id=[], verbose=True))
+print(m.get_mirna(mirna_id='', verbose=True))
+print(m.get_mirna(prec_id="", verbose=True))
+print(m.get_mirna(prec_id="MI0040754", verbose=True))
 # m.get_mirna(id=['MIMAT0000001', 'MIMAT123'])  # successful search message with elapsed time
 # m.get_mirna("MIMAT0000001")  # successful search message with elapsed time
 # m.get_mirna('MIMAT123')  # no results message
@@ -299,6 +304,26 @@ m.get_mirna(mirna_id=[])
 # gallus_prec = m.get_precursor(organism_name="Gallus gallus", verbose=True)
 # print(gallus_prec[0:2])
 
+starts = m.get_mirna(organism_name="Gallus gallus", chr="chr8", strand="-", start=600000, verbose=True)
+for elem in starts:
+    print(elem.genome_coordinates_mi)
+ends = m.get_mirna(organism_name="Gallus gallus", chr="chr8", strand="-", end=600000, verbose=True)
+for elem in ends:
+    print(elem.genome_coordinates_mi)
+m.get_precursor(mirna_id="MIMAT0007559", verbose=True)
+
+m.find_cluster("MIMAT0050065", "MI0000061", 1, 100000, verbose=True)
+m.find_cluster(mirna_id="MIMAT0050065", search_type="stream", range=10000, verbose=True)
+#m.find_cluster("MIMAT0050065", 1, 100000, verbose=True)
+#m.find_cluster(mirna_id="MIMAT0050065", 1, 100000, verbose=True)
+print(m.get_organisms_short(organism="Gallus gallus", verbose=True))
+# print(m.get_organisms_short(verbose=True))
+print(m.get_references(['MIMAT0000001', "gga-miR-7478-3p"], link=True, verbose=True))
+print(m.get_references(prec_name="mmu-mir-21a", link=True, verbose=True))
+print(m.get_structure(name=["mmu-mir-21a", "hsa-mir-3612"], verbose=True))
+#print(m.get_precursor(name="mmu-mir-21a"))
+print(m.get_structure(["MI0000001", "MI0016085"], verbose=True))
+print(m.get_structure(id=["MI0000001", "MI0016085"], name=["hsa-mir-3612"], verbose=True))
 # 2.10.21
 #print(m.get_mirna(mirna_id="MIMAT0031077"))
 

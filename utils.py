@@ -49,7 +49,7 @@ def time_this(func):
         passed_args = kwargs
         start = timer()
         values = func(*args, **kwargs)
-        print(values)
+        # print(values)
         end = timer()
         runtime = end - start
         try:
