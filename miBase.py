@@ -47,7 +47,7 @@ class MiRBase:
         """Initializes MiRBase object from which data can be accessed using provided functions. Database version might
         be specified.
 
-        !!! info "There are multiple versions of miRBase database compatible with Mir-Us. [Details :octicons-link-16:](versions.md){ .md-button .md-button--primary }"
+        !!! info "There are multiple versions of miRBase database compatible with Mir-Us. [Details :octicons-link-16:](versions.md){: target="_blank" .md-button .md-button--primary }"
 
         Args:
             version (str): ID of database version. "CURRENT" is the most recent version (22.1).
@@ -1000,9 +1000,9 @@ class MiRBase:
 
             | Search type            | Explanation                                             |
             | ---------------------- | ------------------------------------------------------- |
-            | `up-downstream` or `0` | The search is conducted below and above given miRNA position within given range.|
-            | `upstream` or `1`      | The search is conducted only above given miRNA position within given range.|
-            | `downstream` or `2`    | The search is conducted only below given miRNA position within given range.|
+            | `up-downstream` or `0` | The search is conducted below and above given miRNA position (towards both ends) within given range. The search is inclusive on both ends of the specified range.|
+            | `upstream` or `1`      | The search is conducted only below given miRNA position (towards 5' end) within given range. The search is inclusive on both ends of the specified range.|
+            | `downstream` or `2`    | The search is conducted only above given miRNA position (towards 3' end) within given range. The search is inclusive on both ends of the specified range.|
         """
 
         result = []
@@ -1016,10 +1016,10 @@ class MiRBase:
                 # print(int_start)
                 int_end = start + range
                 # print(int_end)
-            if search_type == "upstream" or search_type == 1:
+            if search_type == "downstream" or search_type == 2:
                 int_start = start
                 int_end = start + range
-            if search_type == "downstream" or search_type == 2:
+            if search_type == "upstream" or search_type == 1:
                 int_start = start - range
                 # print(int_start)
                 int_end = start
@@ -1107,7 +1107,7 @@ class MiRBase:
 
         Returns:
             Optional[dict]: Dictionary structured as taxonomy tree of organisms present in the base
-            (equivalent to [Browse miRBase by species](https://www.mirbase.org/cgi-bin/browse.pl)) or its fragment.
+            (equivalent to [Browse miRBase by species](https://www.mirbase.org/cgi-bin/browse.pl){: target="_blank"}) or its fragment.
             Returns `None` if wrong taxonomy path is given.
         """
 
@@ -1147,6 +1147,8 @@ class MiRBase:
         if tax_path is not None:
             try:
                 tree_slice = dict(access_tree(org_tree, tax_path))
+                if not tree_slice:
+                    return None
                 print(json.dumps(tree_slice, indent=4, sort_keys=True))
                 return tree_slice, 1
             except:
@@ -1154,6 +1156,38 @@ class MiRBase:
         else:
             print(json.dumps(dict(org_tree), indent=4, sort_keys=True))
             return dict(org_tree), 1
+
+    @utils.time_this
+    def high_conf(self, mirna_obj=None, prec_obj=None, verbose=False):
+        """From the given MiRNA or Precursor objects returns only those that are of a high confidence.
+
+        Args:
+            mirna_obj (list[MiRNA]): List of MiRNA objects, that can be retrieved using `get_mirna()` function
+            mirna_obj (list[Precursor]): List of Precursor objects, that can be retrieved using `get_precursor()` function
+            verbose (bool): A flag, which allows or disallows showing search details (number of returned elements, time of execution, errors)
+
+        Returns:
+            Optional[list]: Filtered MiRNA or Precursor objects that are of a high confidence. Returns `None` if wrong
+            objects are given or if none of the given objects are of a high confidence.
+        """
+        # if isinstance(mirna_obj, miObject.MiRNA):
+        #     mirna_obj = [mirna_obj]
+        # if isinstance(prec_obj, miObject.Precursor):
+        #     prec_obj = [prec_obj]
+        result = []
+        if prec_obj:
+            try:
+                result = [prec for prec in prec_obj if prec.high_confidence is True]
+            except:
+                pass
+        if mirna_obj:
+            for mirna in mirna_obj:
+                for prec in mirna.precursor:
+                    if self._precursors_ID[prec].high_confidence is True:
+                        result.append(mirna)
+        if not result:
+            return None
+        return list(set(result)), len(result)
 
 
 class MiRLoad(MiRBase):

@@ -324,6 +324,18 @@ print(m.get_structure(name=["mmu-mir-21a", "hsa-mir-3612"], verbose=True))
 #print(m.get_precursor(name="mmu-mir-21a"))
 print(m.get_structure(["MI0000001", "MI0016085"], verbose=True))
 print(m.get_structure(id=["MI0000001", "MI0016085"], name=["hsa-mir-3612"], verbose=True))
+m.get_tree(["h"], verbose=True)
+m.get_tree(1, verbose=True)
+m.get_tree([1], verbose=True)
+m.get_tree(["Deuterostoma"], verbose=True)
+tree = m.get_tree(["Metazoa", "Bilateria", "Deuterostoma", "Chordata", "Vertebrata"], verbose=True)
+aves = m.get_tree(["Metazoa", "Bilateria", "Deuterostoma", "Chordata", "Vertebrata", "Aves"], verbose=True)["!organism"]
+print(aves)
+m_obj = m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000", mirna_id="MI9999999999999", tax_level="Viruses", verbose=True)
+#print(type(m_obj["genomic-search"][0]))
+m.high_conf(mirna_obj=m_obj["genomic-search"], verbose=True)
+p_obj = m.get_precursor(prec_id=["MI9999000"], organism_name="Homo sapiens", chr='chrX', verbose=True)
+m.high_conf(prec_obj=p_obj["genomic-search"], verbose=True)
 # 2.10.21
 #print(m.get_mirna(mirna_id="MIMAT0031077"))
 

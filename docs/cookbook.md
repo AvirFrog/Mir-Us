@@ -161,7 +161,7 @@ Organism names can be also retrieved from the taxonomy tree data structure which
 
 [Taxonomy tree details :octicons-link-16:](#specifics-of-the-taxonomy-tree){: target="_blank" .md-button .md-button--primary }
 ## Specifics of the taxonomy tree
-Mir-Us provides a data structure which is a copy of the taxonomy tree available on ['Browse by species'](https://www.mirbase.org/cgi-bin/browse.pl) site from miRBase. Because of its characteristic impementation in Mir-Us, user is allowed to slice a part of tree from a pointed taxonomy level or retrieve only organism names from a certain taxonomy level.
+Mir-Us provides a data structure which is a copy of the taxonomy tree available on ['Browse by species'](https://www.mirbase.org/cgi-bin/browse.pl){: target="_blank"} site from miRBase. Because of its characteristic impementation in Mir-Us, user is allowed to slice a part of tree from a pointed taxonomy level or retrieve only organism names from a certain taxonomy level.
 ### Structure of the tree
 Structure of the tree is not complicated but it might be not intuitive at first. Bascially, the tree is defined as a dictionary of other dictionaries which are representing subsequent taxonomy levels. To better visualise it, we can think of this structure as a file system - in a directory there is another directory, which holds another directory. If certain taxonomy level has organisms in it, then we can think that there are some loose files in that particular directory.
 
@@ -504,7 +504,7 @@ There is one thing worth mentioning - specifying a feature from a certain catego
 
 Also, there is much more types of features which can be used to search the records. Button below provides more information about this topic.
 
-[get_mirna documentation :octicons-link-16:](miBase.md#miBase.MiRBase.get_mirna){ .md-button .md-button--primary }
+[get_mirna documentation :octicons-link-16:](miBase.md#miBase.MiRBase.get_mirna){: target="_blank" .md-button .md-button--primary }
 
 ### Accessing specific records
 To access a specific record or records, a `get_mirna()` function with `mirna_id` flag should be used to retrieve them. Suppose, we would like to access only that sample record from 'Results' tab from previous paragraph.
@@ -604,7 +604,7 @@ Then, we can actually access the data from the MiRNA object. Let's say we will e
 !!! tip "Genome coordinates are of `defaultdict` type, thus conversion to dictionary might be necessary, depending of user needs."
 Button below provides more detail about the data that is possible to be accessed.
 
-[MiRNA object details :octicons-link-16:](miObject.md#mirna){ .md-button .md-button--primary }
+[MiRNA object details :octicons-link-16:](miObject.md#mirna){: target="_blank" .md-button .md-button--primary }
 
 ## Fetching precursors
 This paragraph is actually a copy of the previous one, because functions `get_mirna()` and `get_precursor()` are very similar. We will retrieve all precursors from Gallus gallus and we will subsequently narrow the search.
@@ -673,7 +673,7 @@ Results were narrowed down to just 13 records.
 
 There are much more types of features which can be used to search the records. Button below provides more information about this topic.
 
-[get_precursor documentation :octicons-link-16:](miBase.md#miBase.MiRBase.get_precursor){ .md-button .md-button--primary }
+[get_precursor documentation :octicons-link-16:](miBase.md#miBase.MiRBase.get_precursor){: target="_blank" .md-button .md-button--primary }
 
 ### Accessing specific records
 To access a specific record or records, a `get_precursor()` function with `prec_id` flag should be used to retrieve them. Suppose, we would like to access only that sample record from 'Results' tab from previous paragraph.
@@ -767,7 +767,7 @@ Then, we can actually access the data from the Precursor object. Let's say we wi
 
 Button below provides more detail about the data that is possible to be accessed.
 
-[Precursor object details :octicons-link-16:](miObject.md#precursor){ .md-button .md-button--primary }
+[Precursor object details :octicons-link-16:](miObject.md#precursor){: target="_blank" .md-button .md-button--primary }
 
 ## Fetching structures
 One of the most problematic aspect of miRBase is precursor's structure notation. Obviously, it is a very informative notation but at the same time not standarised and very hard to parse for further usage. Mir-Us solves this problem, because every structure here is rewritten in dot-bracket format, which is a well know, standarised notation for RNA structures.
@@ -787,7 +787,7 @@ Suppose, we would like to retrieve all the precursor's structures of the affilia
         ```
 Naturally, function can also receive single ID string as an argument. Furthermore, to retrieve the structures one can also use the precursor names.
 
-Retrieved structures in dot-bracket format can be directly used to visualise those structures in external tools such as [TBI-forna](http://rna.tbi.univie.ac.at/forna/)
+Retrieved structures in dot-bracket format can be directly used to visualise those structures in external tools such as [TBI-forna](http://rna.tbi.univie.ac.at/forna/){: target="_blank"}
 ## Fetching references
 Fetching references is very straightforward using Mir-Us. With usage of the dedicated function (`get_references()`), one can retrieve all affiliated references with particular MiRNA or Precursor object.
 ### Using get_references() function
@@ -824,7 +824,7 @@ Mir-Us also provides cluster searching which is a true copy of a functionality (
 
 Cluster searching is pretty straightforward - to a give mature miRNA or precursor ID, the function searches through genomic space of the chromosome from an organism in which given ID is present and returns all precursor records which are found in the given range. The search can be conducted upstream, downstream or in both directions. Button below provides detailed description about this function.
 
-[find_cluster() details :octicons-link-16:](miBase.md#miBase.MiRBase.find_cluster){ .md-button .md-button--primary }
+[find_cluster() details :octicons-link-16:](miBase.md#miBase.MiRBase.find_cluster){: target="_blank" .md-button .md-button--primary }
 
 For example, we would like to find a cluster for one of the Gallus gallus' (obviously) precursor in the range of 10000 nucleotides and both up and downstream from the given precursor. It turns out, that search parameters are the same as they are on miRBase by default.
 

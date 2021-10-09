@@ -20,7 +20,7 @@ In order to call functions, a miBase object must be initialized:
 This code above will create a miBase object which will provide functions to retrieve data from the current version of miRBase. However, one might be working on an old project, which requires access to older versions of miRBase. It is possible with Mir-Us.
 
 !!! info
-    Mir-Us supports older versions of miRBase. To use them, the `version` parameter must be provided. Backwards compatibility does not end on version 20, however. [Details :octicons-link-16:](versions.md){ .md-button .md-button--primary }
+    Mir-Us supports older versions of miRBase. To use them, the `version` parameter must be provided. Backwards compatibility does not end on version 20, however. [Details :octicons-link-16:](versions.md){: target="_blank" .md-button .md-button--primary }
 
 !!! example "Example of initialization with version defining"
     ```python
@@ -54,4 +54,4 @@ With this basic knowledge it is now possible to learn Mir-Us in-depth. If one is
 
 **It's time to choose!**
 
-[User cookbook :fontawesome-solid-book-medical:](cookbook.md){ .md-button .md-button--primary }   [Reference documentation :octicons-book-16:](miObject.md){ .md-button .md-button--primary }
+[User cookbook :fontawesome-solid-book-medical:](cookbook.md){: target="_blank" .md-button .md-button--primary }   [Reference documentation :octicons-book-16:](miObject.md){: target="_blank" .md-button .md-button--primary }
