@@ -101,12 +101,13 @@ With a bit more code, an abbreviation can be retrieved from a full name:
 !!! example "Retrieving organism abbreviation from organism name using get_organisms_short() function"
     === "Code"
         ```python
-        short_gal = list(shorts.keys())[list(shorts.values()).index("Gallus gallus")]
+        short_gal = m.get_organisms_short("Gallus gallus", verbose=True)
         print(short_gal)
         ```
     === "Result"
         ```
-        'gga'
+        [Mir-Us]  'get_organisms_short' found 1 results in 0.000033 seconds
+        gga
         ```
     
 ### Using NCBI taxonomy ID
@@ -181,14 +182,15 @@ We can graphically demonstrate the structure as mentioned files system:
 │           "Phytophthora sojae"
 ...
 ```
-To obtain a taxonomy tree structure, user should use the function presented below:
+To obtain a taxonomy tree structure, user should use the function presented below. Returned object can be pretty printed using e.g. json module:
 !!! example "Fetching taxonomy tree using get_tree() function"
     === "Code"
         ```python
-        m.get_tree()
+        print(json.dumps(m.get_tree(verbose=True), indent=4, sort_keys=True))
         ```
     === "Result"
         ```
+        [Mir-Us]  'get_tree' found 1 results in 0.001243 seconds
         {
             "Alveolata": {
                 "!organism": [
@@ -216,9 +218,11 @@ Gallus gallus belongs to the Vertebrata subphylum but we would like to know what
     === "Code"
         ```python
         tree = m.get_tree(["Metazoa", "Bilateria", "Deuterostoma", "Chordata", "Vertebrata"], verbose=True)
+        print(json.dumps(tree, indent=4, sort_keys=True))
         ```
     === "Result"
         ```
+        [Mir-Us]  'get_tree' found 1 results in 0.001306 seconds
         {
             "Agnathostomata": {
                 "!organism": [
@@ -403,7 +407,6 @@ Gallus gallus belongs to the Vertebrata subphylum but we would like to know what
                 ]
             }
         }
-        [Mir-Us]  'get_tree' found 1 results in 0.004225 seconds
         ```
 
 If we are intrested in the Aves class, then it is possible to retrieve all organism names in the list from the tree structure:
@@ -420,14 +423,6 @@ If we are intrested in the Aves class, then it is possible to retrieve all organ
     === "Result"
         ```
         ['Anas platyrhynchos', 'Columba livia', 'Gallus gallus', 'Taeniopygia guttata']
-        {
-            "!organism": [
-                "Anas platyrhynchos",
-                "Columba livia",
-                "Gallus gallus",
-                "Taeniopygia guttata"
-            ]
-        }
         [Mir-Us]  'get_tree' found 1 results in 0.001367 seconds
         ['Anas platyrhynchos', 'Columba livia', 'Gallus gallus', 'Taeniopygia guttata']
         ```
@@ -802,8 +797,52 @@ We will once again use the retrieved MiRNA objects in order to fetch affiliated 
         ```
     === "Result"
         ```
-        [Mir-Us]  'get_references' found 4 results in 0.000007 seconds
-        ['18256158', '18469162', '23034410', '22418847']
+        [
+                Mature ID: MIMAT0001185
+                Mature name: gga-miR-101-3p
+                Derivative: MI0001270, MI0007558
+                Mature sequence: guacaguacugugauaacugaa, guacaguacugugauaacugaa
+                Mature positions: ('48', '69'), ('48', '69')
+                Organism: Gallus gallus
+                Evidence: experimental, experimental
+                Experiment: cloned [1], Illumina [2-3], cloned [1], Illumina [2-3]
+                End: 3p, 3p
+                Chromosome: chr8, chrZ
+                Genome coordinates: {'MI0001270': [('27510701', '27510722')],
+         'MI0007558': [('28360437', '28360458')]}
+                Strand: -, +
+                References: 18256158, 18469162, 23034410
+        ,
+                Mature ID: MIMAT0025825
+                Mature name: gga-miR-6622-3p
+                Derivative: MI0022537
+                Mature sequence: uguggggacauuucuguggcauu
+                Mature positions: ('69', '91')
+                Organism: Gallus gallus
+                Evidence: experimental
+                Experiment: Illumina [1]
+                End: 3p
+                Chromosome: chr8
+                Genome coordinates: {'MI0022537': [('22245960', '22245982')]}
+                Strand: -
+                References: 22418847
+        ,
+                Mature ID: MIMAT0007451
+                Mature name: gga-miR-1589
+                Derivative: MI0007316
+                Mature sequence: cagccucugcugaucgucuuuu
+                Mature positions: ('45', '66')
+                Organism: Gallus gallus
+                Evidence: experimental
+                Experiment: Illumina [1]
+                End: -
+                Chromosome: chr8
+                Genome coordinates: {'MI0007316': [('16516625', '16516646')]}
+                Strand: -
+                References: 18469162
+        ]
+        [Mir-Us]  'get_references' found 3 results in 0.000013 seconds
+        {'MIMAT0001185': ['18256158', '18469162', '23034410'], 'MIMAT0025825': ['22418847'], 'MIMAT0007451': ['18469162']}
         ```
 References are PubMed accession numbers. Mir-Us provides here some quality of life improvements - `get_references()` can return links to PubMed instead of plain PubMed accession numbers so this functionality can save up some time in ones' workflow.
 !!! example "Retrieving links to PubMed using get_references() function"
@@ -814,8 +853,8 @@ References are PubMed accession numbers. Mir-Us provides here some quality of li
         ```
     === "Result"
         ```
-        [Mir-Us]  'get_references' found 4 results in 0.000011 seconds
-        ['https://pubmed.ncbi.nlm.nih.gov/22418847/', 'https://pubmed.ncbi.nlm.nih.gov/23034410/', 'https://pubmed.ncbi.nlm.nih.gov/18256158/', 'https://pubmed.ncbi.nlm.nih.gov/18469162/']
+        [Mir-Us]  'get_references' found 3 results in 0.000009 seconds
+        {'MIMAT0001185': ['https://pubmed.ncbi.nlm.nih.gov/18256158/', 'https://pubmed.ncbi.nlm.nih.gov/18469162/', 'https://pubmed.ncbi.nlm.nih.gov/23034410/'], 'MIMAT0025825': ['https://pubmed.ncbi.nlm.nih.gov/22418847/'], 'MIMAT0007451': ['https://pubmed.ncbi.nlm.nih.gov/18469162/']}
         ```
 Naturally, function can also receive single mature miRNA or precursor ID string as an argument. Furthermore, to retrieve the references one can also use the mature miRNA names.
 
@@ -883,3 +922,69 @@ For reference, in the 'miRBase result' tab there are results from miRBase
     === "miRBase result"
 
         ![Cluster example from miRBase with default settings](../images/mirbase-cluster.png)
+
+## High confidence filtering
+Records deposited in miRBase have been annotated using various methods. To assure the sufficient quality of the deposited annotations, a deep sequencing data have been used.
+From such a data, some key features can be checked and thus, the confidence level for those annotations can be assigned. High confidence means high quality annotation that meets some specific features described [in this article](https://academic.oup.com/nar/article/42/D1/D68/1057911){: target="_blank"}.
+
+Mir-Us provides a simple to use function, that allows user to filter the records obtained as a result of the `get_mirna` and `get_precursor` according to their high confidence levels.
+
+!!! example "Filtering results of the get_mirna() function"
+    === "Code"
+        ```python
+        m_obj = m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000", mirna_id="MI9999999999999", tax_level="Viruses", verbose=True)
+        m.high_conf(mirna_obj=m_obj["genomic-search"], verbose=True)
+        ```
+    === "Result"
+        ```
+        [Mir-Us]   Some of the given criteria were contradicting for the search system. Because of that, the results are returned in a dictionary, where contradicting results are separated into different search types. This search consist of (keys of generated dictionary):
+        'genomic-search': 9 results
+        'mirna_id-search': 0 results
+        'tax-search': 530 results
+        [Mir-Us]  'get_mirna' found 539 results in 0.180769 seconds
+        [Mir-Us]  'high_conf' found 2 results in 0.000020 seconds
+        ```
+
+!!! example "Filtering results of the get_precursor() function"
+    === "Code"
+        ```python
+        p_obj = m.get_precursor(prec_id=["MI9999000"], organism_name="Homo sapiens", chr='chrX', verbose=True)
+        print(m.high_conf(prec_obj=p_obj["genomic-search"], verbose=True))
+        ```
+    === "Result"
+        ```
+        [Mir-Us]   Some of the given criteria were contradicting for the search system. Because of that, the results are returned in a dictionary, where contradicting results are separated into different search types. This search consist of (keys of generated dictionary):
+        'genomic-search': 118 results
+        'prec_id-serch': 0 results
+        [Mir-Us]  'get_precursor' found 118 results in 0.089280 seconds
+        [Mir-Us]  'high_conf' found 62 results in 0.000070 seconds
+        [
+                Precursor ID: MI0000094
+                Precursor name: hsa-mir-92a-2
+                MiRNAs: MIMAT0004508, MIMAT0000092
+                Precursor structure: ((.(((.(((((.(((((..((.(((.(((((((((...)))).))))).)))))..))))).))))).))).))
+                Precursor sequence:  ucaucccuggguggggauuuguugcauuacuuguguucuauauaaaguauugcacuugucccggccuguggaaga
+                Organism: Homo sapiens
+                Taxonomy: Metazoa/Bilateria/Deuterostoma/Chordata/Vertebrata/Mammalia/Primates/Hominidae
+                Chromosome: chrX
+                Genome coordinates (start, end): ('134169538', '134169612')
+                Strand: -
+                High confidence: True
+                References: 21912064, 11914277, 12919684, 12554860, 15183728, 15325244, 15978578, 17604727, 17616659
+        ,
+                Precursor ID: MI0003185
+                Precursor name: hsa-mir-501
+                MiRNAs: MIMAT0002872, MIMAT0004774
+                Precursor structure: ((((.(((((((.(((((((.(.(((.(((((....(((.........)))...))))))))))))))))..))))))).))))
+                Precursor sequence:  gcucuuccucucuaauccuuugucccugggugagagugcuuucugaaugcaaugcacccgggcaaggauucugagagggugagc
+                Organism: Homo sapiens
+                Taxonomy: Metazoa/Bilateria/Deuterostoma/Chordata/Vertebrata/Mammalia/Primates/Hominidae
+                Chromosome: chrX
+                Genome coordinates (start, end): ('50009722', '50009805')
+                Strand: +
+                High confidence: True
+                References: 15965474, 17604727
+        ,
+                Precursor ID: MI0003684
+        ...
+        ```

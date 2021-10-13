@@ -116,3 +116,7 @@ def _show_banner():
     Utility function, which displays Mir-Us banner at start.
     """
     print(std_banner)
+
+
+def _check_strand(strand):
+    return True if strand in ["+", "-"] else False
