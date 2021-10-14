@@ -97,7 +97,7 @@ If abbreviation of organism name is know, full name can be retrieved as follows:
         'Gallus gallus'
         ```
 
-With a bit more code, an abbreviation can be retrieved from a full name:
+Also, an abbreviation can be retrieved from a full name:
 !!! example "Retrieving organism abbreviation from organism name using get_organisms_short() function"
     === "Code"
         ```python
@@ -463,7 +463,7 @@ As it turned out, we have to narrow down the search. Let's say we have been give
 
 - chromosme 8 must be searched
 - results must be from the minus strand
-- search must be conducted from 6000000th nucleotide upstream
+- search must be conducted from the 6000000th nucleotide and further
 
 !!! example "Retrieving all miRNAs from Gallus gallus with regard of genomic features (chromosome 8, minus strand, 6000000th nucleotide upstream search)"
     === "Code"
@@ -588,15 +588,15 @@ Then, we can actually access the data from the MiRNA object. Let's say we will e
 !!! example "Retrieving data from a single MiRNA object"
     === "Code"
         ```python
-        print(sample_gallus[0].chromosome_mi)
-        print(dict(sample_gallus[0].genome_coordinates_mi))
+        print(sample_gallus[0].chromosome)
+        print(dict(sample_gallus[0].genome_coordinates))
         ```
     === "Result"
         ```
         ['chr8', 'chrZ']
         {'MI0007558': [('28360437', '28360458')], 'MI0001270': [('27510701', '27510722')]}
         ```
-!!! tip "Genome coordinates are of `defaultdict` type, thus conversion to dictionary might be necessary, depending of user needs."
+!!! tip "Genome coordinates are of a `defaultdict` type, thus conversion to dictionary might be necessary, depending of user needs."
 Button below provides more detail about the data that is possible to be accessed.
 
 [MiRNA object details :octicons-link-16:](miObject.md#mirna){: target="_blank" .md-button .md-button--primary }
@@ -636,7 +636,7 @@ As it turned out, we have to narrow down the search. Let's say we have been give
 
 - chromosme 8 must be searched
 - results must be from the minus strand
-- search must be conducted from 6000000th nucleotide upstream
+- search must be conducted from the 6000000th nucleotide and further 
 
 !!! example "Retrieving all precursors from Gallus gallus with regard of genomic features (chromosome 8, minus strand, 6000000th nucleotide upstream search)"
     === "Code"
@@ -772,7 +772,7 @@ Suppose, we would like to retrieve all the precursor's structures of the affilia
     === "Code"
         ```python
         sample_gallus = m.get_mirna(mirna_id=["MIMAT0001185", "MIMAT0025825", "MIMAT0007451"], verbose=True)
-        struct_gallus = m.get_structure(id=[precursor for mi_obj in sample_gallus for precursor in mi_obj.precursor], verbose=True)
+        struct_gallus = m.get_structure(id=[precursor for mi_obj in sample_gallus for precursor in mi_obj.precursors], verbose=True)
         print(struct_gallus)
         ```
     === "Result"
@@ -792,7 +792,7 @@ We will once again use the retrieved MiRNA objects in order to fetch affiliated 
         ```python
         sample_gallus = m.get_mirna(mirna_id=["MIMAT0001185", "MIMAT0025825", "MIMAT0007451"])
         print(sample_gallus)
-        ref_gallus = m.get_references(mirna_id=[id for mi_obj in sample_gallus for id in mi_obj.mature_ID], verbose=True)
+        ref_gallus = m.get_references(mirna_id=[id for mi_obj in sample_gallus for id in mi_obj.ID], verbose=True)
         print(ref_gallus)
         ```
     === "Result"
@@ -848,7 +848,7 @@ References are PubMed accession numbers. Mir-Us provides here some quality of li
 !!! example "Retrieving links to PubMed using get_references() function"
     === "Code"
         ```python
-        ref_gallus = m.get_references(mirna_id=[id for mi_obj in sample_gallus for id in mi_obj.mature_ID], link=True, verbose=True)
+        ref_gallus = m.get_references(mirna_id=[id for mi_obj in sample_gallus for id in mi_obj.ID], link=True, verbose=True)
         print(ref_gallus)
         ```
     === "Result"
@@ -925,7 +925,7 @@ For reference, in the 'miRBase result' tab there are results from miRBase
 
 ## High confidence filtering
 Records deposited in miRBase have been annotated using various methods. To assure the sufficient quality of the deposited annotations, a deep sequencing data have been used.
-From such a data, some key features can be checked and thus, the confidence level for those annotations can be assigned. High confidence means high quality annotation that meets some specific features described [in this article](https://academic.oup.com/nar/article/42/D1/D68/1057911){: target="_blank"}.
+From such a data, some key features can be validated and thus, the confidence level for those annotations can be assigned. High confidence means high quality annotation that meets some specific features described [in this article](https://academic.oup.com/nar/article/42/D1/D68/1057911){: target="_blank"}.
 
 Mir-Us provides a simple to use function, that allows user to filter the records obtained as a result of the `get_mirna` and `get_precursor` according to their high confidence levels.
 
