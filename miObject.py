@@ -26,8 +26,8 @@ init(autoreset=True)
 class Precursor:
     """Precursor class to store information from a single Precursor record
     Attributes:
-        precursor_ID (str): Precursor ID
-        precursor_name (str): Precursor name
+        ID (str): Precursor ID
+        name (str): Precursor name
         miRNAs (list[str]): Affiliated miRNA IDs
         structure (str): Structure of precursor in dot-bracket format
         precursor_sequence (str): Nucleotide sequence of precursor
@@ -41,8 +41,10 @@ class Precursor:
     """
 
     def __init__(self, id, name, seq, org, ref, mirnas):
-        self.precursor_ID = id
-        self.precursor_name = name
+        # self.precursor_ID = id
+        self.ID = id
+        # self.precursor_name = name
+        self.name = name
         self.precursor_sequence = seq
         self.structure = ""  # dot-bracket
         self.chromosome = []
@@ -61,8 +63,8 @@ class Precursor:
             str: All attributes from an object in 'Attribute: values' form.
         """
         info = f"""
-        {Fore.YELLOW}Precursor ID: {Fore.RESET}{self.precursor_ID}
-        {Fore.YELLOW}Precursor name: {Fore.RESET}{self.precursor_name}
+        {Fore.YELLOW}Precursor ID: {Fore.RESET}{self.ID}
+        {Fore.YELLOW}Precursor name: {Fore.RESET}{self.name}
         {Fore.YELLOW}MiRNAs: {Fore.RESET}{', '.join(self.miRNAs)}
         {Fore.YELLOW}Precursor structure: {Fore.RESET}{self.structure}
         {Fore.YELLOW}Precursor sequence: {Fore.RESET}{" " + self.precursor_sequence}
@@ -80,25 +82,28 @@ class Precursor:
 class MiRNA:
     """miRNA class to store information from a single miRNA record
     Attributes:
-        mature_name (list[str]): miRNA names
-        mature_ID (list[str]): miRNA IDs
-        precursor (list[str]): IDs of affiliated precursors
+        name (list[str]): miRNA names
+        ID (list[str]): miRNA IDs
+        precursors (list[str]): IDs of affiliated precursors
         mature_sequence (list[str]): Mature miRNA sequences
         mature_positions (list[tuple(str, str)]): Pairs of mature seuqences positions from precursors
         organism (str): Name of affiliated organism
         evidence (list[str]): Evidence type
         experiment (list[str]): Types of conducted experiments to discover this miRNA (with numbers matching the reference index)
         end (list[str]): Strand end ('3p', '5p' or '-')
-        chromosome_mi (list[str]): Chromosome names
-        gen_coords (defaultdict[list[tuple(str, str)]]): Genome coordinates of miRNA from affiliated precursor
-        strand_mi (list[str]): Strand type ('+' or '-')
+        chromosome (list[str]): Chromosome names
+        genome_coordinates (defaultdict[list[tuple(str, str)]]): Genome coordinates of miRNA from affiliated precursor
+        strand (list[str]): Strand type ('+' or '-')
         references (list[str]): References from Pubmed (accession numbers)
     """
 
     def __init__(self, prec, id, name, org, pos, evi, exp, end, ref):
-        self.precursor = prec
-        self.mature_name = name
-        self.mature_ID = id
+        # self.precursor = prec
+        self.precursors = prec
+        # self.mature_name = name
+        self.name = name
+        # self.mature_ID = id
+        self.ID = id
         self.organism = org
         self.pair_ID = None  # ID of the other miRNA in pair
         self.mature_sequence = []
@@ -106,10 +111,13 @@ class MiRNA:
         self.evidence = evi
         self.experiment = exp
         self.end = end  # 3p, 5p, nothing
-        self.chromosome_mi = []
+        # self.chromosome_mi = []
+        self.chromosome = []
         # self.genome_coordinates_mi = []
-        self.genome_coordinates_mi = defaultdict(list)
-        self.strand_mi = []
+        # self.genome_coordinates_mi = defaultdict(list)
+        self.genome_coordinates = defaultdict(list)
+        # self.strand_mi = []
+        self.strand = []
         self.references = ref
 
     def __repr__(self):
@@ -118,20 +126,20 @@ class MiRNA:
         Returns:
             str: All attributes from an object in 'Attribute: values' form.
         """
-        gen_coords = pp.pformat(dict(self.genome_coordinates_mi))
+        gen_coords = pp.pformat(dict(self.genome_coordinates))
         info = f"""
-        {Fore.YELLOW}Mature ID: {Fore.RESET}{', '.join(self.mature_ID)}
-        {Fore.YELLOW}Mature name: {Fore.RESET}{', '.join(self.mature_name)}
-        {Fore.YELLOW}Derivative: {Fore.RESET}{', '.join(self.precursor)}
+        {Fore.YELLOW}Mature ID: {Fore.RESET}{', '.join(self.ID)} 
+        {Fore.YELLOW}Mature name: {Fore.RESET}{', '.join(self.name)} 
+        {Fore.YELLOW}Derivative: {Fore.RESET}{', '.join(self.precursors)}
         {Fore.YELLOW}Mature sequence: {Fore.RESET}{', '.join(self.mature_sequence)}
         {Fore.YELLOW}Mature positions: {Fore.RESET}{', '.join(map(str, self.mature_positions))}
         {Fore.YELLOW}Organism: {Fore.RESET}{self.organism}
         {Fore.YELLOW}Evidence: {Fore.RESET}{', '.join(self.evidence)}
         {Fore.YELLOW}Experiment: {Fore.RESET}{', '.join(self.experiment)}
         {Fore.YELLOW}End: {Fore.RESET}{', '.join(self.end)}
-        {Fore.YELLOW}Chromosome: {Fore.RESET}{', '.join(self.chromosome_mi)}
+        {Fore.YELLOW}Chromosome: {Fore.RESET}{', '.join(self.chromosome)}
         {Fore.YELLOW}Genome coordinates: {Fore.RESET}{gen_coords}
-        {Fore.YELLOW}Strand: {Fore.RESET}{', '.join(self.strand_mi)}
+        {Fore.YELLOW}Strand: {Fore.RESET}{', '.join(self.strand)}
         {Fore.YELLOW}References: {Fore.RESET}{', '.join(map(str, self.references))}
 """
         return info

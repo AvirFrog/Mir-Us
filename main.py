@@ -1,4 +1,5 @@
 import miBase
+import json
 #from miBase import MiRBase._compile_indexes()
 # import numpy as np
 # from timeit import default_timer as timer
@@ -72,6 +73,7 @@ m = miBase.MiRBase(version="CURRENT")
 # print(m.get_organism("Viruses"))  # successful search message with elapsed time and then printed list with results
 # print(m.get_organism("Dogs"))  # no results message and then printed 'None'
 print(m.get_organism("Aves", verbose=False))
+print(m.get_organism(verbose=True))
 
 # print("----- get_taxid-----")
 # m.get_taxid()  # no results message
@@ -108,7 +110,8 @@ print(m.get_taxid(["Homo", "Chrysemys picta", "Amphimedon queenslandica"], verbo
 # print(m.get_tax_level("Gallus gallus"))  # successful search message with elapsed time and printed dict with results
 
 # print("----- get_structure-----")
-# m.get_structure()  # no results message
+m.get_structure(verbose=True)  # no results message
+print(m.get_structure())
 # m.get_structure(["MI0000001", "MI0016085"])  # successful search message with elapsed time
 # m.get_structure(["MI123456789"])  # no results message
 # m.get_structure("MI0000001")  # successful search message with elapsed time
@@ -144,7 +147,7 @@ print(m.get_taxid(["Homo", "Chrysemys picta", "Amphimedon queenslandica"], verbo
 # print(m.get_references(prec_id=["MI0000001", "MI0017717", "MI0000021"]))  # successful search message with elapsed time and printed list with results
 
 # print("----- get_precursor-----")
-# m.get_precursor()  # no results message
+m.get_precursor(verbose=True)  # no results message
 # m.get_precursor("MI0000001")  # successful search message with elapsed time
 # m.get_precursor(name="mmu-mir-21a")  # successful search message with elapsed time
 # m.get_precursor(id=["MI0000001", "MI0017717", "MI0000021"])  # successful search message with elapsed time
@@ -174,7 +177,11 @@ print(m.get_taxid(["Homo", "Chrysemys picta", "Amphimedon queenslandica"], verbo
 # #print(m.get_precursor(id=["MI9999000"], organism_name="Homo sapiens", chr='chrX'))  # successful search message with elapsed time and then pretty printed records
 #
 # print("----- get_mirna-----")
-# m.get_mirna()  # no results message
+m.get_mirna(verbose=True)  # no results message
+print(m.get_mirna(mirna_id=[], verbose=True))
+print(m.get_mirna(mirna_id='', verbose=True))
+print(m.get_mirna(prec_id="", verbose=True))
+print(m.get_mirna(prec_id="MI0040754", verbose=True))
 # m.get_mirna(id=['MIMAT0000001', 'MIMAT123'])  # successful search message with elapsed time
 # m.get_mirna("MIMAT0000001")  # successful search message with elapsed time
 # m.get_mirna('MIMAT123')  # no results message
@@ -284,6 +291,107 @@ print(m.get_taxid(["Homo", "Chrysemys picta", "Amphimedon queenslandica"], verbo
 # print(sample_gallus[0].chromosome)
 # print(sample_gallus[0].genome_coordinates)
 
+# organisms = m.get_organisms_list()
+# gallus = [nt for nt in organisms if nt.name in ["Gallus gallus"]][0]
+# print(gallus)
+# print(getattr(gallus, "organism"))
+# print(gallus.name)
+# print(getattr(gallus, "tree"))
+# print(gallus.taxid)
+#
+# gallus_mirna = m.get_mirna(organism_name="Gallus gallus", verbose=True)
+# print(gallus_mirna[0:2])
+#
+# gallus_prec = m.get_precursor(organism_name="Gallus gallus", verbose=True)
+# print(gallus_prec[0:2])
+
+starts = m.get_mirna(organism_name="Gallus gallus", chr="chr8", strand="-", start=600000, verbose=True)
+# for elem in starts:
+#     print(elem.genome_coordinates_mi)
+ends = m.get_mirna(organism_name="Gallus gallus", chr="chr8", strand="-", end=600000, verbose=True)
+print(ends)
+# for elem in ends:
+#     print(elem.genome_coordinates_mi)
+m.get_precursor(mirna_id="MIMAT0007559", verbose=True)
+
+m.find_cluster("MIMAT0050065", "MI0000061", 1, 100000, verbose=True)
+m.find_cluster(mirna_id="MIMAT0050065", search_type="stream", range=10000, verbose=True)
+#m.find_cluster("MIMAT0050065", 1, 100000, verbose=True)
+#m.find_cluster(mirna_id="MIMAT0050065", 1, 100000, verbose=True)
+print(m.get_organisms_short(organism="Gallus gallus", verbose=True))
+# print(m.get_organisms_short(verbose=True))
+print(m.get_references(['MIMAT0000001', "gga-miR-7478-3p"], mirna_name=["gga-miR-7478-3p"], link=True, verbose=True))
+print(m.get_references(prec_name="mmu-mir-21a", link=True, verbose=True))
+print(m.get_structure(name=["mmu-mir-21a", "hsa-mir-3612"], verbose=True))
+#print(m.get_precursor(name="mmu-mir-21a"))
+print(m.get_structure(["MI0000001", "MI0016085"], verbose=True))
+print(m.get_structure(id=["MI0000001", "MI0016085"], name=["hsa-mir-3612"], verbose=True))
+# m.get_tree(["h"], verbose=True)
+# m.get_tree(1, verbose=True)
+# m.get_tree([1], verbose=True)
+# m.get_tree(["Deuterostoma"], verbose=True)
+# tree = m.get_tree(["Metazoa", "Bilateria", "Deuterostoma", "Chordata", "Vertebrata"], verbose=True)
+# aves = m.get_tree(["Metazoa", "Bilateria", "Deuterostoma", "Chordata", "Vertebrata", "Aves"], verbose=True)["!organism"]
+# print(aves)
+m_obj = m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000", mirna_id="MI9999999999999", tax_level="Viruses", verbose=True)
+#print(type(m_obj["genomic-search"][0]))
+m.high_conf(mirna_obj=m_obj["genomic-search"], verbose=True)
+p_obj = m.get_precursor(prec_id=["MI9999000"], organism_name="Homo sapiens", chr='chrX', verbose=True)
+m.high_conf(prec_obj=p_obj["genomic-search"], verbose=True)
+# print(json.dumps(m.get_tree(verbose=True), indent=4, sort_keys=True))
+# tree = m.get_tree(["Metazoa", "Bilateria", "Deuterostoma", "Chordata", "Vertebrata"], verbose=True)
+# print(json.dumps(tree, indent=4, sort_keys=True))
+# print(tree["Aves"]["!organism"])
+# aves = m.get_tree(["Metazoa", "Bilateria", "Deuterostoma", "Chordata", "Vertebrata", "Aves"], verbose=True)["!organism"]
+# print(aves)
+sample_gallus = m.get_mirna(mirna_id=["MIMAT0001185", "MIMAT0025825", "MIMAT0007451"])
+print(sample_gallus)
+ref_gallus = m.get_references(mirna_id=[id for mi_obj in sample_gallus for id in mi_obj.ID], verbose=True)
+print(ref_gallus)
+ref_gallus = m.get_references(mirna_id=[id for mi_obj in sample_gallus for id in mi_obj.ID], link=True, verbose=True)
+print(ref_gallus)
+print(m.get_organisms_short(verbose=True))
+shorts = m.get_organisms_short()
+gallus = shorts['gga']
+print(gallus)
+short_gal = m.get_organisms_short("Gallus gallus", verbose=True)
+print(short_gal)
+m.find_cluster(mirna_id="MIMAT0050065", search_type=1, range='-100000', verbose=True)
+#p_obj = m.get_precursor(prec_id=["MI9999000"], organism_name="Homo sapiens", chr='chrX', verbose=True)
+#print(m.high_conf(prec_obj=p_obj["genomic-search"], verbose=True))
+m_obj = m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000", mirna_id="MI9999999999999", tax_level="Viruses", verbose=True)
+print(m_obj["mirna_id-search"])
+m.get_mirna(organism_name="Homo sapiens", chr="chr8", start=11046, end=50000, verbose=True)
+m.get_mirna(start=11046, end=50000, verbose=True)
+m.get_mirna(organism_name="Gallus gallus", chr="chr8", strand="x", start=600000, verbose=True)
+m.get_tree(["Deuterostoma"], verbose=True)
+
+cluster_gallus = m.find_cluster(prec_id="MI0007558", range="10000", verbose=True)
+print(cluster_gallus)
+p_obj = m.get_precursor(prec_id=["MI9999000"], organism_name="Homo sapiens", chr='chrX', verbose=True)
+m_obj = m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000", mirna_id="MI9999999999999", tax_level="Viruses", verbose=True)
+print(m_obj["genomic-search"])
+m.dump_sequences(prec_obj=p_obj["genomic-search"], mirna_obj=m_obj["genomic-search"], filepath="test.fasta", verbose=True)
+# for elem in m_obj["tax-search"]:
+#     print(len(elem.ID))
+m.get_mirna(organism_name="Papaver somniferum", verbose=True)
+# import miBase
+# m = miBase.MiRBase(version="CURRENT")
+
+organisms = [o.name for o in m.get_organisms_list()]
+print(organisms)
+for o in organisms:
+    mature = m.get_mirna(organism_name=o)
+    print(o)
+    try:
+        print(len(mature))
+        for ma in mature:
+            if len(ma.mature_sequence) > 1:
+                result = all(seq == ma.mature_sequence[0] for seq in ma.mature_sequence)
+                if result == False:
+                    print(ma.mature_ID)
+    except:
+        pass
 # 2.10.21
 #print(m.get_mirna(mirna_id="MIMAT0031077"))
 

@@ -39,7 +39,7 @@ While designing Mir-Us, we knew that it can't be constrained to the newest versi
         
         !!! check "No known issues"   
         
-        [Detailed change list :material-update:](v22-diff.md){ .md-button .md-button--primary }           
+        [Detailed change list :material-update:](v22-diff.md){: target="_blank" .md-button .md-button--primary }           
             
     === "21"
        
@@ -62,7 +62,7 @@ While designing Mir-Us, we knew that it can't be constrained to the newest versi
         !!! warning "Issue"
             Some of .gff files are different comparing to version 22 or above. There are possible inconsistencies and differences in chromosome names.  
         
-        [Detailed change list :material-update:](v21-diff.md){ .md-button .md-button--primary }
+        [Detailed change list :material-update:](v21-diff.md){: target="_blank" .md-button .md-button--primary }
         
     === "20"
         
@@ -87,7 +87,7 @@ While designing Mir-Us, we knew that it can't be constrained to the newest versi
         !!! missing "Missing feature"
             This version does not define high confidence set of miRNA, thus `high_confidence` fields will be set to default value which is `False`.               
         
-        [Detailed change list :material-update:](v20-diff.md){ .md-button .md-button--primary }
+        [Detailed change list :material-update:](v20-diff.md){: target="_blank" .md-button .md-button--primary }
         
     === "19"
            
@@ -116,7 +116,7 @@ While designing Mir-Us, we knew that it can't be constrained to the newest versi
         !!! missing "Missing feature"
             This version does not define high confidence set of miRNA, thus `high_confidence` fields will be set to default value which is `False`.               
         
-        [Detailed change list :material-update:](v19-diff.md){ .md-button .md-button--primary }
+        [Detailed change list :material-update:](v19-diff.md){: target="_blank" .md-button .md-button--primary }
         
     === "18"
             
@@ -145,6 +145,6 @@ While designing Mir-Us, we knew that it can't be constrained to the newest versi
             Mir-Us sometimes relies on names and different naming convention is suspected to render some records lacking names or will cause assignment of the incorrrect name from the perspective of newer versions (e.g. certain names can be incorrectly trimmed) to which Mir-Us is native.                       
         
         !!! missing "Missing feature"
-            This version does not define high confidence set of miRNA, thus `high_confidence` fields will be set to default value which is `False`.               
+            This version does not define high confidence set of miRNA, thus `high_confidence` fields will be set to the default value which is `False`.               
         
-        [Detailed change list :material-update:](v18-diff.md){ .md-button .md-button--primary }
+        [Detailed change list :material-update:](v18-diff.md){: target="_blank" .md-button .md-button--primary }
