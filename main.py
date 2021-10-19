@@ -369,7 +369,29 @@ m.get_tree(["Deuterostoma"], verbose=True)
 cluster_gallus = m.find_cluster(prec_id="MI0007558", range="10000", verbose=True)
 print(cluster_gallus)
 p_obj = m.get_precursor(prec_id=["MI9999000"], organism_name="Homo sapiens", chr='chrX', verbose=True)
-m.dump_sequences(prec_obj=p_obj["genomic-search"], filepath="test.fasta", verbose=True)
+m_obj = m.get_mirna(chr="chrX", organism_name="Homo sapiens", start="153300000", mirna_id="MI9999999999999", tax_level="Viruses", verbose=True)
+print(m_obj["genomic-search"])
+m.dump_sequences(prec_obj=p_obj["genomic-search"], mirna_obj=m_obj["genomic-search"], filepath="test.fasta", verbose=True)
+# for elem in m_obj["tax-search"]:
+#     print(len(elem.ID))
+m.get_mirna(organism_name="Papaver somniferum", verbose=True)
+# import miBase
+# m = miBase.MiRBase(version="CURRENT")
+
+organisms = [o.name for o in m.get_organisms_list()]
+print(organisms)
+for o in organisms:
+    mature = m.get_mirna(organism_name=o)
+    print(o)
+    try:
+        print(len(mature))
+        for ma in mature:
+            if len(ma.mature_sequence) > 1:
+                result = all(seq == ma.mature_sequence[0] for seq in ma.mature_sequence)
+                if result == False:
+                    print(ma.mature_ID)
+    except:
+        pass
 # 2.10.21
 #print(m.get_mirna(mirna_id="MIMAT0031077"))
 

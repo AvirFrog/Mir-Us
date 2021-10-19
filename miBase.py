@@ -1338,22 +1338,26 @@ class MiRBase:
         """
         start = timer()
         records = []
+        records_prec = []
+        records_mi = []
         if prec_obj:
             try:
-                records = [SeqRecord(Seq(prec.precursor_sequence), id=prec.ID, name=prec.name, description=f"{prec.name}") for prec in prec_obj]
-                # with open(f"{filepath}.fasta", "w") as handle:
-                #     SeqIO.write(records, handle, "fasta")
-                # for prec in prec_obj:
-                #     record = SeqRecord(
-                #         Seq(prec.precursor_sequence),
-                #         id=prec.ID,
-                #         name=prec.name
-                #     )
+                records_prec = [SeqRecord(Seq(prec.precursor_sequence), id=prec.ID, name=prec.name, description=f"{prec.name}") for prec in prec_obj]
             except:
                 pass
         if mirna_obj:
-            pass
+            for mirna in mirna_obj:
+                for mi_id, mi_name in zip(mirna.ID, mirna.name):
+                    for mi_seq in set(mirna.mature_sequence):
+                        #print(data)
+                        records_mi.append(SeqRecord(
+                                Seq(mi_seq),
+                                id=mi_id,
+                                name=mi_name,
+                                description=f"{mi_name}"
+                            ))
         try:
+            records = records_prec + records_mi
             with open(f"{filepath}.fasta", "w") as handle:
                 SeqIO.write(records, handle, "fasta")
         except IOError:
