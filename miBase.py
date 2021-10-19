@@ -13,9 +13,13 @@ import urllib.request
 from collections import defaultdict as dd
 from collections import namedtuple as nt
 from functools import reduce
+from timeit import default_timer as timer
 
 import dill
 from Bio import Entrez
+from Bio.Seq import Seq
+from Bio import SeqIO
+from Bio.SeqRecord import SeqRecord
 from alive_progress import alive_bar
 from colorama import init, Fore
 
@@ -1294,7 +1298,7 @@ class MiRBase:
 
         Args:
             mirna_obj (list[MiRNA]): List of MiRNA objects, that can be retrieved using `get_mirna()` function
-            mirna_obj (list[Precursor]): List of Precursor objects, that can be retrieved using `get_precursor()` function
+            prec_obj (list[Precursor]): List of Precursor objects, that can be retrieved using `get_precursor()` function
             verbose (bool): A flag, which allows or disallows showing search details (number of returned elements, time of execution, errors)
 
         Returns:
@@ -1312,13 +1316,53 @@ class MiRBase:
             except:
                 pass
         if mirna_obj:
-            for mirna in mirna_obj:
-                for prec in mirna.precursors:
-                    if self._precursors_ID[prec].high_confidence is True:
-                        result.append(mirna)
+            try:
+                for mirna in mirna_obj:
+                    for prec in mirna.precursors:
+                        if self._precursors_ID[prec].high_confidence is True:
+                            result.append(mirna)
+            except:
+                pass
         if not result:
             return None
         return list(set(result)), len(result)
+
+    def dump_sequences(self, mirna_obj=None, prec_obj=None, filepath="", verbose=False):
+        """Function writes sequences from given MiRNA or Precursor objects to a file in a FASTA format.
+
+        Args:
+            mirna_obj (list[MiRNA]): List of MiRNA objects, that can be retrieved using `get_mirna()` function
+            prec_obj (list[Precursor]): List of Precursor objects, that can be retrieved using `get_precursor()` function
+            filepath (str): String with the name of the file to which sequences will be saved.
+            verbose (bool): A flag, which allows or disallows showing search details (number of returned elements, time of execution, errors)
+        """
+        start = timer()
+        records = []
+        if prec_obj:
+            try:
+                records = [SeqRecord(Seq(prec.precursor_sequence), id=prec.ID, name=prec.name, description=f"{prec.name}") for prec in prec_obj]
+                # with open(f"{filepath}.fasta", "w") as handle:
+                #     SeqIO.write(records, handle, "fasta")
+                # for prec in prec_obj:
+                #     record = SeqRecord(
+                #         Seq(prec.precursor_sequence),
+                #         id=prec.ID,
+                #         name=prec.name
+                #     )
+            except:
+                pass
+        if mirna_obj:
+            pass
+        try:
+            with open(f"{filepath}.fasta", "w") as handle:
+                SeqIO.write(records, handle, "fasta")
+        except IOError:
+            print(f"{Fore.RED}[Mir-Us]   'dump_sequences' was unsuccessful.")
+            return
+        end = timer()
+        runtime = end - start
+        if verbose:
+            print(f"{Fore.GREEN}[Mir-Us]   'dump_sequences' wrote {len(records)} sequences in {runtime:.6f} seconds")
 
 
 class MiRLoad(MiRBase):

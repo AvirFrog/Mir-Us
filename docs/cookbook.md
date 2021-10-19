@@ -988,3 +988,53 @@ Mir-Us provides a simple to use function, that allows user to filter the records
                 Precursor ID: MI0003684
         ...
         ```
+## Writing sequences to a file
+Sometimes, sequences from fetched records can be a part of a further analysis. Mir-Us provides a convenient function to dump all sequences from a list of records to a file in FASTA format.
+This created file contains IDs, names and sequences of the deposited miRNA and precursor records.
+
+!!! example "Writing sequences to a file using dump_sequences() function"
+    === "Code"
+        ```python
+        p_obj = m.get_precursor(prec_id=["MI9999000"], organism_name="Homo sapiens", chr='chrX', verbose=True)
+        m.dump_sequences(prec_obj=p_obj["genomic-search"], filepath="test.fasta", verbose=True)
+        ```
+    === "Result"
+        ```
+        [Mir-Us]   Some of the given criteria were contradicting for the search system. Because of that, the results are returned in a dictionary, where contradicting results are separated into different search types. This search consist of (keys of generated dictionary):
+        'genomic-search': 118 results
+        'prec_id-serch': 0 results
+        [Mir-Us]  'get_precursor' found 118 results in 0.168328 seconds
+        [Mir-Us]   'dump_sequences' wrote 118 sequences in 0.115600 seconds
+        ```
+    === "test.fasta"
+        ```
+        >MI0000068 hsa-let-7f-2
+        ugugggaugagguaguagauuguauaguuuuagggucauaccccaucuuggagauaacua
+        uacagucuacugucuuucccacg
+        >MI0000075 hsa-mir-19b-2
+        acauugcuacuuacaauuaguuuugcagguuugcauuucagcguauauauguauaugugg
+        cugugcaaauccaugcaaaacugauugugauaaugu
+        >MI0000094 hsa-mir-92a-2
+        ucaucccuggguggggauuuguugcauuacuuguguucuauauaaaguauugcacuuguc
+        ccggccuguggaaga
+        >MI0000100 hsa-mir-98
+        aggauucugcucaugccagggugagguaguaaguuguauuguugugggguagggauauua
+        ggccccaauuagaagauaacuauacaacuuacuacuuucccugguguguggcauauuca
+        >MI0000111 hsa-mir-105-1
+        ugugcaucguggucaaaugcucagacuccugugguggcugcucaugcaccacggauguuu
+        gagcaugugcuacggugucua
+        >MI0000112 hsa-mir-105-2
+        ugugcaucguggucaaaugcucagacuccugugguggcugcuuaugcaccacggauguuu
+        gagcaugugcuauggugucua
+        >MI0000113 hsa-mir-106a
+        ccuuggccauguaaaagugcuuacagugcagguagcuuuuugagaucuacugcaauguaa
+        gcacuucuuacauuaccaugg
+        >MI0000298 hsa-mir-221
+        ugaacauccaggucuggggcaugaaccuggcauacaauguagauuucuguguucguuagg
+        caacagcuacauugucugcuggguuucaggcuaccuggaaacauguucuc
+        >MI0000299 hsa-mir-222
+        gcugcuggaagguguagguacccucaauggcucaguagccaguguagauccugucuuucg
+        uaaucagcagcuacaucuggcuacugggucucugauggcaucuucuagcu
+        >MI0000300 hsa-mir-223
+        ...
+        ```

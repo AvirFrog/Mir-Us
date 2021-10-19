@@ -368,6 +368,8 @@ m.get_tree(["Deuterostoma"], verbose=True)
 
 cluster_gallus = m.find_cluster(prec_id="MI0007558", range="10000", verbose=True)
 print(cluster_gallus)
+p_obj = m.get_precursor(prec_id=["MI9999000"], organism_name="Homo sapiens", chr='chrX', verbose=True)
+m.dump_sequences(prec_obj=p_obj["genomic-search"], filepath="test.fasta", verbose=True)
 # 2.10.21
 #print(m.get_mirna(mirna_id="MIMAT0031077"))
 
