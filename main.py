@@ -10,7 +10,7 @@ import json
 # whole output is dumped into 'mirek_out.txt'
 
 # initialising
-m = miBase.MiRBase(version="CURRENT")
+m = miBase.MiRBase(version="22")
 #m._compile_indexes()
 
 # l = list()
