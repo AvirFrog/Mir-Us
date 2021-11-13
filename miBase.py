@@ -56,7 +56,8 @@ class MiRBase:
         Args:
             version (str): ID of database version. "CURRENT" is the most recent version (22.1).
         """
-        self._ftp_path = "ftp://mirbase.org/pub/mirbase/"  # main path to all files in mirbase ftp
+        self._ftp_path = "https://mirbase.org/ftp/"  # main path to all files in mirbase ftp;
+        # old link: "ftp://mirbase.org/pub/mirbase/"
         self._miRBase_version = version  # version on which current instance of tool will be working
         self._miRNAs_ID = {}  # dict of miRNA ID : miRNA object
         self._precursors_ID = {}  # dict of pre-miRNA_ID : Precursor object
