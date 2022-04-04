@@ -1,0 +1,2223 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.2">
+    
+    
+      
+        <title>miBase.py - Mir-Us</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.24c991ad.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="cyan" data-md-color-accent="cyan">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#reference-documentation-mibasepy" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner md-announce">
+          <div class="md-banner__inner md-announce__inner md-grid md-typeset">
+            
+<strong>
+ The version of docs you're viewing is not final. Documentation might be incomplete or incorrect. It is still work in progress.
+</strong>
+<span class="twemoji">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.71 20.29-1.42 1.42a1 1 0 0 1-1.41 0L7 9.85A3.81 3.81 0 0 1 6 10a4 4 0 0 1-3.78-5.3l2.54 2.54.53-.53 1.42-1.42.53-.53L4.7 2.22A4 4 0 0 1 10 6a3.81 3.81 0 0 1-.15 1l11.86 11.88a1 1 0 0 1 0 1.41M2.29 18.88a1 1 0 0 0 0 1.41l1.42 1.42a1 1 0 0 0 1.41 0l5.47-5.46-2.83-2.83M20 2l-4 2v2l-2.17 2.17 2 2L18 8h2l2-4z"/></svg>
+</span>
+
+          </div>
+        </aside>
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mir-Us" class="md-header__button md-logo" aria-label="Mir-Us" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mir-Us
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              miBase.py
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="cyan" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/AvirFrog/Mir-Us/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    AvirFrog/Mir-Us
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mir-Us" class="md-nav__button md-logo" aria-label="Mir-Us" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Mir-Us
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/AvirFrog/Mir-Us/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    AvirFrog/Mir-Us
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/" class="md-nav__link">
+        Getting started
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Compatibility
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Compatibility" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Compatibility
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../versions/" class="md-nav__link">
+        Compatibility
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Detailed change lists
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Detailed change lists" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Detailed change lists
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v22-diff/" class="md-nav__link">
+        Version 22
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v21-diff/" class="md-nav__link">
+        Version 21
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v20-diff/" class="md-nav__link">
+        Version 20
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v19-diff/" class="md-nav__link">
+        Version 19
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v18-diff/" class="md-nav__link">
+        Version 18
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cookbook/" class="md-nav__link">
+        User cookbook
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Reference documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reference documentation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Reference documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../miObject/" class="md-nav__link">
+        miObject.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          miBase.py
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        miBase.py
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mirbase" class="md-nav__link">
+    MiRBase
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase" class="md-nav__link">
+    miBase.MiRBase
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.dump_sequences" class="md-nav__link">
+    dump_sequences()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.find_cluster" class="md-nav__link">
+    find_cluster()
+  </a>
+  
+    <nav class="md-nav" aria-label="find_cluster()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#miBase.MiRBase.find_cluster--additional-information" class="md-nav__link">
+    Additional information:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.get_mirna" class="md-nav__link">
+    get_mirna()
+  </a>
+  
+    <nav class="md-nav" aria-label="get_mirna()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#miBase.MiRBase.get_mirna--additional-information" class="md-nav__link">
+    Additional information:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.get_organism" class="md-nav__link">
+    get_organism()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.get_organisms_list" class="md-nav__link">
+    get_organisms_list()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.get_organisms_short" class="md-nav__link">
+    get_organisms_short()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.get_precursor" class="md-nav__link">
+    get_precursor()
+  </a>
+  
+    <nav class="md-nav" aria-label="get_precursor()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#miBase.MiRBase.get_precursor--additional-information" class="md-nav__link">
+    Additional information:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.get_references" class="md-nav__link">
+    get_references()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.get_structure" class="md-nav__link">
+    get_structure()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.get_tax_level" class="md-nav__link">
+    get_tax_level()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.get_taxid" class="md-nav__link">
+    get_taxid()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.get_tree" class="md-nav__link">
+    get_tree()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.high_conf" class="md-nav__link">
+    high_conf()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog.md" class="md-nav__link">
+        Changelog
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        License
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mirbase" class="md-nav__link">
+    MiRBase
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase" class="md-nav__link">
+    miBase.MiRBase
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.dump_sequences" class="md-nav__link">
+    dump_sequences()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.find_cluster" class="md-nav__link">
+    find_cluster()
+  </a>
+  
+    <nav class="md-nav" aria-label="find_cluster()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#miBase.MiRBase.find_cluster--additional-information" class="md-nav__link">
+    Additional information:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.get_mirna" class="md-nav__link">
+    get_mirna()
+  </a>
+  
+    <nav class="md-nav" aria-label="get_mirna()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#miBase.MiRBase.get_mirna--additional-information" class="md-nav__link">
+    Additional information:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.get_organism" class="md-nav__link">
+    get_organism()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.get_organisms_list" class="md-nav__link">
+    get_organisms_list()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.get_organisms_short" class="md-nav__link">
+    get_organisms_short()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.get_precursor" class="md-nav__link">
+    get_precursor()
+  </a>
+  
+    <nav class="md-nav" aria-label="get_precursor()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#miBase.MiRBase.get_precursor--additional-information" class="md-nav__link">
+    Additional information:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.get_references" class="md-nav__link">
+    get_references()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.get_structure" class="md-nav__link">
+    get_structure()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.get_tax_level" class="md-nav__link">
+    get_tax_level()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.get_taxid" class="md-nav__link">
+    get_taxid()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.get_tree" class="md-nav__link">
+    get_tree()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miBase.MiRBase.high_conf" class="md-nav__link">
+    high_conf()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/AvirFrog/Mir-Us/blob/master/docs/miBase.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="reference-documentation-mibasepy">Reference documentation: miBase.py<a class="headerlink" href="#reference-documentation-mibasepy" title="Permanent link">&para;</a></h1>
+<h2 id="mirbase">MiRBase<a class="headerlink" href="#mirbase" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-object doc-class">
+
+<a id="miBase.MiRBase"></a>
+    <div class="doc doc-contents first">
+
+      <p>Main operational class. This class defines which version of database will be used. Defines all available
+functions to retrieve data by user.</p>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 class="doc doc-heading" id="miBase.MiRBase.__init__">
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s1">&#39;CURRENT&#39;</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
+
+<a class="headerlink" href="#miBase.MiRBase.__init__" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Initializes MiRBase object from which data can be accessed using provided functions. Database version might
+be specified.</p>
+<div class="admonition info">
+<p class="admonition-title">There are multiple versions of miRBase database compatible with Mir-Us. <a class="md-button md-button--primary" href="../versions/" target="_blank">Details <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 0 0 1.06 1.06l1.25-1.25a2 2 0 1 1 2.83 2.83l-2.5 2.5a2 2 0 0 1-2.83 0 .75.75 0 0 0-1.06 1.06 3.5 3.5 0 0 0 4.95 0l2.5-2.5a3.5 3.5 0 0 0-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 0 1 0-2.83l2.5-2.5a2 2 0 0 1 2.83 0 .75.75 0 0 0 1.06-1.06 3.5 3.5 0 0 0-4.95 0l-2.5 2.5a3.5 3.5 0 0 0 4.95 4.95l1.25-1.25a.75.75 0 0 0-1.06-1.06l-1.25 1.25a2 2 0 0 1-2.83 0z"/></svg></span></a></p>
+</div>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>version</code></td>
+        <td><code>str</code></td>
+        <td><p>ID of database version. "CURRENT" is the most recent version (22.1).</p></td>
+        <td><code>&#39;CURRENT&#39;</code></td>
+      </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 class="doc doc-heading" id="miBase.MiRBase.dump_sequences">
+<code class="highlight language-python"><span class="n">dump_sequences</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mirna_obj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">prec_obj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filepath</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#miBase.MiRBase.dump_sequences" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Function writes sequences from given MiRNA or Precursor objects to a file in a FASTA format.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>mirna_obj</code></td>
+        <td><code>list[MiRNA]</code></td>
+        <td><p>List of MiRNA objects, that can be retrieved using <code>get_mirna()</code> function</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>prec_obj</code></td>
+        <td><code>list[Precursor]</code></td>
+        <td><p>List of Precursor objects, that can be retrieved using <code>get_precursor()</code> function</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>filepath</code></td>
+        <td><code>str</code></td>
+        <td><p>String with the name of the file to which sequences will be saved.</p></td>
+        <td><code>&#39;&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>verbose</code></td>
+        <td><code>bool</code></td>
+        <td><p>A flag, which allows or disallows showing search details (number of returned elements, time of execution, errors)</p></td>
+        <td><code>False</code></td>
+      </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 class="doc doc-heading" id="miBase.MiRBase.find_cluster">
+<code class="highlight language-python"><span class="n">find_cluster</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mirna_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">prec_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">search_type</span><span class="o">=</span><span class="s1">&#39;up-downstream&#39;</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#miBase.MiRBase.find_cluster" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Returns all miRNAs present within given range from given miRNA in affiliated organism genome.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>mirna_id</code></td>
+        <td><code>str</code></td>
+        <td><p>miRNA ID</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>prec_id</code></td>
+        <td><code>str</code></td>
+        <td><p>Precursor ID</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>search_type</code></td>
+        <td><code>Union[str, int]</code></td>
+        <td><p>Search type which determines how to search genomic space (<a href="#miBase.MiRBase.find_cluster--additional-information"><strong>additional information</strong></a>).</p></td>
+        <td><code>&#39;up-downstream&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>range</code></td>
+        <td><code>str</code></td>
+        <td><p>Length of genome to be searched</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>verbose</code></td>
+        <td><code>bool</code></td>
+        <td><p>A flag, which allows or disallows showing search details (number of returned elements, time of execution, errors)</p></td>
+        <td><code>False</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Optional[list[MiRNA]]</code></td>
+      <td><p>miRNA objects matching given criteria or <code>None</code> if no results are found</p></td>
+    </tr>
+  </tbody>
+</table>      <h4 id="miBase.MiRBase.find_cluster--additional-information">Additional information:<a class="headerlink" href="#miBase.MiRBase.find_cluster--additional-information" title="Permanent link">&para;</a></h4>
+<details class="info" open="open"><summary>Cluster search types</summary><table>
+<thead>
+<tr>
+<th>Search type</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>up-downstream</code> or <code>0</code></td>
+<td>The search is conducted below and above given miRNA position (towards both ends) within given range. The search is inclusive on both ends of the specified range.</td>
+</tr>
+<tr>
+<td><code>upstream</code> or <code>1</code></td>
+<td>The search is conducted only below given miRNA position (towards 5' end) within given range. The search is inclusive on both ends of the specified range.</td>
+</tr>
+<tr>
+<td><code>downstream</code> or <code>2</code></td>
+<td>The search is conducted only above given miRNA position (towards 3' end) within given range. The search is inclusive on both ends of the specified range.</td>
+</tr>
+</tbody>
+</table>
+</details>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 class="doc doc-heading" id="miBase.MiRBase.get_mirna">
+<code class="highlight language-python"><span class="n">get_mirna</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mirna_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">organism_name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">tax_level</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nb">chr</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">strand</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">prec_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#miBase.MiRBase.get_mirna" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Returns miRNA objects according to given search criteria.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>mirna_id</code></td>
+        <td><code>list[str]</code></td>
+        <td><p>miRNA IDs</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>name</code></td>
+        <td><code>str</code></td>
+        <td><p>Full miRNA name</p></td>
+        <td><code>&#39;&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>organism_name</code></td>
+        <td><code>str</code></td>
+        <td><p>Full organism name affiliated with miRNA</p></td>
+        <td><code>&#39;&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>tax_level</code></td>
+        <td><code>str</code></td>
+        <td><p>Taxonomy level affiliated with miRNA</p></td>
+        <td><code>&#39;&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>chr</code></td>
+        <td><code>str</code></td>
+        <td><p>Chromosome name in which miRNA is present</p></td>
+        <td><code>&#39;&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>start</code></td>
+        <td><code>str</code></td>
+        <td><p>Genomic location in which miRNA sequence starts</p></td>
+        <td><code>&#39;&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>end</code></td>
+        <td><code>str</code></td>
+        <td><p>Genomic location in which miRNA sequence ends</p></td>
+        <td><code>&#39;&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>strand</code></td>
+        <td><code>str</code></td>
+        <td><p>Strand name in which miRNA is present</p></td>
+        <td><code>&#39;&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>prec_id</code></td>
+        <td><code>list[str]</code></td>
+        <td><p>Affiliated precursor IDs</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>verbose</code></td>
+        <td><code>bool</code></td>
+        <td><p>A flag, which allows or disallows showing search details (number of returned elements, time of execution, errors)</p></td>
+        <td><code>False</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Optional[list[MiRNA], dict]</code></td>
+      <td><p><code>list</code> of miRNA objects matching criteria <strong>only if single search is conducted.</strong> <code>dict</code> <strong>only if
+multiple searches are conducted.</strong> For each search type (<a href="#miBase.MiRBase.get_mirna--additional-information"><strong>additional information</strong></a>) a <code>list</code> of miRNA objects that matches criteria is
+ returned. Eventually, <code>None</code> if no results are found.</p></td>
+    </tr>
+  </tbody>
+</table>      <h4 id="miBase.MiRBase.get_mirna--additional-information">Additional information:<a class="headerlink" href="#miBase.MiRBase.get_mirna--additional-information" title="Permanent link">&para;</a></h4>
+<details class="info" open="open"><summary>miRNA search types</summary><p>There are a few search 'types', depending on search criteria. That means, if the user choose a set of
+criteria that will be interpreted as contradicting, a separate search will be conducted for each 'type'.
+This is important, because multiple searches in single function call will return a dictionary with
+categorized search results.</p>
+<p><strong>Search types:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Search type</th>
+<th>Set of criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mirna_id-search</code></td>
+<td>Only <code>mirna_id</code></td>
+</tr>
+<tr>
+<td><code>prec_id-search</code></td>
+<td>Only <code>prec_id</code></td>
+</tr>
+<tr>
+<td><code>name-search</code></td>
+<td>Only <code>name</code></td>
+</tr>
+<tr>
+<td><code>organism-search</code></td>
+<td>Only <code>organism_name</code></td>
+</tr>
+<tr>
+<td><code>tax-search</code></td>
+<td>Only <code>tax_level</code></td>
+</tr>
+<tr>
+<td><code>chr-search</code></td>
+<td>Only <code>chr</code></td>
+</tr>
+<tr>
+<td><code>strand-search</code></td>
+<td>Only <code>strand</code></td>
+</tr>
+<tr>
+<td><code>genomic-search</code></td>
+<td><ul><li><code>organism</code>, <code>chr</code></li><ul><li><code>organism</code>, <code>chr</code>, <code>start</code></li><li><code>organism</code>, <code>chr</code>, <code>end</code></li><li><code>organism</code>, <code>chr</code>, <code>start</code>, <code>end</code></li></ul><li><code>organism</code>, <code>strand</code></li><ul><li><code>organism</code>, <code>strand</code>, <code>start</code></li><li><code>organism</code>, <code>strand</code>, <code>end</code></li><li><code>organism</code>, <code>strand</code>, <code>start</code>, <code>end</code></li></ul><li><code>organism</code>, <code>chr</code>, <code>strand</code></li><ul><li><code>organism</code>, <code>chr</code>, <code>strand</code>, <code>start</code></li><li><code>organism</code>, <code>chr</code>, <code>strand</code>, <code>end</code></li><li><code>organism</code>, <code>chr</code>, <code>strand</code>, <code>start</code>, <code>end</code></li></ul></ul></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Search type is also a key in returned dictionary which allows to access found data.</p>
+</div>
+<p><strong>Possible function returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Returned structure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single search (only one type of search)</td>
+<td><code>list</code> of found objects or <code>None</code></td>
+</tr>
+<tr>
+<td>Multiple searches (contradicting types)</td>
+<td><code>dict</code> of 'type: [found objects]' or <code>None</code>. If certain type of search was unsuccessful, its value will be <code>None</code></td>
+</tr>
+</tbody>
+</table>
+</details>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 class="doc doc-heading" id="miBase.MiRBase.get_organism">
+<code class="highlight language-python"><span class="n">get_organism</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#miBase.MiRBase.get_organism" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Returns organisms which are assigned to a given taxonomy level.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>tax</code></td>
+        <td><code>str</code></td>
+        <td><p>Full name of taxonomy level</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>verbose</code></td>
+        <td><code>bool</code></td>
+        <td><p>A flag, which allows or disallows showing search details (number of returned elements, time of execution, errors)</p></td>
+        <td><code>False</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Optional[list[str]]</code></td>
+      <td><p>Full names of organisms representing given taxonomy level or <code>None</code> if no results are
+found.</p></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 class="doc doc-heading" id="miBase.MiRBase.get_organisms_list">
+<code class="highlight language-python"><span class="n">get_organisms_list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#miBase.MiRBase.get_organisms_list" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Returns list of all organisms.</p>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>list[namedtuple]</code></td>
+      <td><p>Organism namedtuple which is organized as follows: <code>Organism(organism='', division='', name='', tree='', taxid='')</code></p></td>
+    </tr>
+  </tbody>
+</table>      <details class="info" open="open"><summary>Organism namedtuple structure explanation</summary><table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>organism</code></td>
+<td>Organism name abbreviation.</td>
+</tr>
+<tr>
+<td><code>division</code></td>
+<td>Organism name abbreviation.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>Full organism name in latin.</td>
+</tr>
+<tr>
+<td><code>tree</code></td>
+<td>Full taxonomy path of the organism delimited by <code>;</code></td>
+</tr>
+<tr>
+<td><code>taxid</code></td>
+<td>NCBI taxonomy ID of the organism</td>
+</tr>
+</tbody>
+</table>
+</details>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 class="doc doc-heading" id="miBase.MiRBase.get_organisms_short">
+<code class="highlight language-python"><span class="n">get_organisms_short</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organism</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#miBase.MiRBase.get_organisms_short" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Returns dictionary of all organisms names and their abbreviations or a single organism abbreviation.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>organism</code></td>
+        <td><code>str</code></td>
+        <td><p>Full organism name</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Optional[str, dict]</code></td>
+      <td><p><code>str</code> which is an abbreviation of the given organism name or <code>dict</code> of all
+abbreviations and its full organism names with the following dictionary structure: (key: abbreviation,
+value: full organism name)</p></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 class="doc doc-heading" id="miBase.MiRBase.get_precursor">
+<code class="highlight language-python"><span class="n">get_precursor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prec_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">organism_name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">tax_level</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nb">chr</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">strand</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">mirna_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#miBase.MiRBase.get_precursor" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Returns precursor objects according to a given search criteria</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>prec_id</code></td>
+        <td><code>list[str]</code></td>
+        <td><p>Precursor IDs</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>name</code></td>
+        <td><code>str</code></td>
+        <td><p>Full precursor name</p></td>
+        <td><code>&#39;&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>organism_name</code></td>
+        <td><code>str</code></td>
+        <td><p>Full organism name in which precursor is present</p></td>
+        <td><code>&#39;&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>tax_level</code></td>
+        <td><code>str</code></td>
+        <td><p>Taxonomy level affiliated with precursor</p></td>
+        <td><code>&#39;&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>chr</code></td>
+        <td><code>str</code></td>
+        <td><p>Chromosome name in which precursor is present</p></td>
+        <td><code>&#39;&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>start</code></td>
+        <td><code>str</code></td>
+        <td><p>Genomic location in which precursor sequence starts</p></td>
+        <td><code>&#39;&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>end</code></td>
+        <td><code>str</code></td>
+        <td><p>Genomic location in which precursor sequence ends</p></td>
+        <td><code>&#39;&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>strand</code></td>
+        <td><code>str</code></td>
+        <td><p>Strand name in which precursor is present</p></td>
+        <td><code>&#39;&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>mirna_id</code></td>
+        <td><code>list[str]</code></td>
+        <td><p>Affiliated precursor miRNA IDs</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>verbose</code></td>
+        <td><code>bool</code></td>
+        <td><p>A flag, which allows or disallows showing search details (number of returned elements, time of execution, errors)</p></td>
+        <td><code>False</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Optional[list[Precursor], dict]</code></td>
+      <td><p><code>list</code> of Precursor objects matching given criteria <strong>only if single
+search is conducted.</strong> <code>dict</code> <strong>only if multiple searches are conducted.</strong> For each search type
+(<a href="#miBase.MiRBase.get_precursor--additional-information"><strong>additional information</strong></a>) a <code>list</code> of Precursor objects that matches criteria
+is returned. Eventually, <code>None</code> if no results are found.</p></td>
+    </tr>
+  </tbody>
+</table>      <h4 id="miBase.MiRBase.get_precursor--additional-information">Additional information:<a class="headerlink" href="#miBase.MiRBase.get_precursor--additional-information" title="Permanent link">&para;</a></h4>
+<details class="info" open="open"><summary>Precursor search types</summary><p>There are a few search 'types', depending on search criteria. That means, if the user choose a set of
+criteria that will be interpreted as contradicting, a separate search will be conducted for each 'type'.
+This is important, because multiple searches in single function call will return a dictionary with
+categorized search results.</p>
+<p><strong>Search types:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Search type</th>
+<th>Set of criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mirna_id-search</code></td>
+<td>Only <code>mirna_id</code></td>
+</tr>
+<tr>
+<td><code>prec_id-search</code></td>
+<td>Only <code>prec_id</code></td>
+</tr>
+<tr>
+<td><code>name-search</code></td>
+<td>Only <code>name</code></td>
+</tr>
+<tr>
+<td><code>organism-search</code></td>
+<td>Only <code>organism_name</code></td>
+</tr>
+<tr>
+<td><code>tax-search</code></td>
+<td>Only <code>tax_level</code></td>
+</tr>
+<tr>
+<td><code>chr-search</code></td>
+<td>Only <code>chr</code></td>
+</tr>
+<tr>
+<td><code>strand-search</code></td>
+<td>Only <code>strand</code></td>
+</tr>
+<tr>
+<td><code>genomic-search</code></td>
+<td><ul><li><code>organism</code>, <code>chr</code></li><ul><li><code>organism</code>, <code>chr</code>, <code>start</code></li><li><code>organism</code>, <code>chr</code>, <code>end</code></li><li><code>organism</code>, <code>chr</code>, <code>start</code>, <code>end</code></li></ul><li><code>organism</code>, <code>strand</code></li><ul><li><code>organism</code>, <code>strand</code>, <code>start</code></li><li><code>organism</code>, <code>strand</code>, <code>end</code></li><li><code>organism</code>, <code>strand</code>, <code>start</code>, <code>end</code></li></ul><li><code>organism</code>, <code>chr</code>, <code>strand</code></li><ul><li><code>organism</code>, <code>chr</code>, <code>strand</code>, <code>start</code></li><li><code>organism</code>, <code>chr</code>, <code>strand</code>, <code>end</code></li><li><code>organism</code>, <code>chr</code>, <code>strand</code>, <code>start</code>, <code>end</code></li></ul></ul></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Search type is also a key in returned dictionary which allows to access found data.</p>
+</div>
+<p><strong>Possible function returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Returned structure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single search (only one type of search)</td>
+<td><code>list</code> of found objects or <code>None</code></td>
+</tr>
+<tr>
+<td>Multiple searches (contradicting types)</td>
+<td><code>dict</code> of 'type: [found objects]' or <code>None</code>. If certain type of search was unsuccessful, its value will be <code>None</code></td>
+</tr>
+</tbody>
+</table>
+</details>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 class="doc doc-heading" id="miBase.MiRBase.get_references">
+<code class="highlight language-python"><span class="n">get_references</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mirna_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mirna_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">prec_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">prec_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">link</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#miBase.MiRBase.get_references" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Returns list of references</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>mirna_id</code></td>
+        <td><code>list[str]</code></td>
+        <td><p>IDs of miRNA</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>mirna_name</code></td>
+        <td><code>list[str]</code></td>
+        <td><p>Full miRNA names</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>prec_id</code></td>
+        <td><code>list[str]</code></td>
+        <td><p>IDs of precursors</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>prec_name</code></td>
+        <td><code>list[str]</code></td>
+        <td><p>Full precursor names</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>link</code></td>
+        <td><code>bool</code></td>
+        <td><p>A flag, which forces function to return PubMed links instead of reference numbers</p></td>
+        <td><code>False</code></td>
+      </tr>
+      <tr>
+        <td><code>verbose</code></td>
+        <td><code>bool</code></td>
+        <td><p>A flag, which allows or disallows showing search details (number of returned elements, time of execution, errors)</p></td>
+        <td><code>False</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Optional[dict]</code></td>
+      <td><p>Dictionary of precursors or miRNAs ids or names with assigned lists of reference accession numbers or
+ Pubmed links (depending on <code>link</code> flag) (key: precursor or miRNA name or id, value: list of accession numbers or
+ links) or <code>None</code> if no results are found.</p></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 class="doc doc-heading" id="miBase.MiRBase.get_structure">
+<code class="highlight language-python"><span class="n">get_structure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#miBase.MiRBase.get_structure" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Returns dictionary of precursors IDs with assigned structures in dot-bracket format</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>id</code></td>
+        <td><code>list[str]</code></td>
+        <td><p>Precursor IDs</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>name</code></td>
+        <td><code>list[str]</code></td>
+        <td><p>Full precursor names</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>verbose</code></td>
+        <td><code>bool</code></td>
+        <td><p>A flag, which allows or disallows showing search details (number of returned elements, time of execution, errors)</p></td>
+        <td><code>False</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Optional[dict]</code></td>
+      <td><p>Dictionary of precursors ids or names with assigned structure (key: precursor name or id, value: structure)
+or <code>None</code> if no results are found.</p></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 class="doc doc-heading" id="miBase.MiRBase.get_tax_level">
+<code class="highlight language-python"><span class="n">get_tax_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organism</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#miBase.MiRBase.get_tax_level" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Returns taxonomy level assigned to organism.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>organism</code></td>
+        <td><code>list[str]</code></td>
+        <td><p>list of organisms names</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>verbose</code></td>
+        <td><code>bool</code></td>
+        <td><p>A flag, which allows or disallows showing search details (number of returned elements, time of execution, errors)</p></td>
+        <td><code>False</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Optional[dict]</code></td>
+      <td><p>Dictionary of organisms and its assigned taxonomy, which is a list of tax levels
+(key: organism, value: taxonomy) or <code>None</code> if no results are found.</p></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 class="doc doc-heading" id="miBase.MiRBase.get_taxid">
+<code class="highlight language-python"><span class="n">get_taxid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organism</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#miBase.MiRBase.get_taxid" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Returns NCBI taxonomy ID (taxid) assigned to organism</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>organism</code></td>
+        <td><code>list[str]</code></td>
+        <td><p>Full organism name</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>verbose</code></td>
+        <td><code>bool</code></td>
+        <td><p>A flag, which allows or disallows showing search details (number of returned elements, time of execution, errors)</p></td>
+        <td><code>False</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Optional[dict]</code></td>
+      <td><p>Dictionary of organisms with assigned taxid (key: full organism name, value: taxid) or
+<code>None</code> if no results are found.</p></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 class="doc doc-heading" id="miBase.MiRBase.get_tree">
+<code class="highlight language-python"><span class="n">get_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tax_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#miBase.MiRBase.get_tree" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Returns taxonomy tree, where each taxonomy level is a dictionary (nested dictionaries as access to another
+taxonomy level and list of organisms at particular taxonomy level if has any)</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>tax_path</code></td>
+        <td><code>list[str]</code></td>
+        <td><p>Taxonomy path which indicates tree accession (tree is sliced from positon this path points to)</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>verbose</code></td>
+        <td><code>bool</code></td>
+        <td><p>A flag, which allows or disallows showing search details (number of returned elements, time of execution, errors)</p></td>
+        <td><code>False</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Optional[dict]</code></td>
+      <td><p>Dictionary structured as taxonomy tree of organisms present in the base
+(equivalent to <a href="https://www.mirbase.org/cgi-bin/browse.pl" target="_blank">Browse miRBase by species</a>) or its fragment.
+Returns <code>None</code> if wrong taxonomy path is given.</p></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 class="doc doc-heading" id="miBase.MiRBase.high_conf">
+<code class="highlight language-python"><span class="n">high_conf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mirna_obj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">prec_obj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#miBase.MiRBase.high_conf" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>From the given MiRNA or Precursor objects returns only those that are of a high confidence.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>mirna_obj</code></td>
+        <td><code>list[MiRNA]</code></td>
+        <td><p>List of MiRNA objects, that can be retrieved using <code>get_mirna()</code> function</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>prec_obj</code></td>
+        <td><code>list[Precursor]</code></td>
+        <td><p>List of Precursor objects, that can be retrieved using <code>get_precursor()</code> function</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>verbose</code></td>
+        <td><code>bool</code></td>
+        <td><p>A flag, which allows or disallows showing search details (number of returned elements, time of execution, errors)</p></td>
+        <td><code>False</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Optional[list]</code></td>
+      <td><p>Filtered MiRNA or Precursor objects that are of a high confidence. Returns <code>None</code> if wrong
+objects are given or if none of the given objects are of a high confidence.</p></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../miObject/" class="md-footer__link md-footer__link--prev" aria-label="Previous: miObject.py" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              miObject.py
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../license/" class="md-footer__link md-footer__link--next" aria-label="Next: License" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              License
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2021 Kacper Dudczak, Maciej Michalczyk, Marta Wysocka, Marek Żywicki
+          </div>
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top", "header.autohide"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.e99e714c.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.bc35569b.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+      
+        <script src="../javascripts/tables.js"></script>
+      
+    
+  </body>
+</html>

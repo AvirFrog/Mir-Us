@@ -1,0 +1,2364 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.2">
+    
+    
+      
+        <title>User cookbook - Mir-Us</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.24c991ad.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="cyan" data-md-color-accent="cyan">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-set-up" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner md-announce">
+          <div class="md-banner__inner md-announce__inner md-grid md-typeset">
+            
+<strong>
+ The version of docs you're viewing is not final. Documentation might be incomplete or incorrect. It is still work in progress.
+</strong>
+<span class="twemoji">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.71 20.29-1.42 1.42a1 1 0 0 1-1.41 0L7 9.85A3.81 3.81 0 0 1 6 10a4 4 0 0 1-3.78-5.3l2.54 2.54.53-.53 1.42-1.42.53-.53L4.7 2.22A4 4 0 0 1 10 6a3.81 3.81 0 0 1-.15 1l11.86 11.88a1 1 0 0 1 0 1.41M2.29 18.88a1 1 0 0 0 0 1.41l1.42 1.42a1 1 0 0 0 1.41 0l5.47-5.46-2.83-2.83M20 2l-4 2v2l-2.17 2.17 2 2L18 8h2l2-4z"/></svg>
+</span>
+
+          </div>
+        </aside>
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mir-Us" class="md-header__button md-logo" aria-label="Mir-Us" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mir-Us
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              User cookbook
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="cyan" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/AvirFrog/Mir-Us/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    AvirFrog/Mir-Us
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mir-Us" class="md-nav__button md-logo" aria-label="Mir-Us" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Mir-Us
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/AvirFrog/Mir-Us/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    AvirFrog/Mir-Us
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/" class="md-nav__link">
+        Getting started
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Compatibility
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Compatibility" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Compatibility
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../versions/" class="md-nav__link">
+        Compatibility
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Detailed change lists
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Detailed change lists" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Detailed change lists
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v22-diff/" class="md-nav__link">
+        Version 22
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v21-diff/" class="md-nav__link">
+        Version 21
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v20-diff/" class="md-nav__link">
+        Version 20
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v19-diff/" class="md-nav__link">
+        Version 19
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v18-diff/" class="md-nav__link">
+        Version 18
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          User cookbook
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        User cookbook
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-set-up" class="md-nav__link">
+    The set up
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-organisms" class="md-nav__link">
+    Working with organisms
+  </a>
+  
+    <nav class="md-nav" aria-label="Working with organisms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#retrieving-all-at-once" class="md-nav__link">
+    Retrieving all at once
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fetching-specific-organisms" class="md-nav__link">
+    Fetching specific organisms
+  </a>
+  
+    <nav class="md-nav" aria-label="Fetching specific organisms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-namedtuples-from-get_organism_list-function" class="md-nav__link">
+    Using namedtuples from get_organism_list() function
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-get_organism-function" class="md-nav__link">
+    Using get_organism() function
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-organism-abbreviations" class="md-nav__link">
+    Using organism abbreviations
+  </a>
+  
+    <nav class="md-nav" aria-label="Using organism abbreviations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get_organisms_short-function" class="md-nav__link">
+    get_organisms_short() function
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-ncbi-taxonomy-id" class="md-nav__link">
+    Using NCBI taxonomy ID
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#taxonomy" class="md-nav__link">
+    Taxonomy
+  </a>
+  
+    <nav class="md-nav" aria-label="Taxonomy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-get_tax_level" class="md-nav__link">
+    Using get_tax_level()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#taxonomy-tree" class="md-nav__link">
+    Taxonomy tree
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#specifics-of-the-taxonomy-tree" class="md-nav__link">
+    Specifics of the taxonomy tree
+  </a>
+  
+    <nav class="md-nav" aria-label="Specifics of the taxonomy tree">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structure-of-the-tree" class="md-nav__link">
+    Structure of the tree
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accessing-the-tree" class="md-nav__link">
+    Accessing the tree
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fetching-mature-mirna" class="md-nav__link">
+    Fetching mature miRNA
+  </a>
+  
+    <nav class="md-nav" aria-label="Fetching mature miRNA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#searching-by-organism-name" class="md-nav__link">
+    Searching by organism name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#genomic-search" class="md-nav__link">
+    Genomic search
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accessing-specific-records" class="md-nav__link">
+    Accessing specific records
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fetching-precursors" class="md-nav__link">
+    Fetching precursors
+  </a>
+  
+    <nav class="md-nav" aria-label="Fetching precursors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#searching-by-organism-name_1" class="md-nav__link">
+    Searching by organism name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#genomic-search_1" class="md-nav__link">
+    Genomic search
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accessing-specific-records_1" class="md-nav__link">
+    Accessing specific records
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fetching-structures" class="md-nav__link">
+    Fetching structures
+  </a>
+  
+    <nav class="md-nav" aria-label="Fetching structures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-get_structure-function" class="md-nav__link">
+    Using get_structure() function
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fetching-references" class="md-nav__link">
+    Fetching references
+  </a>
+  
+    <nav class="md-nav" aria-label="Fetching references">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-get_references-function" class="md-nav__link">
+    Using get_references() function
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#searching-clusters" class="md-nav__link">
+    Searching clusters
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#high-confidence-filtering" class="md-nav__link">
+    High confidence filtering
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-sequences-to-a-file" class="md-nav__link">
+    Writing sequences to a file
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Reference documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reference documentation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Reference documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../miObject/" class="md-nav__link">
+        miObject.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../miBase/" class="md-nav__link">
+        miBase.py
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog.md" class="md-nav__link">
+        Changelog
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        License
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-set-up" class="md-nav__link">
+    The set up
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-organisms" class="md-nav__link">
+    Working with organisms
+  </a>
+  
+    <nav class="md-nav" aria-label="Working with organisms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#retrieving-all-at-once" class="md-nav__link">
+    Retrieving all at once
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fetching-specific-organisms" class="md-nav__link">
+    Fetching specific organisms
+  </a>
+  
+    <nav class="md-nav" aria-label="Fetching specific organisms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-namedtuples-from-get_organism_list-function" class="md-nav__link">
+    Using namedtuples from get_organism_list() function
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-get_organism-function" class="md-nav__link">
+    Using get_organism() function
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-organism-abbreviations" class="md-nav__link">
+    Using organism abbreviations
+  </a>
+  
+    <nav class="md-nav" aria-label="Using organism abbreviations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get_organisms_short-function" class="md-nav__link">
+    get_organisms_short() function
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-ncbi-taxonomy-id" class="md-nav__link">
+    Using NCBI taxonomy ID
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#taxonomy" class="md-nav__link">
+    Taxonomy
+  </a>
+  
+    <nav class="md-nav" aria-label="Taxonomy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-get_tax_level" class="md-nav__link">
+    Using get_tax_level()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#taxonomy-tree" class="md-nav__link">
+    Taxonomy tree
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#specifics-of-the-taxonomy-tree" class="md-nav__link">
+    Specifics of the taxonomy tree
+  </a>
+  
+    <nav class="md-nav" aria-label="Specifics of the taxonomy tree">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structure-of-the-tree" class="md-nav__link">
+    Structure of the tree
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accessing-the-tree" class="md-nav__link">
+    Accessing the tree
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fetching-mature-mirna" class="md-nav__link">
+    Fetching mature miRNA
+  </a>
+  
+    <nav class="md-nav" aria-label="Fetching mature miRNA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#searching-by-organism-name" class="md-nav__link">
+    Searching by organism name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#genomic-search" class="md-nav__link">
+    Genomic search
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accessing-specific-records" class="md-nav__link">
+    Accessing specific records
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fetching-precursors" class="md-nav__link">
+    Fetching precursors
+  </a>
+  
+    <nav class="md-nav" aria-label="Fetching precursors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#searching-by-organism-name_1" class="md-nav__link">
+    Searching by organism name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#genomic-search_1" class="md-nav__link">
+    Genomic search
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accessing-specific-records_1" class="md-nav__link">
+    Accessing specific records
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fetching-structures" class="md-nav__link">
+    Fetching structures
+  </a>
+  
+    <nav class="md-nav" aria-label="Fetching structures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-get_structure-function" class="md-nav__link">
+    Using get_structure() function
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fetching-references" class="md-nav__link">
+    Fetching references
+  </a>
+  
+    <nav class="md-nav" aria-label="Fetching references">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-get_references-function" class="md-nav__link">
+    Using get_references() function
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#searching-clusters" class="md-nav__link">
+    Searching clusters
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#high-confidence-filtering" class="md-nav__link">
+    High confidence filtering
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-sequences-to-a-file" class="md-nav__link">
+    Writing sequences to a file
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/AvirFrog/Mir-Us/blob/master/docs/cookbook.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  <h1>User cookbook</h1>
+                
+                <p>This cookbook demonstrates some use cases with example code which helps achieve presented tasks. Some of them might be done in multiple ways and also these alternative solutions are shown. We believe, that learning on examples is the most effective way of learning. To read about the use case, click on an arrow in the right side of particular box.</p>
+<h2 id="the-set-up">The set up<a class="headerlink" href="#the-set-up" title="Permanent link">&para;</a></h2>
+<p>Just before all of this, we need to make sure, that the package is imported and database object is created!
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">mirus</span> <span class="kn">import</span> <span class="n">miBase</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">miBase</span><span class="o">.</span><span class="n">MiRBase</span><span class="p">()</span>  <span class="c1"># Reminder! Version can be specified here</span>
+</code></pre></div></p>
+<h2 id="working-with-organisms">Working with organisms<a class="headerlink" href="#working-with-organisms" title="Permanent link">&para;</a></h2>
+<h3 id="retrieving-all-at-once">Retrieving all at once<a class="headerlink" href="#retrieving-all-at-once" title="Permanent link">&para;</a></h3>
+<p>Suppose a user wanted to find out all the details about all the organisms that are included in a particular version of the database. Mir-Us makes this possible with one simple function:</p>
+<div class="admonition example">
+<p class="admonition-title">Retrieving list of all organisms from database</p>
+<div class="highlight"><pre><span></span><code><span class="n">organisms</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_organisms_list</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<p>If a user would like to see what has been retrieved, <code>organisms</code> object can be simply printed. The head of the output should look like this:
+<div class="highlight"><pre><span></span><code>[Organism(organism=&#39;aqu&#39;, division=&#39;AQU&#39;, name=&#39;Amphimedon queenslandica&#39;, tree=&#39;Metazoa;Porifera;&#39;, taxid=&#39;400682&#39;), Organism(organism=&#39;nve&#39;, division=&#39;NVE&#39;, name=&#39;Nematostella vectensis&#39;, tree=&#39;Metazoa;Cnidaria;&#39;, taxid=&#39;45351&#39;), Organism(organism=&#39;h
+ma&#39;, division=&#39;HMA&#39;, name=&#39;Hydra magnipapillata&#39;, tree=&#39;Metazoa;Cnidaria;&#39;, taxid=&#39;6085&#39;), Organism(organism=&#39;sko&#39;, division=&#39;SKO&#39;, name=&#39;Saccoglossus kowalevskii&#39;, tree=&#39;Metazoa;Bilateria;Deuterostoma;Hemichordata;&#39;, taxid=&#39;10224&#39;), Organism(organism=  
+&#39;spu&#39;, division=&#39;SPU&#39;, name=&#39;Strongylocentrotus purpuratus&#39;, tree=&#39;Metazoa;Bilateria;Deuterostoma;Echinodermata;&#39;, taxid=&#39;7668&#39;), Organism(organism=&#39;cin&#39;, division=&#39;CIN&#39;, name=&#39;Ciona intestinalis&#39;, tree=&#39;Metazoa;Bilateria;Deuterostoma;Chordata;Urochord
+ata;&#39;, taxid=&#39;7719&#39;), Organism(organism=&#39;csa&#39;, division=&#39;CSA&#39;, name=&#39;Ciona savignyi&#39;, tree=&#39;Metazoa;Bilateria;Deuterostoma;Chordata;Urochordata;&#39;, taxid=&#39;51511&#39;), Organism(organism=&#39;odi&#39;, division=&#39;ODI&#39;, name=&#39;Oikopleura dioica&#39;, tree=&#39;Metazoa;Bilateri
+a;Deuterostoma;Chordata;Urochordata;&#39;, taxid=&#39;34765&#39;), Organism(organism=&#39;bfl&#39;, division=&#39;BFL&#39;, name=&#39;Branchiostoma floridae&#39;, tree=&#39;Metazoa;Bilateria;Deuterostoma;Chordata;Cephalochordata;&#39;, taxid=&#39;7739&#39;)
+...
+</code></pre></div>
+Function <code>get_organisms_list</code> returns list of namedtuples which contains all available information about organisms from miRBase. Structure of namedtuple is following:
+<code>Organism(organism='', division='', name='', tree='', taxid='')</code></p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>organism</code></td>
+<td>Organism name abbreviation.</td>
+</tr>
+<tr>
+<td><code>division</code></td>
+<td>Organism name abbreviation (capital letters).</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>Full organism name in latin.</td>
+</tr>
+<tr>
+<td><code>tree</code></td>
+<td>Full taxonomy path of the organism delimited by <code>;</code></td>
+</tr>
+<tr>
+<td><code>taxid</code></td>
+<td>NCBI taxonomy ID of the organism</td>
+</tr>
+</tbody>
+</table>
+<p>Accessing organism information is described below.</p>
+<h3 id="fetching-specific-organisms">Fetching specific organisms<a class="headerlink" href="#fetching-specific-organisms" title="Permanent link">&para;</a></h3>
+<p>Suppose a user is tasked with getting all the information about a hen. To do this, the appropriate namedtuple can be referenced from the list obtained by the <code>get_organisms_list</code> function.</p>
+<h4 id="using-namedtuples-from-get_organism_list-function">Using namedtuples from <code>get_organism_list()</code> function<a class="headerlink" href="#using-namedtuples-from-get_organism_list-function" title="Permanent link">&para;</a></h4>
+<div class="admonition example">
+<p class="admonition-title">Retrieving a single Organism() namedtuple</p>
+<div class="highlight"><pre><span></span><code><span class="n">organisms</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_organisms_list</span><span class="p">()</span>
+<span class="c1"># accessing namedtuple by getattr function</span>
+<span class="n">gallus</span> <span class="o">=</span> <span class="p">[</span><span class="n">nt</span> <span class="k">for</span> <span class="n">nt</span> <span class="ow">in</span> <span class="n">organisms</span> <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">nt</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;Gallus gallus&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="c1"># accessing namedtuple by a &#39;.&#39; operator</span>
+<span class="n">gallus</span> <span class="o">=</span> <span class="p">[</span><span class="n">nt</span> <span class="k">for</span> <span class="n">nt</span> <span class="ow">in</span> <span class="n">organisms</span> <span class="k">if</span> <span class="n">nt</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;Gallus gallus&quot;</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
+</div>
+<p>If <code>gallus</code> object is printed, all the data is shown:
+<div class="highlight"><pre><span></span><code>Organism(organism=&#39;gga&#39;, division=&#39;GGA&#39;, name=&#39;Gallus gallus&#39;, tree=&#39;Metazoa;Bilateria;Deuterostoma;Chordata;Vertebrata;Aves;&#39;, taxid=&#39;9031&#39;)
+</code></pre></div>
+As it may have been already noticed, the <code>getattr()</code> function allows to get information from a particular namedtuple:</p>
+<div class="admonition example">
+<p class="admonition-title">Acessing data in a single namedtuple</p>
+<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">gallus</span><span class="p">,</span> <span class="s2">&quot;organism&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gallus</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">gallus</span><span class="p">,</span> <span class="s2">&quot;tree&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gallus</span><span class="o">.</span><span class="n">taxid</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>&#39;gga&#39;
+&#39;Gallus gallus&#39;
+&#39;Metazoa;Bilateria;Deuterostoma;Chordata;Vertebrata;Aves;&#39;
+&#39;9031&#39;
+</code></pre></div>
+</div>
+</div>
+</div>
+<h4 id="using-get_organism-function">Using <code>get_organism()</code> function<a class="headerlink" href="#using-get_organism-function" title="Permanent link">&para;</a></h4>
+<p>Using this function, only organism names can be retrieved. However, it is a much simpler function to use if taxonomy of an organism is known. But it must be kept in mind, this function returns all organisms from pointed taxonomy level (thus it is not that specific as previous way)</p>
+<div class="admonition example">
+<p class="admonition-title">Retrieving organisms from a given taxonomy level</p>
+<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">get_organism</span><span class="p">(</span><span class="s2">&quot;Aves&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>[Mir-Us]  &#39;get_organism&#39; found 4 results in 0.006766 seconds
+[&#39;Gallus gallus&#39;, &#39;Taeniopygia guttata&#39;, &#39;Columba livia&#39;, &#39;Anas platyrhynchos&#39;]
+</code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="using-organism-abbreviations">Using organism abbreviations<a class="headerlink" href="#using-organism-abbreviations" title="Permanent link">&para;</a></h3>
+<h4 id="get_organisms_short-function">get_organisms_short() function<a class="headerlink" href="#get_organisms_short-function" title="Permanent link">&para;</a></h4>
+<p>If one needs data of organism names and its abbreviations, they can be all fetched using <code>get_organisms_short()</code> function. This information can be also retrieved by <code>get_organisms_list()</code> function, but this is an alternative and a faster way to do this.
+If abbreviation of organism name is know, full name can be retrieved as follows:     </p>
+<div class="admonition example">
+<p class="admonition-title">Retrieving organism name from organism abbreviation using get_organisms_short() function</p>
+<div class="tabbed-set" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">shorts</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_organisms_short</span><span class="p">()</span>
+<span class="n">gallus</span> <span class="o">=</span> <span class="n">shorts</span><span class="p">[</span><span class="s1">&#39;gga&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gallus</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>&#39;Gallus gallus&#39;
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Also, an abbreviation can be retrieved from a full name:</p>
+<div class="admonition example">
+<p class="admonition-title">Retrieving organism abbreviation from organism name using get_organisms_short() function</p>
+<div class="tabbed-set" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><label for="__tabbed_4_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">short_gal</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_organisms_short</span><span class="p">(</span><span class="s2">&quot;Gallus gallus&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">short_gal</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><label for="__tabbed_4_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>[Mir-Us]  &#39;get_organisms_short&#39; found 1 results in 0.000033 seconds
+gga
+</code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="using-ncbi-taxonomy-id">Using NCBI taxonomy ID<a class="headerlink" href="#using-ncbi-taxonomy-id" title="Permanent link">&para;</a></h3>
+<p>If one needs data of organism names and its taxonomy ID, they can be all fetched using <code>get_taxid()</code> function. This information can be also retrieved by <code>get_organisms_list()</code> function, but this is an alternative and a faster way to do this.
+If organism name is know, the taxonomy ID can be retrieved as follows:  </p>
+<div class="admonition example">
+<p class="admonition-title">Retrieving taxonomy ID from organism name using get_taxid() function</p>
+<div class="tabbed-set" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><label for="__tabbed_5_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">multiple_org</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_taxid</span><span class="p">([</span><span class="s2">&quot;Homo&quot;</span><span class="p">,</span> <span class="s2">&quot;Chrysemys picta&quot;</span><span class="p">,</span> <span class="s2">&quot;Amphimedon queenslandica&quot;</span><span class="p">],</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">single_org</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_taxid</span><span class="p">(</span><span class="s2">&quot;Gallus gallus&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">multiple_org</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">single_org</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">single_org</span><span class="p">[</span><span class="s2">&quot;Gallus gallus&quot;</span><span class="p">])</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><label for="__tabbed_5_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>[Mir-Us]  &#39;get_taxid&#39; found 2 results in 0.000128 seconds
+{&#39;Chrysemys picta&#39;: &#39;8479&#39;, &#39;Amphimedon queenslandica&#39;: &#39;400682&#39;}
+[Mir-Us]  &#39;get_taxid&#39; found 1 results in 0.000106 seconds
+{&#39;Gallus gallus&#39;: &#39;9031&#39;}
+9031
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">If a list is an expected argument in the function, but you only search for a single, specific item, then you can just pass a string instead of a list.</p>
+</div>
+<p>First usage of the function is worth of mentioning, because:</p>
+<ul>
+<li>function can return taxonomy IDs for multiple organisms</li>
+<li>if incorrect organism name appears, it will be ignored</li>
+</ul>
+<h3 id="taxonomy">Taxonomy<a class="headerlink" href="#taxonomy" title="Permanent link">&para;</a></h3>
+<h4 id="using-get_tax_level">Using get_tax_level()<a class="headerlink" href="#using-get_tax_level" title="Permanent link">&para;</a></h4>
+<p>A possible situation is when one would need to easily get the taxonomic path of a given organism name. The perfect solution is to use <code>get_tax_level()</code> function which returns a list of all taxonomy level names affiliated with a given organism.</p>
+<div class="admonition example">
+<p class="admonition-title">Retrieving taxonomy path of organism name using get_tax_level() function</p>
+<div class="tabbed-set" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><label for="__tabbed_6_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">get_tax_level</span><span class="p">([</span><span class="s1">&#39;Homo&#39;</span><span class="p">,</span> <span class="s2">&quot;Amphimedon queenslandica&quot;</span><span class="p">],</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">get_tax_level</span><span class="p">(</span><span class="s2">&quot;Gallus gallus&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><label for="__tabbed_6_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>[Mir-Us]  &#39;get_tax_level&#39; found 1 results in 0.000279 seconds
+{&#39;Amphimedon queenslandica&#39;: [&#39;Metazoa&#39;, &#39;Porifera&#39;]}
+[Mir-Us]  &#39;get_tax_level&#39; found 1 results in 0.000234 seconds
+{&#39;Gallus gallus&#39;: [&#39;Metazoa&#39;, &#39;Bilateria&#39;, &#39;Deuterostoma&#39;, &#39;Chordata&#39;, &#39;Vertebrata&#39;, &#39;Aves&#39;]}
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>First usage of the function is, again, worth of mentioning, because:</p>
+<ul>
+<li>function can return taxonomy paths for multiple organisms</li>
+<li>if incorrect organism name appears, it will be ignored</li>
+</ul>
+<h4 id="taxonomy-tree">Taxonomy tree<a class="headerlink" href="#taxonomy-tree" title="Permanent link">&para;</a></h4>
+<p>Organism names can be also retrieved from the taxonomy tree data structure which Mir-Us provide.</p>
+<p><a class="md-button md-button--primary" href="#specifics-of-the-taxonomy-tree" target="_blank">Taxonomy tree details <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 0 0 1.06 1.06l1.25-1.25a2 2 0 1 1 2.83 2.83l-2.5 2.5a2 2 0 0 1-2.83 0 .75.75 0 0 0-1.06 1.06 3.5 3.5 0 0 0 4.95 0l2.5-2.5a3.5 3.5 0 0 0-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 0 1 0-2.83l2.5-2.5a2 2 0 0 1 2.83 0 .75.75 0 0 0 1.06-1.06 3.5 3.5 0 0 0-4.95 0l-2.5 2.5a3.5 3.5 0 0 0 4.95 4.95l1.25-1.25a.75.75 0 0 0-1.06-1.06l-1.25 1.25a2 2 0 0 1-2.83 0z"/></svg></span></a></p>
+<h2 id="specifics-of-the-taxonomy-tree">Specifics of the taxonomy tree<a class="headerlink" href="#specifics-of-the-taxonomy-tree" title="Permanent link">&para;</a></h2>
+<p>Mir-Us provides a data structure which is a copy of the taxonomy tree available on <a href="https://www.mirbase.org/cgi-bin/browse.pl" target="_blank">'Browse by species'</a> site from miRBase. Because of its characteristic impementation in Mir-Us, user is allowed to slice a part of tree from a pointed taxonomy level or retrieve only organism names from a certain taxonomy level.</p>
+<h3 id="structure-of-the-tree">Structure of the tree<a class="headerlink" href="#structure-of-the-tree" title="Permanent link">&para;</a></h3>
+<p>Structure of the tree is not complicated but it might be not intuitive at first. Bascially, the tree is defined as a dictionary of other dictionaries which are representing subsequent taxonomy levels. To better visualise it, we can think of this structure as a file system - in a directory there is another directory, which holds another directory. If certain taxonomy level has organisms in it, then we can think that there are some loose files in that particular directory.</p>
+<p>We can graphically demonstrate the structure as mentioned files system:
+<div class="highlight"><pre><span></span><code>.
+├─ Alveolata/
+│  └─ !organism/
+│     └─ &quot;Symbiodinium microadriaticum&quot;
+├─ Chromalveolata/
+│  └─ Heterokontophyta/
+│     └─ !organism/
+│        └─ &quot;Ectocarpus siliculosus&quot;,
+│           &quot;Phaeodactylum tricornutum&quot;,
+│           &quot;Phytophthora infestans&quot;,
+│           &quot;Phytophthora ramorum&quot;,
+│           &quot;Phytophthora sojae&quot;
+...
+</code></pre></div>
+To obtain a taxonomy tree structure, user should use the function presented below. Returned object can be pretty printed using e.g. json module:</p>
+<div class="admonition example">
+<p class="admonition-title">Fetching taxonomy tree using get_tree() function</p>
+<div class="tabbed-set" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><label for="__tabbed_7_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">get_tree</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><label for="__tabbed_7_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>[Mir-Us]  &#39;get_tree&#39; found 1 results in 0.001243 seconds
+{
+    &quot;Alveolata&quot;: {
+        &quot;!organism&quot;: [
+            &quot;Symbiodinium microadriaticum&quot;
+        ]
+    },
+    &quot;Chromalveolata&quot;: {
+        &quot;Heterokontophyta&quot;: {
+            &quot;!organism&quot;: [
+                &quot;Ectocarpus siliculosus&quot;,
+                &quot;Phaeodactylum tricornutum&quot;,
+                &quot;Phytophthora infestans&quot;,
+                &quot;Phytophthora ramorum&quot;,
+                &quot;Phytophthora sojae&quot;
+            ]
+        }
+    },
+...
+</code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="accessing-the-tree">Accessing the tree<a class="headerlink" href="#accessing-the-tree" title="Permanent link">&para;</a></h3>
+<p>Using positional argument <code>tax_path</code> of the <code>get_tree()</code> function enables to slice the tree structure and retrieve only specified fragment of the tree structure.</p>
+<p>Gallus gallus belongs to the Vertebrata subphylum but we would like to know what other organisms of this subphylum are present in the database. Slicing tree by the Vertebrata subphylum looks as following:</p>
+<div class="admonition example">
+<p class="admonition-title">Slicing taxonomy tree using get_tree() function with the usage of tax_path parameter</p>
+<div class="tabbed-set" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><label for="__tabbed_8_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">tree</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_tree</span><span class="p">([</span><span class="s2">&quot;Metazoa&quot;</span><span class="p">,</span> <span class="s2">&quot;Bilateria&quot;</span><span class="p">,</span> <span class="s2">&quot;Deuterostoma&quot;</span><span class="p">,</span> <span class="s2">&quot;Chordata&quot;</span><span class="p">,</span> <span class="s2">&quot;Vertebrata&quot;</span><span class="p">],</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><label for="__tabbed_8_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>[Mir-Us]  &#39;get_tree&#39; found 1 results in 0.001306 seconds
+{
+    &quot;Agnathostomata&quot;: {
+        &quot;!organism&quot;: [
+            &quot;Petromyzon marinus&quot;
+        ]
+    },
+    &quot;Amphibia&quot;: {
+        &quot;!organism&quot;: [
+            &quot;Xenopus laevis&quot;,
+            &quot;Xenopus tropicalis&quot;
+        ]
+    },
+    &quot;Aves&quot;: {
+        &quot;!organism&quot;: [
+            &quot;Anas platyrhynchos&quot;,
+            &quot;Columba livia&quot;,
+            &quot;Gallus gallus&quot;,
+            &quot;Taeniopygia guttata&quot;
+        ]
+    },
+    &quot;Gnathostomata&quot;: {
+        &quot;!organism&quot;: [
+            &quot;Callorhinchus milii&quot;
+        ]
+    },
+    &quot;Mammalia&quot;: {
+        &quot;Afrotheria&quot;: {
+            &quot;!organism&quot;: [
+                &quot;Echinops telfairi&quot;
+            ]
+        },
+        &quot;Carnivora&quot;: {
+            &quot;!organism&quot;: [
+                &quot;Canis familiaris&quot;
+            ]
+        },
+        &quot;Cingulata&quot;: {
+            &quot;!organism&quot;: [
+                &quot;Dasypus novemcinctus&quot;
+            ]
+        },
+        &quot;Lagomorpha&quot;: {
+            &quot;!organism&quot;: [
+                &quot;Oryctolagus cuniculus&quot;
+            ]
+        },
+        &quot;Laurasiatheria&quot;: {
+            &quot;!organism&quot;: [
+                &quot;Artibeus jamaicensis&quot;,
+                &quot;Bubalus bubalis&quot;,
+                &quot;Eptesicus fuscus&quot;,
+                &quot;Equus caballus&quot;,
+                &quot;Pteropus alecto&quot;
+            ]
+        },
+        &quot;Metatheria&quot;: {
+            &quot;!organism&quot;: [
+                &quot;Macropus eugenii&quot;,
+                &quot;Monodelphis domestica&quot;,
+                &quot;Sarcophilus harrisii&quot;
+            ]
+        },
+        &quot;Primates&quot;: {
+            &quot;Atelidae&quot;: {
+                &quot;!organism&quot;: [
+                    &quot;Ateles geoffroyi&quot;,
+                    &quot;Lagothrix lagotricha&quot;
+                ]
+            },
+            &quot;Cebidae&quot;: {
+                &quot;!organism&quot;: [
+                    &quot;Callithrix jacchus&quot;,
+                    &quot;Saguinus labiatus&quot;,
+                    &quot;Saimiri boliviensis&quot;
+                ]
+            },
+            &quot;Cercopithecidae&quot;: {
+                &quot;!organism&quot;: [
+                    &quot;Macaca mulatta&quot;,
+                    &quot;Macaca nemestrina&quot;,
+                    &quot;Papio hamadryas&quot;,
+                    &quot;Pygathrix bieti&quot;
+                ]
+            },
+            &quot;Cheirogaleidae&quot;: {
+                &quot;!organism&quot;: [
+                    &quot;Microcebus murinus&quot;
+                ]
+            },
+            &quot;Daubentoniidae&quot;: {
+                &quot;!organism&quot;: [
+                    &quot;Daubentonia madagascariensis&quot;
+                ]
+            },
+            &quot;Galagidae&quot;: {
+                &quot;!organism&quot;: [
+                    &quot;Otolemur garnettii&quot;
+                ]
+            },
+            &quot;Hominidae&quot;: {
+                &quot;!organism&quot;: [
+                    &quot;Gorilla gorilla&quot;,
+                    &quot;Homo sapiens&quot;,
+                    &quot;Pan paniscus&quot;,
+                    &quot;Pan troglodytes&quot;,
+                    &quot;Pongo pygmaeus&quot;,
+                    &quot;Symphalangus syndactylus&quot;
+                ]
+            },
+            &quot;Hylobatidae&quot;: {
+                &quot;!organism&quot;: [
+                    &quot;Nomascus leucogenys&quot;
+                ]
+            },
+            &quot;Lemuridae&quot;: {
+                &quot;!organism&quot;: [
+                    &quot;Lemur catta&quot;
+                ]
+            }
+        },
+        &quot;Prototheria&quot;: {
+            &quot;!organism&quot;: [
+                &quot;Ornithorhynchus anatinus&quot;
+            ]
+        },
+        &quot;Rodentia&quot;: {
+            &quot;!organism&quot;: [
+                &quot;Cavia porcellus&quot;,
+                &quot;Cricetulus griseus&quot;,
+                &quot;Mus musculus&quot;,
+                &quot;Rattus norvegicus&quot;
+            ]
+        },
+        &quot;Ruminantia&quot;: {
+            &quot;!organism&quot;: [
+                &quot;Bos taurus&quot;,
+                &quot;Capra hircus&quot;,
+                &quot;Ovis aries&quot;
+            ]
+        },
+        &quot;Scandentia&quot;: {
+            &quot;!organism&quot;: [
+                &quot;Tupaia chinensis&quot;
+            ]
+        },
+        &quot;Suina&quot;: {
+            &quot;!organism&quot;: [
+                &quot;Sus scrofa&quot;
+            ]
+        }
+    },
+    &quot;Sauria&quot;: {
+        &quot;!organism&quot;: [
+            &quot;Alligator mississippiensis&quot;,
+            &quot;Anolis carolinensis&quot;,
+            &quot;Chrysemys picta&quot;,
+            &quot;Ophiophagus hannah&quot;,
+            &quot;Python bivittatus&quot;
+        ]
+    },
+    &quot;Teleostei&quot;: {
+        &quot;!organism&quot;: [
+            &quot;Astatotilapia burtoni&quot;,
+            &quot;Carassius auratus&quot;,
+            &quot;Cyprinus carpio&quot;,
+            &quot;Danio rerio&quot;,
+            &quot;Electrophorus electricus&quot;,
+            &quot;Fugu rubripes&quot;,
+            &quot;Gadus morhua&quot;,
+            &quot;Hippoglossus hippoglossus&quot;,
+            &quot;Ictalurus punctatus&quot;,
+            &quot;Metriaclima zebra&quot;,
+            &quot;Neolamprologus brichardi&quot;,
+            &quot;Nothobranchius furzeri&quot;,
+            &quot;Oncorhynchus mykiss&quot;,
+            &quot;Oreochromis niloticus&quot;,
+            &quot;Oryzias latipes&quot;,
+            &quot;Paralichthys olivaceus&quot;,
+            &quot;Pundamilia nyererei&quot;,
+            &quot;Salmo salar&quot;,
+            &quot;Tetraodon nigroviridis&quot;
+        ]
+    }
+}
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>If we are intrested in the Aves class, then it is possible to retrieve all organism names in the list from the tree structure:</p>
+<div class="admonition example">
+<p class="admonition-title">Retrieving organism names from a certain part of the taxonomy tree structure (from the Aves class) using get_tree() function and tax_path parameter</p>
+<div class="tabbed-set" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><label for="__tabbed_9_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="c1"># using previous tree slice</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="s2">&quot;Aves&quot;</span><span class="p">][</span><span class="s2">&quot;!organism&quot;</span><span class="p">])</span>
+
+<span class="c1"># direct slice to Aves and retrieving organisms</span>
+<span class="n">aves</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_tree</span><span class="p">([</span><span class="s2">&quot;Metazoa&quot;</span><span class="p">,</span> <span class="s2">&quot;Bilateria&quot;</span><span class="p">,</span> <span class="s2">&quot;Deuterostoma&quot;</span><span class="p">,</span> <span class="s2">&quot;Chordata&quot;</span><span class="p">,</span> <span class="s2">&quot;Vertebrata&quot;</span><span class="p">,</span> <span class="s2">&quot;Aves&quot;</span><span class="p">],</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s2">&quot;!organism&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">aves</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><label for="__tabbed_9_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>[&#39;Anas platyrhynchos&#39;, &#39;Columba livia&#39;, &#39;Gallus gallus&#39;, &#39;Taeniopygia guttata&#39;]
+[Mir-Us]  &#39;get_tree&#39; found 1 results in 0.001367 seconds
+[&#39;Anas platyrhynchos&#39;, &#39;Columba livia&#39;, &#39;Gallus gallus&#39;, &#39;Taeniopygia guttata&#39;]
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">A tree structure slicing should not be mistaken with accessing data of particular taxonomy level. Through <code>get_tree()</code> function it is possible to show the whole tree or its specified part and then return its structure as a dictionary. To retrieve organisms list from a particular taxonomy level of a tree structure, a returned structure must be accessed, so it cannot be done in the function itself (through <code>tax_path</code> parameter).</p>
+</div>
+<h2 id="fetching-mature-mirna">Fetching mature miRNA<a class="headerlink" href="#fetching-mature-mirna" title="Permanent link">&para;</a></h2>
+<p>In the previous paragraphs, Gallus gallus was the main object of the research. It will be no different this time, because we will retrieve all miRNAs from Gallus gallus and we will subsequently narrow the search.</p>
+<h3 id="searching-by-organism-name">Searching by organism name<a class="headerlink" href="#searching-by-organism-name" title="Permanent link">&para;</a></h3>
+<p>Firstly, we would like to retrieve all miRNAs from Gallus gallus. This can be done using <code>get_mirna()</code> function.</p>
+<div class="admonition example">
+<p class="admonition-title">Retrieving all miRNAs from Gallus gallus using get_mirna() function</p>
+<div class="tabbed-set" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><label for="__tabbed_10_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">gallus_mirna</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_mirna</span><span class="p">(</span><span class="n">organism_name</span><span class="o">=</span><span class="s2">&quot;Gallus gallus&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gallus_mirna</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><label for="__tabbed_10_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>[Mir-Us]  &#39;get_mirna&#39; found 1235 results in 0.036319 seconds
+[
+        Mature ID: MIMAT0026487
+        Mature name: gga-miR-29a-5p
+        Derivative: MI0001166
+        Mature sequence: cugauuucuuuugguguucaga
+        Mature positions: (&#39;18&#39;, &#39;39&#39;)
+        Organism: Gallus gallus
+        Evidence: experimental
+        Experiment: Illumina [2]
+        End: 5p
+        Chromosome: chr1
+        Genome coordinates: {&#39;MI0001166&#39;: [(&#39;3434793&#39;, &#39;3434814&#39;)]}
+        Strand: +
+        References: 15592404, 23034410
+,
+        Mature ID: MIMAT0001096
+...
+</code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="genomic-search">Genomic search<a class="headerlink" href="#genomic-search" title="Permanent link">&para;</a></h3>
+<p>As it turned out, we have to narrow down the search. Let's say we have been given some instructions that specifies some genomic features:</p>
+<ul>
+<li>chromosme 8 must be searched</li>
+<li>results must be from the minus strand</li>
+<li>search must be conducted from the 6000000<sup>th</sup> nucleotide and further</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Retrieving all miRNAs from Gallus gallus with regard of genomic features (chromosome 8, minus strand, 6000000<sup>th</sup> nucleotide upstream search)</p>
+<div class="tabbed-set" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><label for="__tabbed_11_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">gallus_mirna</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_mirna</span><span class="p">(</span><span class="n">organism_name</span><span class="o">=</span><span class="s2">&quot;Gallus gallus&quot;</span><span class="p">,</span> <span class="nb">chr</span><span class="o">=</span><span class="s2">&quot;chr8&quot;</span><span class="p">,</span> <span class="n">strand</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s2">&quot;6000000&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gallus_mirna</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><label for="__tabbed_11_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>[Mir-Us]  &#39;get_mirna&#39; found 16 results in 0.041173 seconds
+[
+        Mature ID: MIMAT0001185
+        Mature name: gga-miR-101-3p
+        Derivative: MI0001270, MI0007558
+        Mature sequence: guacaguacugugauaacugaa, guacaguacugugauaacugaa
+        Mature positions: (&#39;48&#39;, &#39;69&#39;), (&#39;48&#39;, &#39;69&#39;)
+        Organism: Gallus gallus
+        Evidence: experimental, experimental
+        Experiment: cloned [1], Illumina [2-3], cloned [1], Illumina [2-3]
+        End: 3p, 3p
+        Chromosome: chr8, chrZ
+        Genome coordinates: {&#39;MI0001270&#39;: [(&#39;27510701&#39;, &#39;27510722&#39;)],
+ &#39;MI0007558&#39;: [(&#39;28360437&#39;, &#39;28360458&#39;)]}
+        Strand: -, +
+        References: 18256158, 18469162, 23034410
+,
+        Mature ID: MIMAT0007451
+...
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Results were narrowed down to just 16 records.</p>
+<p>There is one thing worth mentioning - specifying a feature from a certain category (e.g. chromosome) does not mean, that returned record will be affiliated only with that specified feature. For example, the returned record in the 'Results' tab fulfills search criteria but additionally has a connection with chromosome Z, which was not requested.</p>
+<p>Also, there is much more types of features which can be used to search the records. Button below provides more information about this topic.</p>
+<p><a class="md-button md-button--primary" href="../miBase/#miBase.MiRBase.get_mirna" target="_blank">get_mirna documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 0 0 1.06 1.06l1.25-1.25a2 2 0 1 1 2.83 2.83l-2.5 2.5a2 2 0 0 1-2.83 0 .75.75 0 0 0-1.06 1.06 3.5 3.5 0 0 0 4.95 0l2.5-2.5a3.5 3.5 0 0 0-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 0 1 0-2.83l2.5-2.5a2 2 0 0 1 2.83 0 .75.75 0 0 0 1.06-1.06 3.5 3.5 0 0 0-4.95 0l-2.5 2.5a3.5 3.5 0 0 0 4.95 4.95l1.25-1.25a.75.75 0 0 0-1.06-1.06l-1.25 1.25a2 2 0 0 1-2.83 0z"/></svg></span></a></p>
+<h3 id="accessing-specific-records">Accessing specific records<a class="headerlink" href="#accessing-specific-records" title="Permanent link">&para;</a></h3>
+<p>To access a specific record or records, a <code>get_mirna()</code> function with <code>mirna_id</code> flag should be used to retrieve them. Suppose, we would like to access only that sample record from 'Results' tab from previous paragraph.</p>
+<div class="admonition example">
+<p class="admonition-title">Retrieving a single miRNA using get_mirna() function</p>
+<div class="tabbed-set" data-tabs="12:2"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><label for="__tabbed_12_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">sample_gallus</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_mirna</span><span class="p">(</span><span class="n">mirna_id</span><span class="o">=</span><span class="s2">&quot;MIMAT0001185&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample_gallus</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><label for="__tabbed_12_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>[Mir-Us]  &#39;get_mirna&#39; found 1 results in 0.000011 seconds
+[
+        Mature ID: MIMAT0001185
+        Mature name: gga-miR-101-3p
+        Derivative: MI0001270, MI0007558
+        Mature sequence: guacaguacugugauaacugaa, guacaguacugugauaacugaa
+        Mature positions: (&#39;48&#39;, &#39;69&#39;), (&#39;48&#39;, &#39;69&#39;)
+        Organism: Gallus gallus
+        Evidence: experimental, experimental
+        Experiment: cloned [1], Illumina [2-3], cloned [1], Illumina [2-3]
+        End: 3p, 3p
+        Chromosome: chr8, chrZ
+        Genome coordinates: {&#39;MI0001270&#39;: [(&#39;27510701&#39;, &#39;27510722&#39;)],
+ &#39;MI0007558&#39;: [(&#39;28360437&#39;, &#39;28360458&#39;)]}
+        Strand: -, +
+        References: 18256158, 18469162, 23034410
+]
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Retrieving a list of specific records is also possible and it's very intuitive (just pass a list of IDs to a function).</p>
+<div class="admonition example">
+<p class="admonition-title">Retrieving a multiple miRNA using get_mirna() function</p>
+<div class="tabbed-set" data-tabs="13:2"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><label for="__tabbed_13_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">sample_gallus</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_mirna</span><span class="p">(</span><span class="n">mirna_id</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;MIMAT0001185&quot;</span><span class="p">,</span> <span class="s2">&quot;MIMAT0025825&quot;</span><span class="p">,</span> <span class="s2">&quot;MIMAT0007451&quot;</span><span class="p">],</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample_gallus</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_13_2" name="__tabbed_13" type="radio" /><label for="__tabbed_13_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>[Mir-Us]  &#39;get_mirna&#39; found 3 results in 0.000023 seconds
+[
+        Mature ID: MIMAT0001185
+        Mature name: gga-miR-101-3p
+        Derivative: MI0001270, MI0007558
+        Mature sequence: guacaguacugugauaacugaa, guacaguacugugauaacugaa
+        Mature positions: (&#39;48&#39;, &#39;69&#39;), (&#39;48&#39;, &#39;69&#39;)
+        Organism: Gallus gallus
+        Evidence: experimental, experimental
+        Experiment: cloned [1], Illumina [2-3], cloned [1], Illumina [2-3]
+        End: 3p, 3p
+        Chromosome: chr8, chrZ
+        Genome coordinates: {&#39;MI0001270&#39;: [(&#39;27510701&#39;, &#39;27510722&#39;)],
+ &#39;MI0007558&#39;: [(&#39;28360437&#39;, &#39;28360458&#39;)]}
+        Strand: -, +
+        References: 18256158, 18469162, 23034410
+,
+        Mature ID: MIMAT0025825
+        Mature name: gga-miR-6622-3p
+        Derivative: MI0022537
+        Mature sequence: uguggggacauuucuguggcauu
+        Mature positions: (&#39;69&#39;, &#39;91&#39;)
+        Organism: Gallus gallus
+        Evidence: experimental
+        Experiment: Illumina [1]
+        End: 3p
+        Chromosome: chr8
+        Genome coordinates: {&#39;MI0022537&#39;: [(&#39;22245960&#39;, &#39;22245982&#39;)]}
+        Strand: -
+        References: 22418847
+,
+        Mature ID: MIMAT0007451
+        Mature name: gga-miR-1589
+        Derivative: MI0007316
+        Mature sequence: cagccucugcugaucgucuuuu
+        Mature positions: (&#39;45&#39;, &#39;66&#39;)
+        Organism: Gallus gallus
+        Evidence: experimental
+        Experiment: Illumina [1]
+        End: -
+        Chromosome: chr8
+        Genome coordinates: {&#39;MI0007316&#39;: [(&#39;16516625&#39;, &#39;16516646&#39;)]}
+        Strand: -
+        References: 18469162
+]
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Then, we can actually access the data from the MiRNA object. Let's say we will extract chromosome name and genome coordinates.</p>
+<div class="admonition example">
+<p class="admonition-title">Retrieving data from a single MiRNA object</p>
+<div class="tabbed-set" data-tabs="14:2"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><label for="__tabbed_14_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">sample_gallus</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">chromosome</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">sample_gallus</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">genome_coordinates</span><span class="p">))</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_14_2" name="__tabbed_14" type="radio" /><label for="__tabbed_14_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>[&#39;chr8&#39;, &#39;chrZ&#39;]
+{&#39;MI0007558&#39;: [(&#39;28360437&#39;, &#39;28360458&#39;)], &#39;MI0001270&#39;: [(&#39;27510701&#39;, &#39;27510722&#39;)]}
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Genome coordinates are of a <code>defaultdict</code> type, thus conversion to dictionary might be necessary, depending of user needs.</p>
+</div>
+<p>Button below provides more detail about the data that is possible to be accessed.</p>
+<p><a class="md-button md-button--primary" href="../miObject/#mirna" target="_blank">MiRNA object details <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 0 0 1.06 1.06l1.25-1.25a2 2 0 1 1 2.83 2.83l-2.5 2.5a2 2 0 0 1-2.83 0 .75.75 0 0 0-1.06 1.06 3.5 3.5 0 0 0 4.95 0l2.5-2.5a3.5 3.5 0 0 0-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 0 1 0-2.83l2.5-2.5a2 2 0 0 1 2.83 0 .75.75 0 0 0 1.06-1.06 3.5 3.5 0 0 0-4.95 0l-2.5 2.5a3.5 3.5 0 0 0 4.95 4.95l1.25-1.25a.75.75 0 0 0-1.06-1.06l-1.25 1.25a2 2 0 0 1-2.83 0z"/></svg></span></a></p>
+<h2 id="fetching-precursors">Fetching precursors<a class="headerlink" href="#fetching-precursors" title="Permanent link">&para;</a></h2>
+<p>This paragraph is actually a copy of the previous one, because functions <code>get_mirna()</code> and <code>get_precursor()</code> are very similar. We will retrieve all precursors from Gallus gallus and we will subsequently narrow the search.</p>
+<h3 id="searching-by-organism-name_1">Searching by organism name<a class="headerlink" href="#searching-by-organism-name_1" title="Permanent link">&para;</a></h3>
+<p>Firstly, we would like to retrieve all precursors from Gallus gallus. This can be done using <code>get_precursor()</code> function.</p>
+<div class="admonition example">
+<p class="admonition-title">Retrieving all precursors from Gallus gallus using get_precursor() function</p>
+<div class="tabbed-set" data-tabs="15:2"><input checked="checked" id="__tabbed_15_1" name="__tabbed_15" type="radio" /><label for="__tabbed_15_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">gallus_prec</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_precursor</span><span class="p">(</span><span class="n">organism_name</span><span class="o">=</span><span class="s2">&quot;Gallus gallus&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gallus_prec</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_15_2" name="__tabbed_15" type="radio" /><label for="__tabbed_15_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>[Mir-Us]  &#39;get_precursor&#39; found 882 results in 0.022314 seconds
+[
+        Precursor ID: MI0001166
+        Precursor name: gga-mir-29a
+        MiRNAs: MIMAT0026487, MIMAT0001096
+        Precursor structure: .((((..(.....((((((((((((...(((((((.((((...........)))))))))))...))))))))))))....)..)))).
+        Precursor sequence:  accccuuuagaggaugacugauuucuuuugguguucagagucaauaauauuuucuagcaccauuugaaaucgguuauagugauugggga
+        Organism: Gallus gallus
+        Taxonomy: Metazoa/Bilateria/Deuterostoma/Chordata/Vertebrata/Aves
+        Chromosome: chr1
+        Genome coordinates (start, end): (&#39;3434776&#39;, &#39;3434864&#39;)
+        Strand: +
+        High confidence: True
+        References: 15592404, 23034410
+,
+        Precursor ID: MI0001167
+...
+</code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="genomic-search_1">Genomic search<a class="headerlink" href="#genomic-search_1" title="Permanent link">&para;</a></h3>
+<p>As it turned out, we have to narrow down the search. Let's say we have been given some instructions that specifies some genomic features:</p>
+<ul>
+<li>chromosme 8 must be searched</li>
+<li>results must be from the minus strand</li>
+<li>search must be conducted from the 6000000<sup>th</sup> nucleotide and further </li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Retrieving all precursors from Gallus gallus with regard of genomic features (chromosome 8, minus strand, 6000000<sup>th</sup> nucleotide upstream search)</p>
+<div class="tabbed-set" data-tabs="16:2"><input checked="checked" id="__tabbed_16_1" name="__tabbed_16" type="radio" /><label for="__tabbed_16_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">gallus_prec</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_precursor</span><span class="p">(</span><span class="n">organism_name</span><span class="o">=</span><span class="s2">&quot;Gallus gallus&quot;</span><span class="p">,</span> <span class="nb">chr</span><span class="o">=</span><span class="s2">&quot;chr8&quot;</span><span class="p">,</span> <span class="n">strand</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s2">&quot;6000000&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gallus_prec</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_16_2" name="__tabbed_16" type="radio" /><label for="__tabbed_16_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>[Mir-Us]  &#39;get_precursor&#39; found 13 results in 0.022590 seconds
+[
+        Precursor ID: MI0007316
+        Precursor name: gga-mir-1589
+        MiRNAs: MIMAT0007451
+        Precursor structure: ((((..((..((((((((..((.(.(((((((...(((....))).)))))))).))..))))))))....))..))))
+        Precursor sequence:  gcagugugcagagaggacacucugacagaggcaccgcugcccagcagccucugcugaucgucuuuuccuuccaaucugc
+        Organism: Gallus gallus
+        Taxonomy: Metazoa/Bilateria/Deuterostoma/Chordata/Vertebrata/Aves
+        Chromosome: chr8
+        Genome coordinates (start, end): (&#39;16516612&#39;, &#39;16516690&#39;)
+        Strand: -
+        High confidence: False
+        References: 18469162
+,
+        Precursor ID: MI0007322
+...
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Results were narrowed down to just 13 records.</p>
+<p>There are much more types of features which can be used to search the records. Button below provides more information about this topic.</p>
+<p><a class="md-button md-button--primary" href="../miBase/#miBase.MiRBase.get_precursor" target="_blank">get_precursor documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 0 0 1.06 1.06l1.25-1.25a2 2 0 1 1 2.83 2.83l-2.5 2.5a2 2 0 0 1-2.83 0 .75.75 0 0 0-1.06 1.06 3.5 3.5 0 0 0 4.95 0l2.5-2.5a3.5 3.5 0 0 0-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 0 1 0-2.83l2.5-2.5a2 2 0 0 1 2.83 0 .75.75 0 0 0 1.06-1.06 3.5 3.5 0 0 0-4.95 0l-2.5 2.5a3.5 3.5 0 0 0 4.95 4.95l1.25-1.25a.75.75 0 0 0-1.06-1.06l-1.25 1.25a2 2 0 0 1-2.83 0z"/></svg></span></a></p>
+<h3 id="accessing-specific-records_1">Accessing specific records<a class="headerlink" href="#accessing-specific-records_1" title="Permanent link">&para;</a></h3>
+<p>To access a specific record or records, a <code>get_precursor()</code> function with <code>prec_id</code> flag should be used to retrieve them. Suppose, we would like to access only that sample record from 'Results' tab from previous paragraph.</p>
+<div class="admonition example">
+<p class="admonition-title">Retrieving a single precursor using get_precursor() function</p>
+<div class="tabbed-set" data-tabs="17:2"><input checked="checked" id="__tabbed_17_1" name="__tabbed_17" type="radio" /><label for="__tabbed_17_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">sample_gallus</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_precursor</span><span class="p">(</span><span class="n">prec_id</span><span class="o">=</span><span class="s2">&quot;MI0007316&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample_gallus</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_17_2" name="__tabbed_17" type="radio" /><label for="__tabbed_17_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>[Mir-Us]  &#39;get_precursor&#39; found 1 results in 0.000012 seconds
+[
+        Precursor ID: MI0007316
+        Precursor name: gga-mir-1589
+        MiRNAs: MIMAT0007451
+        Precursor structure: ((((..((..((((((((..((.(.(((((((...(((....))).)))))))).))..))))))))....))..))))
+        Precursor sequence:  gcagugugcagagaggacacucugacagaggcaccgcugcccagcagccucugcugaucgucuuuuccuuccaaucugc
+        Organism: Gallus gallus
+        Taxonomy: Metazoa/Bilateria/Deuterostoma/Chordata/Vertebrata/Aves
+        Chromosome: chr8
+        Genome coordinates (start, end): (&#39;16516612&#39;, &#39;16516690&#39;)
+        Strand: -
+        High confidence: False
+        References: 18469162
+]
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Retrieving a list of specific records is also possible and it's very intuitive (just pass a list of IDs to a function).</p>
+<div class="admonition example">
+<p class="admonition-title">Retrieving a multiple precursors using get_precursor() function</p>
+<div class="tabbed-set" data-tabs="18:2"><input checked="checked" id="__tabbed_18_1" name="__tabbed_18" type="radio" /><label for="__tabbed_18_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">sample_gallus</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_precursor</span><span class="p">(</span><span class="n">prec_id</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;MI0007316&quot;</span><span class="p">,</span> <span class="s2">&quot;MI0022537&quot;</span><span class="p">,</span> <span class="s2">&quot;MI0007409&quot;</span><span class="p">],</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample_gallus</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_18_2" name="__tabbed_18" type="radio" /><label for="__tabbed_18_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>[Mir-Us]  &#39;get_precursor&#39; found 3 results in 0.000012 seconds
+[
+        Precursor ID: MI0007316
+        Precursor name: gga-mir-1589
+        MiRNAs: MIMAT0007451
+        Precursor structure: ((((..((..((((((((..((.(.(((((((...(((....))).)))))))).))..))))))))....))..))))
+        Precursor sequence:  gcagugugcagagaggacacucugacagaggcaccgcugcccagcagccucugcugaucgucuuuuccuuccaaucugc
+        Organism: Gallus gallus
+        Taxonomy: Metazoa/Bilateria/Deuterostoma/Chordata/Vertebrata/Aves
+        Chromosome: chr8
+        Genome coordinates (start, end): (&#39;16516612&#39;, &#39;16516690&#39;)
+        Strand: -
+        High confidence: False
+        References: 18469162
+,
+        Precursor ID: MI0022537
+        Precursor name: gga-mir-6622
+        MiRNAs: MIMAT0025825
+        Precursor structure: ................................(((.(((((.((((((.(((((.(......)))))).))))))...))))).))).......................
+        Precursor sequence:  agggcuggagggagacagcagccaaauuccauccagaggaagucccacugacugagaaaggcccagucuguggggacauuucuguggcauuuugaggguaaaauggcuaa
+        Organism: Gallus gallus
+        Taxonomy: Metazoa/Bilateria/Deuterostoma/Chordata/Vertebrata/Aves
+        Chromosome: chr8
+        Genome coordinates (start, end): (&#39;22245941&#39;, &#39;22246050&#39;)
+        Strand: -
+        High confidence: False
+        References: 22418847
+,
+        Precursor ID: MI0007409
+        Precursor name: gga-mir-1675
+        MiRNAs: MIMAT0007559
+        Precursor structure: (((((.((((((((((..(((((((((((((..((((((.((((....)))).))))))..)))))..))))).)))..)))..)))).)))..))).))
+        Precursor sequence:  gccuucccgcuuggccccgcucccgcucagggcggugucaggcggcgccgccggacgccaucuugacugugggcagcucggcuucaggucggcagagagc
+        Organism: Gallus gallus
+        Taxonomy: Metazoa/Bilateria/Deuterostoma/Chordata/Vertebrata/Aves
+        Chromosome: chr8
+        Genome coordinates (start, end): (&#39;24727666&#39;, &#39;24727765&#39;)
+        Strand: -
+        High confidence: False
+        References: 18469162
+]
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Then, we can actually access the data from the Precursor object. Let's say we will extract chromosome name and genome coordinates.</p>
+<div class="admonition example">
+<p class="admonition-title">Retrieving data from a single Precursor object</p>
+<div class="tabbed-set" data-tabs="19:2"><input checked="checked" id="__tabbed_19_1" name="__tabbed_19" type="radio" /><label for="__tabbed_19_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">sample_gallus</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">chromosome</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample_gallus</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">genome_coordinates</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_19_2" name="__tabbed_19" type="radio" /><label for="__tabbed_19_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>[&#39;chr8&#39;]
+[(&#39;16516612&#39;, &#39;16516690&#39;)]
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Button below provides more detail about the data that is possible to be accessed.</p>
+<p><a class="md-button md-button--primary" href="../miObject/#precursor" target="_blank">Precursor object details <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 0 0 1.06 1.06l1.25-1.25a2 2 0 1 1 2.83 2.83l-2.5 2.5a2 2 0 0 1-2.83 0 .75.75 0 0 0-1.06 1.06 3.5 3.5 0 0 0 4.95 0l2.5-2.5a3.5 3.5 0 0 0-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 0 1 0-2.83l2.5-2.5a2 2 0 0 1 2.83 0 .75.75 0 0 0 1.06-1.06 3.5 3.5 0 0 0-4.95 0l-2.5 2.5a3.5 3.5 0 0 0 4.95 4.95l1.25-1.25a.75.75 0 0 0-1.06-1.06l-1.25 1.25a2 2 0 0 1-2.83 0z"/></svg></span></a></p>
+<h2 id="fetching-structures">Fetching structures<a class="headerlink" href="#fetching-structures" title="Permanent link">&para;</a></h2>
+<p>One of the most problematic aspect of miRBase is precursor's structure notation. Obviously, it is a very informative notation but at the same time not standarised and very hard to parse for further usage. Mir-Us solves this problem, because every structure here is rewritten in dot-bracket format, which is a well know, standarised notation for RNA structures.</p>
+<h3 id="using-get_structure-function">Using get_structure() function<a class="headerlink" href="#using-get_structure-function" title="Permanent link">&para;</a></h3>
+<p>Suppose, we would like to retrieve all the precursor's structures of the affiliated miRNA that were retrieved in the 'Fetching mature miRNA' paragraph. We can use list comprehension to easily use previously fetched data (MiRNA objects). Comprehension itself consist of two for loops - one is to iterate through the MiRNA objects and the second one is to iterate through all precursor IDs stored in the object.</p>
+<div class="admonition example">
+<p class="admonition-title">Retrieving structures using get_structure() function</p>
+<div class="tabbed-set" data-tabs="20:2"><input checked="checked" id="__tabbed_20_1" name="__tabbed_20" type="radio" /><label for="__tabbed_20_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">sample_gallus</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_mirna</span><span class="p">(</span><span class="n">mirna_id</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;MIMAT0001185&quot;</span><span class="p">,</span> <span class="s2">&quot;MIMAT0025825&quot;</span><span class="p">,</span> <span class="s2">&quot;MIMAT0007451&quot;</span><span class="p">],</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">struct_gallus</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_structure</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="p">[</span><span class="n">precursor</span> <span class="k">for</span> <span class="n">mi_obj</span> <span class="ow">in</span> <span class="n">sample_gallus</span> <span class="k">for</span> <span class="n">precursor</span> <span class="ow">in</span> <span class="n">mi_obj</span><span class="o">.</span><span class="n">precursors</span><span class="p">],</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">struct_gallus</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_20_2" name="__tabbed_20" type="radio" /><label for="__tabbed_20_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>{&#39;MI0001270&#39;: &#39;((((((.((((((((((((((((((((..(((((............))))).)))))))))))))))))))).))))))&#39;, &#39;MI0007558&#39;: &#39;(((..(((...((((((((((((((((((.((((..(....)....)))))))))))))))))))))))))..)))&#39;,
+&#39;MI0022537&#39;: &#39;................................(((.(((((.((((((.(((((.(......)))))).))))))...))))).))).......................&#39;, &#39;MI0007316&#39;: &#39;((((..((..((((((((..((.(.(((((((...(((....))).)))))))).))..))))))))....))..))))&#39;}
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Naturally, function can also receive single ID string as an argument. Furthermore, to retrieve the structures one can also use the precursor names.</p>
+<p>Retrieved structures in dot-bracket format can be directly used to visualise those structures in external tools such as <a href="http://rna.tbi.univie.ac.at/forna/" target="_blank">TBI-forna</a></p>
+<h2 id="fetching-references">Fetching references<a class="headerlink" href="#fetching-references" title="Permanent link">&para;</a></h2>
+<p>Fetching references is very straightforward using Mir-Us. With usage of the dedicated function (<code>get_references()</code>), one can retrieve all affiliated references with particular MiRNA or Precursor object.</p>
+<h3 id="using-get_references-function">Using get_references() function<a class="headerlink" href="#using-get_references-function" title="Permanent link">&para;</a></h3>
+<p>We will once again use the retrieved MiRNA objects in order to fetch affiliated references. This process will be analogous to which was presented in the previous paragraph (about structures).  </p>
+<div class="admonition example">
+<p class="admonition-title">Retrieving references using get_references() function</p>
+<div class="tabbed-set" data-tabs="21:2"><input checked="checked" id="__tabbed_21_1" name="__tabbed_21" type="radio" /><label for="__tabbed_21_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">sample_gallus</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_mirna</span><span class="p">(</span><span class="n">mirna_id</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;MIMAT0001185&quot;</span><span class="p">,</span> <span class="s2">&quot;MIMAT0025825&quot;</span><span class="p">,</span> <span class="s2">&quot;MIMAT0007451&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample_gallus</span><span class="p">)</span>
+<span class="n">ref_gallus</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_references</span><span class="p">(</span><span class="n">mirna_id</span><span class="o">=</span><span class="p">[</span><span class="nb">id</span> <span class="k">for</span> <span class="n">mi_obj</span> <span class="ow">in</span> <span class="n">sample_gallus</span> <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">mi_obj</span><span class="o">.</span><span class="n">ID</span><span class="p">],</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ref_gallus</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_21_2" name="__tabbed_21" type="radio" /><label for="__tabbed_21_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>[
+        Mature ID: MIMAT0001185
+        Mature name: gga-miR-101-3p
+        Derivative: MI0001270, MI0007558
+        Mature sequence: guacaguacugugauaacugaa, guacaguacugugauaacugaa
+        Mature positions: (&#39;48&#39;, &#39;69&#39;), (&#39;48&#39;, &#39;69&#39;)
+        Organism: Gallus gallus
+        Evidence: experimental, experimental
+        Experiment: cloned [1], Illumina [2-3], cloned [1], Illumina [2-3]
+        End: 3p, 3p
+        Chromosome: chr8, chrZ
+        Genome coordinates: {&#39;MI0001270&#39;: [(&#39;27510701&#39;, &#39;27510722&#39;)],
+ &#39;MI0007558&#39;: [(&#39;28360437&#39;, &#39;28360458&#39;)]}
+        Strand: -, +
+        References: 18256158, 18469162, 23034410
+,
+        Mature ID: MIMAT0025825
+        Mature name: gga-miR-6622-3p
+        Derivative: MI0022537
+        Mature sequence: uguggggacauuucuguggcauu
+        Mature positions: (&#39;69&#39;, &#39;91&#39;)
+        Organism: Gallus gallus
+        Evidence: experimental
+        Experiment: Illumina [1]
+        End: 3p
+        Chromosome: chr8
+        Genome coordinates: {&#39;MI0022537&#39;: [(&#39;22245960&#39;, &#39;22245982&#39;)]}
+        Strand: -
+        References: 22418847
+,
+        Mature ID: MIMAT0007451
+        Mature name: gga-miR-1589
+        Derivative: MI0007316
+        Mature sequence: cagccucugcugaucgucuuuu
+        Mature positions: (&#39;45&#39;, &#39;66&#39;)
+        Organism: Gallus gallus
+        Evidence: experimental
+        Experiment: Illumina [1]
+        End: -
+        Chromosome: chr8
+        Genome coordinates: {&#39;MI0007316&#39;: [(&#39;16516625&#39;, &#39;16516646&#39;)]}
+        Strand: -
+        References: 18469162
+]
+[Mir-Us]  &#39;get_references&#39; found 3 results in 0.000013 seconds
+{&#39;MIMAT0001185&#39;: [&#39;18256158&#39;, &#39;18469162&#39;, &#39;23034410&#39;], &#39;MIMAT0025825&#39;: [&#39;22418847&#39;], &#39;MIMAT0007451&#39;: [&#39;18469162&#39;]}
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>References are PubMed accession numbers. Mir-Us provides here some quality of life improvements - <code>get_references()</code> can return links to PubMed instead of plain PubMed accession numbers so this functionality can save up some time in ones' workflow.</p>
+<div class="admonition example">
+<p class="admonition-title">Retrieving links to PubMed using get_references() function</p>
+<div class="tabbed-set" data-tabs="22:2"><input checked="checked" id="__tabbed_22_1" name="__tabbed_22" type="radio" /><label for="__tabbed_22_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">ref_gallus</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_references</span><span class="p">(</span><span class="n">mirna_id</span><span class="o">=</span><span class="p">[</span><span class="nb">id</span> <span class="k">for</span> <span class="n">mi_obj</span> <span class="ow">in</span> <span class="n">sample_gallus</span> <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">mi_obj</span><span class="o">.</span><span class="n">ID</span><span class="p">],</span> <span class="n">link</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ref_gallus</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_22_2" name="__tabbed_22" type="radio" /><label for="__tabbed_22_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>[Mir-Us]  &#39;get_references&#39; found 3 results in 0.000009 seconds
+{&#39;MIMAT0001185&#39;: [&#39;https://pubmed.ncbi.nlm.nih.gov/18256158/&#39;, &#39;https://pubmed.ncbi.nlm.nih.gov/18469162/&#39;, &#39;https://pubmed.ncbi.nlm.nih.gov/23034410/&#39;], &#39;MIMAT0025825&#39;: [&#39;https://pubmed.ncbi.nlm.nih.gov/22418847/&#39;], &#39;MIMAT0007451&#39;: [&#39;https://pubmed.ncbi.nlm.nih.gov/18469162/&#39;]}
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Naturally, function can also receive single mature miRNA or precursor ID string as an argument. Furthermore, to retrieve the references one can also use the mature miRNA names.</p>
+<h2 id="searching-clusters">Searching clusters<a class="headerlink" href="#searching-clusters" title="Permanent link">&para;</a></h2>
+<p>Mir-Us also provides cluster searching which is a true copy of a functionality (or rather information) that is present in the precursor records from miRBase. If one would like to know which miRNAs can be clustered, then a function <code>find_cluster()</code> should be used.</p>
+<p>Cluster searching is pretty straightforward - to a give mature miRNA or precursor ID, the function searches through genomic space of the chromosome from an organism in which given ID is present and returns all precursor records which are found in the given range. The search can be conducted upstream, downstream or in both directions. Button below provides detailed description about this function.</p>
+<p><a class="md-button md-button--primary" href="../miBase/#miBase.MiRBase.find_cluster" target="_blank">find_cluster() details <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 0 0 1.06 1.06l1.25-1.25a2 2 0 1 1 2.83 2.83l-2.5 2.5a2 2 0 0 1-2.83 0 .75.75 0 0 0-1.06 1.06 3.5 3.5 0 0 0 4.95 0l2.5-2.5a3.5 3.5 0 0 0-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 0 1 0-2.83l2.5-2.5a2 2 0 0 1 2.83 0 .75.75 0 0 0 1.06-1.06 3.5 3.5 0 0 0-4.95 0l-2.5 2.5a3.5 3.5 0 0 0 4.95 4.95l1.25-1.25a.75.75 0 0 0-1.06-1.06l-1.25 1.25a2 2 0 0 1-2.83 0z"/></svg></span></a></p>
+<p>For example, we would like to find a cluster for one of the Gallus gallus' (obviously) precursor in the range of 10000 nucleotides and both up and downstream from the given precursor. It turns out, that search parameters are the same as they are on miRBase by default.</p>
+<p>For reference, in the 'miRBase result' tab there are results from miRBase</p>
+<div class="admonition example">
+<p class="admonition-title">Finding cluster using find_cluster() function</p>
+<div class="tabbed-set" data-tabs="23:3"><input checked="checked" id="__tabbed_23_1" name="__tabbed_23" type="radio" /><label for="__tabbed_23_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">cluster_gallus</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_cluster</span><span class="p">(</span><span class="n">prec_id</span><span class="o">=</span><span class="s2">&quot;MI0007558&quot;</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="s2">&quot;10000&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cluster_gallus</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_23_2" name="__tabbed_23" type="radio" /><label for="__tabbed_23_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>[Mir-Us]  &#39;find_cluster&#39; found 3 results in 0.017245 seconds
+[
+        Precursor ID: MI0007558
+        Precursor name: gga-mir-101-2
+        MiRNAs: MIMAT0031077, MIMAT0001185
+        Precursor structure: (((..(((...((((((((((((((((((.((((..(....)....)))))))))))))))))))))))))..)))
+        Precursor sequence:  gcugcccuggcucaguuaucacagugcugaugcugucucuuguaaagguacaguacugugauaacugaaggauggc
+        Organism: Gallus gallus
+        Taxonomy: Metazoa/Bilateria/Deuterostoma/Chordata/Vertebrata/Aves
+        Chromosome: chr8
+        Genome coordinates (start, end): (&#39;28360430&#39;, &#39;28360505&#39;)
+        Strand: -
+        High confidence: True
+        References: 18256158, 18469162, 23034410
+,
+        Precursor ID: MI0040753
+        Precursor name: gga-mir-12281
+        MiRNAs: MIMAT0050064
+        Precursor structure: ....((.((((((((((..((((((...((((.....))))....)))))).......))))))..)))).))
+        Precursor sequence:  uauuccagcuggggucucucagcacagcuggcugcucgccguucggugcugcuccgucagacccaucagcagg
+        Organism: Gallus gallus
+        Taxonomy: Metazoa/Bilateria/Deuterostoma/Chordata/Vertebrata/Aves
+        Chromosome: chr8
+        Genome coordinates (start, end): (&#39;28361180&#39;, &#39;28361252&#39;)
+        Strand: -
+        High confidence: False
+        References: 29079676
+,
+        Precursor ID: MI0040754
+        Precursor name: gga-mir-12282
+        MiRNAs: MIMAT0050065, MIMAT0050066
+        Precursor structure: .((((..(((..(((((((((((((........))))))........))))))).))).))))...
+        Precursor sequence:  ugccggggcgcuggggaggggcagcuccccuuugcugcccugcuucuccucccuucgcacggcgca
+        Organism: Gallus gallus
+        Taxonomy: Metazoa/Bilateria/Deuterostoma/Chordata/Vertebrata/Aves
+        Chromosome: chr8
+        Genome coordinates (start, end): (&#39;28362266&#39;, &#39;28362331&#39;)
+        Strand: -
+        High confidence: False
+        References: 29079676
+]
+</code></pre></div>
+</div>
+<input id="__tabbed_23_3" name="__tabbed_23" type="radio" /><label for="__tabbed_23_3">miRBase result</label><div class="tabbed-content">
+<p><img alt="Cluster example from miRBase with default settings" src="../images/mirbase-cluster.png" /></p>
+</div>
+</div>
+</div>
+<h2 id="high-confidence-filtering">High confidence filtering<a class="headerlink" href="#high-confidence-filtering" title="Permanent link">&para;</a></h2>
+<p>Records deposited in miRBase have been annotated using various methods. To assure the sufficient quality of the deposited annotations, a deep sequencing data have been used.
+From such a data, some key features can be validated and thus, the confidence level for those annotations can be assigned. High confidence means high quality annotation that meets some specific features described <a href="https://academic.oup.com/nar/article/42/D1/D68/1057911" target="_blank">in this article</a>.</p>
+<p>Mir-Us provides a simple to use function, that allows user to filter the records obtained as a result of the <code>get_mirna</code> and <code>get_precursor</code> according to their high confidence levels.</p>
+<div class="admonition example">
+<p class="admonition-title">Filtering results of the get_mirna() function</p>
+<div class="tabbed-set" data-tabs="24:2"><input checked="checked" id="__tabbed_24_1" name="__tabbed_24" type="radio" /><label for="__tabbed_24_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">m_obj</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_mirna</span><span class="p">(</span><span class="nb">chr</span><span class="o">=</span><span class="s2">&quot;chrX&quot;</span><span class="p">,</span> <span class="n">organism_name</span><span class="o">=</span><span class="s2">&quot;Homo sapiens&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s2">&quot;153300000&quot;</span><span class="p">,</span> <span class="n">mirna_id</span><span class="o">=</span><span class="s2">&quot;MI9999999999999&quot;</span><span class="p">,</span> <span class="n">tax_level</span><span class="o">=</span><span class="s2">&quot;Viruses&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">high_conf</span><span class="p">(</span><span class="n">mirna_obj</span><span class="o">=</span><span class="n">m_obj</span><span class="p">[</span><span class="s2">&quot;genomic-search&quot;</span><span class="p">],</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_24_2" name="__tabbed_24" type="radio" /><label for="__tabbed_24_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>[Mir-Us]   Some of the given criteria were contradicting for the search system. Because of that, the results are returned in a dictionary, where contradicting results are separated into different search types. This search consist of (keys of generated dictionary):
+&#39;genomic-search&#39;: 9 results
+&#39;mirna_id-search&#39;: 0 results
+&#39;tax-search&#39;: 530 results
+[Mir-Us]  &#39;get_mirna&#39; found 539 results in 0.180769 seconds
+[Mir-Us]  &#39;high_conf&#39; found 2 results in 0.000020 seconds
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Filtering results of the get_precursor() function</p>
+<div class="tabbed-set" data-tabs="25:2"><input checked="checked" id="__tabbed_25_1" name="__tabbed_25" type="radio" /><label for="__tabbed_25_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">p_obj</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_precursor</span><span class="p">(</span><span class="n">prec_id</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;MI9999000&quot;</span><span class="p">],</span> <span class="n">organism_name</span><span class="o">=</span><span class="s2">&quot;Homo sapiens&quot;</span><span class="p">,</span> <span class="nb">chr</span><span class="o">=</span><span class="s1">&#39;chrX&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">high_conf</span><span class="p">(</span><span class="n">prec_obj</span><span class="o">=</span><span class="n">p_obj</span><span class="p">[</span><span class="s2">&quot;genomic-search&quot;</span><span class="p">],</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_25_2" name="__tabbed_25" type="radio" /><label for="__tabbed_25_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>[Mir-Us]   Some of the given criteria were contradicting for the search system. Because of that, the results are returned in a dictionary, where contradicting results are separated into different search types. This search consist of (keys of generated dictionary):
+&#39;genomic-search&#39;: 118 results
+&#39;prec_id-serch&#39;: 0 results
+[Mir-Us]  &#39;get_precursor&#39; found 118 results in 0.089280 seconds
+[Mir-Us]  &#39;high_conf&#39; found 62 results in 0.000070 seconds
+[
+        Precursor ID: MI0000094
+        Precursor name: hsa-mir-92a-2
+        MiRNAs: MIMAT0004508, MIMAT0000092
+        Precursor structure: ((.(((.(((((.(((((..((.(((.(((((((((...)))).))))).)))))..))))).))))).))).))
+        Precursor sequence:  ucaucccuggguggggauuuguugcauuacuuguguucuauauaaaguauugcacuugucccggccuguggaaga
+        Organism: Homo sapiens
+        Taxonomy: Metazoa/Bilateria/Deuterostoma/Chordata/Vertebrata/Mammalia/Primates/Hominidae
+        Chromosome: chrX
+        Genome coordinates (start, end): (&#39;134169538&#39;, &#39;134169612&#39;)
+        Strand: -
+        High confidence: True
+        References: 21912064, 11914277, 12919684, 12554860, 15183728, 15325244, 15978578, 17604727, 17616659
+,
+        Precursor ID: MI0003185
+        Precursor name: hsa-mir-501
+        MiRNAs: MIMAT0002872, MIMAT0004774
+        Precursor structure: ((((.(((((((.(((((((.(.(((.(((((....(((.........)))...))))))))))))))))..))))))).))))
+        Precursor sequence:  gcucuuccucucuaauccuuugucccugggugagagugcuuucugaaugcaaugcacccgggcaaggauucugagagggugagc
+        Organism: Homo sapiens
+        Taxonomy: Metazoa/Bilateria/Deuterostoma/Chordata/Vertebrata/Mammalia/Primates/Hominidae
+        Chromosome: chrX
+        Genome coordinates (start, end): (&#39;50009722&#39;, &#39;50009805&#39;)
+        Strand: +
+        High confidence: True
+        References: 15965474, 17604727
+,
+        Precursor ID: MI0003684
+...
+</code></pre></div>
+</div>
+</div>
+</div>
+<h2 id="writing-sequences-to-a-file">Writing sequences to a file<a class="headerlink" href="#writing-sequences-to-a-file" title="Permanent link">&para;</a></h2>
+<p>Sometimes, sequences from fetched records can be a part of a further analysis. Mir-Us provides a convenient function to dump all sequences from a list of records to a file in FASTA format.
+This created file contains IDs, names and sequences of the deposited miRNA and precursor records.</p>
+<div class="admonition example">
+<p class="admonition-title">Writing sequences to a file using dump_sequences() function</p>
+<div class="tabbed-set" data-tabs="26:3"><input checked="checked" id="__tabbed_26_1" name="__tabbed_26" type="radio" /><label for="__tabbed_26_1">Code</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">p_obj</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_precursor</span><span class="p">(</span><span class="n">prec_id</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;MI9999000&quot;</span><span class="p">],</span> <span class="n">organism_name</span><span class="o">=</span><span class="s2">&quot;Homo sapiens&quot;</span><span class="p">,</span> <span class="nb">chr</span><span class="o">=</span><span class="s1">&#39;chrX&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">dump_sequences</span><span class="p">(</span><span class="n">prec_obj</span><span class="o">=</span><span class="n">p_obj</span><span class="p">[</span><span class="s2">&quot;genomic-search&quot;</span><span class="p">],</span> <span class="n">filepath</span><span class="o">=</span><span class="s2">&quot;test.fasta&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_26_2" name="__tabbed_26" type="radio" /><label for="__tabbed_26_2">Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>[Mir-Us]   Some of the given criteria were contradicting for the search system. Because of that, the results are returned in a dictionary, where contradicting results are separated into different search types. This search consist of (keys of generated dictionary):
+&#39;genomic-search&#39;: 118 results
+&#39;prec_id-serch&#39;: 0 results
+[Mir-Us]  &#39;get_precursor&#39; found 118 results in 0.168328 seconds
+[Mir-Us]   &#39;dump_sequences&#39; wrote 118 sequences in 0.115600 seconds
+</code></pre></div>
+</div>
+<input id="__tabbed_26_3" name="__tabbed_26" type="radio" /><label for="__tabbed_26_3">test.fasta</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>&gt;MI0000068 hsa-let-7f-2
+ugugggaugagguaguagauuguauaguuuuagggucauaccccaucuuggagauaacua
+uacagucuacugucuuucccacg
+&gt;MI0000075 hsa-mir-19b-2
+acauugcuacuuacaauuaguuuugcagguuugcauuucagcguauauauguauaugugg
+cugugcaaauccaugcaaaacugauugugauaaugu
+&gt;MI0000094 hsa-mir-92a-2
+ucaucccuggguggggauuuguugcauuacuuguguucuauauaaaguauugcacuuguc
+ccggccuguggaaga
+&gt;MI0000100 hsa-mir-98
+aggauucugcucaugccagggugagguaguaaguuguauuguugugggguagggauauua
+ggccccaauuagaagauaacuauacaacuuacuacuuucccugguguguggcauauuca
+&gt;MI0000111 hsa-mir-105-1
+ugugcaucguggucaaaugcucagacuccugugguggcugcucaugcaccacggauguuu
+gagcaugugcuacggugucua
+&gt;MI0000112 hsa-mir-105-2
+ugugcaucguggucaaaugcucagacuccugugguggcugcuuaugcaccacggauguuu
+gagcaugugcuauggugucua
+&gt;MI0000113 hsa-mir-106a
+ccuuggccauguaaaagugcuuacagugcagguagcuuuuugagaucuacugcaauguaa
+gcacuucuuacauuaccaugg
+&gt;MI0000298 hsa-mir-221
+ugaacauccaggucuggggcaugaaccuggcauacaauguagauuucuguguucguuagg
+caacagcuacauugucugcuggguuucaggcuaccuggaaacauguucuc
+&gt;MI0000299 hsa-mir-222
+gcugcuggaagguguagguacccucaauggcucaguagccaguguagauccugucuuucg
+uaaucagcagcuacaucuggcuacugggucucugauggcaucuucuagcu
+&gt;MI0000300 hsa-mir-223
+...
+</code></pre></div>
+</div>
+</div>
+</div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../v18-diff/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Version 18" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Version 18
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../miObject/" class="md-footer__link md-footer__link--next" aria-label="Next: miObject.py" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              miObject.py
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2021 Kacper Dudczak, Maciej Michalczyk, Marta Wysocka, Marek Żywicki
+          </div>
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top", "header.autohide"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.e99e714c.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.bc35569b.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+      
+        <script src="../javascripts/tables.js"></script>
+      
+    
+  </body>
+</html>
